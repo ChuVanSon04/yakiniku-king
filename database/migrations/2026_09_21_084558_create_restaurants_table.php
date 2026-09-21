@@ -22,6 +22,30 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurants');
+        Schema::create('restaurants', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('name');
+
+    $table->string('address');
+
+    $table->string('phone')->nullable();
+
+    $table->decimal('latitude', 10, 7)->nullable();
+
+    $table->decimal('longitude', 10, 7)->nullable();
+
+    $table->string('google_map_url')->nullable();
+
+    $table->time('opening_time')->nullable();
+
+    $table->time('closing_time')->nullable();
+
+    $table->string('image')->nullable();
+
+    $table->boolean('status')->default(true);
+
+    $table->timestamps();
+});
     }
 };

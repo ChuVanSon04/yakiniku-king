@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tips', function (Blueprint $table) {
+        Schema::create('combo_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,23 +22,25 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('tips', function (Blueprint $table) {
+        Schema::create('combo_items', function (Blueprint $table) {
     $table->id();
 
-    $table->string('title');
-    $table->string('slug')->unique();
+    $table->foreignId('combo_id')
+          ->constrained('combos')
+          ->cascadeOnDelete();
 
-    $table->string('short_description')->nullable();
+    $table->foreignId('menu_item_id')
+          ->constrained('menu_items')
+          ->cascadeOnDelete();
 
-    $table->longText('content');
-
-    $table->string('image')->nullable();
-
-    $table->boolean('status')->default(true);
-
-    $table->timestamp('published_at')->nullable();
+    $table->integer('quantity')->default(1);
 
     $table->timestamps();
+
+    $table->unique([
+        'combo_id',
+        'menu_item_id'
+    ]);
 });
     }
 };

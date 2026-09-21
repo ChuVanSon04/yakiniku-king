@@ -22,6 +22,28 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('combos');
+        Schema::create('combos', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('name');
+    $table->string('slug')->unique();
+
+    $table->text('description')->nullable();
+
+    $table->string('image')->nullable();
+
+    $table->decimal('price', 12, 2)->default(0);
+
+    $table->decimal('original_price', 12, 2)->nullable();
+
+    $table->date('start_date')->nullable();
+    $table->date('end_date')->nullable();
+
+    $table->boolean('status')->default(true);
+
+    $table->integer('sort_order')->default(0);
+
+    $table->timestamps();
+});
     }
 };

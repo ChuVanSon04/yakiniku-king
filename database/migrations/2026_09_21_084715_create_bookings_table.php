@@ -22,6 +22,39 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::create('bookings', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('booking_code')->unique();
+
+    $table->foreignId('restaurant_id')
+          ->constrained('restaurants')
+          ->restrictOnDelete();
+
+    $table->string('customer_name');
+
+    $table->string('phone');
+
+    $table->string('email')->nullable();
+
+    $table->date('booking_date');
+
+    $table->time('booking_time');
+
+    $table->unsignedInteger('number_of_guests');
+
+    $table->text('note')->nullable();
+
+    $table->enum('status', [
+        'pending',
+        'confirmed',
+        'cancelled',
+        'completed'
+    ])->default('pending');
+
+    $table->string('qr_code')->nullable();
+
+    $table->timestamps();
+});
     }
 };

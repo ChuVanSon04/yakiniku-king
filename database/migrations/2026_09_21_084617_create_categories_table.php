@@ -22,6 +22,21 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::create('menu_categories', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('name');
+    $table->string('slug')->unique();
+
+    $table->text('description')->nullable();
+
+    $table->string('image')->nullable();
+
+    $table->integer('sort_order')->default(0);
+
+    $table->boolean('status')->default(true);
+
+    $table->timestamps();
+});
     }
 };

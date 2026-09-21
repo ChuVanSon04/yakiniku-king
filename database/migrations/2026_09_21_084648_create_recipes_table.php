@@ -22,6 +22,23 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipes');
+        Schema::create('recipes', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('title');
+    $table->string('slug')->unique();
+
+    $table->string('short_description')->nullable();
+
+    $table->longText('content');
+
+    $table->string('image')->nullable();
+
+    $table->boolean('status')->default(true);
+
+    $table->timestamp('published_at')->nullable();
+
+    $table->timestamps();
+});
     }
 };

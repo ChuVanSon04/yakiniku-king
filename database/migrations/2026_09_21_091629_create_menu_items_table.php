@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,20 +22,27 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::create('menu_items', function (Blueprint $table) {
     $table->id();
 
-    $table->string('title');
+    $table->foreignId('category_id')
+          ->constrained('menu_categories')
+          ->cascadeOnDelete();
+
+    $table->string('name');
     $table->string('slug')->unique();
 
-    $table->string('short_description')->nullable();
-
-    $table->longText('description')->nullable();
+    $table->text('description')->nullable();
 
     $table->string('image')->nullable();
 
-    $table->date('start_date')->nullable();
-    $table->date('end_date')->nullable();
+    $table->decimal('price', 12, 2)->default(0);
+
+    $table->boolean('is_must_try')->default(false);
+
+    $table->boolean('is_for_kids')->default(false);
+
+    $table->integer('sort_order')->default(0);
 
     $table->boolean('status')->default(true);
 
