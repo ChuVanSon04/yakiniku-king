@@ -133,14 +133,14 @@
             </li>
 
             <li>
-                <a href="#">
-                    Menu
+                <a href="{{ route('admin.menu.categories.index') }}">
+                    Menu Categories
                 </a>
             </li>
 
             <li>
-                <a href="#">
-                    Must Try
+                <a href="{{ route('admin.menu.items.index') }}">
+                    Menu Items
                 </a>
             </li>
 

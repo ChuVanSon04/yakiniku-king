@@ -14,7 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('ALTER TABLE users MODIFY password VARCHAR(255) NOT NULL');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('ALTER TABLE users MODIFY password VARCHAR(255) NOT NULL');
+        }
 
         foreach (User::all() as $user) {
             if (empty($user->password) || str_starts_with($user->password, '$2')) {
