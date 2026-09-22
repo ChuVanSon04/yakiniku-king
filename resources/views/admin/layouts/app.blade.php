@@ -187,7 +187,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.leads.index') }}">
                     Leads
                 </a>
             </li>

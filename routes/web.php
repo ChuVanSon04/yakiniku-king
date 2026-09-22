@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\TipController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\LeadController;
 
 Route::prefix('admin')->group(function () {
 
@@ -54,6 +55,9 @@ Route::prefix('admin')->group(function () {
                 ->except(['show']);
 
             Route::resource('bookings', BookingController::class)
+                ->except(['show']);
+
+            Route::resource('leads', LeadController::class)
                 ->except(['show']);
         });
 
