@@ -1,17 +1,22 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Menu Items')
+@section('title', 'Combo')
 
-@section('page-title', 'Menu Items')
+@section('page-title', 'Combo')
 
 @section('content')
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+    ">
 
-        <h1>Món ăn</h1>
+        <h1>Combo</h1>
 
         <a
-            href="{{ route('admin.menu.items.create') }}"
+            href="{{ route('admin.menu.combos.create') }}"
             style="
                 background:#111;
                 color:white;
@@ -20,7 +25,7 @@
                 border-radius:5px;
             "
         >
-            + Thêm món
+            + Thêm Combo
         </a>
 
     </div>
@@ -28,21 +33,23 @@
 
     @if(session('success'))
 
-        <div
-            style="
-                background:#d4edda;
-                color:#155724;
-                padding:12px;
-                margin-bottom:20px;
-            "
-        >
+        <div style="
+            background:#d4edda;
+            color:#155724;
+            padding:12px;
+            margin-bottom:20px;
+            border-radius:5px;
+        ">
             {{ session('success') }}
         </div>
 
     @endif
 
 
-    <div style="background:white; padding:20px;">
+    <div style="
+        background:white;
+        padding:20px;
+    ">
 
         <table
             width="100%"
@@ -55,51 +62,80 @@
             <thead>
 
                 <tr>
+
                     <th>ID</th>
-                    <th>Tên món</th>
-                    <th>Danh mục</th>
+
+                    <th>Tên Combo</th>
+
                     <th>Giá</th>
-                    <th>Must Try</th>
-                    <th>For Kids</th>
+
+                    <th>Giá gốc</th>
+
+                    <th>Món trong Combo</th>
+
                     <th>Trạng thái</th>
+
                     <th>Thao tác</th>
+
                 </tr>
 
             </thead>
 
             <tbody>
 
-                @forelse($items as $item)
+                @forelse($combos as $combo)
 
                     <tr>
 
                         <td>
-                            {{ $item->id }}
+                            {{ $combo->id }}
                         </td>
 
                         <td>
-                            {{ $item->name }}
+                            {{ $combo->name }}
                         </td>
 
                         <td>
-                            {{ $item->category->name ?? 'N/A' }}
-                        </td>
-
-                        <td>
-                            {{ number_format($item->price, 0, ',', '.') }} ₫
-                        </td>
-
-                        <td>
-                            {{ $item->is_must_try ? 'Có' : 'Không' }}
-                        </td>
-
-                        <td>
-                            {{ $item->is_for_kids ? 'Có' : 'Không' }}
+                            {{ number_format($combo->price, 0, ',', '.') }} ₫
                         </td>
 
                         <td>
 
-                            @if($item->status)
+                            @if($combo->original_price)
+
+                                {{ number_format($combo->original_price, 0, ',', '.') }} ₫
+
+                            @else
+
+                                -
+
+                            @endif
+
+                        </td>
+
+                        <td>
+
+                            @forelse($combo->menuItems as $item)
+
+                                <div>
+                                    {{ $item->name }}
+                                    ×
+                                    {{ $item->pivot->quantity }}
+                                </div>
+
+                            @empty
+
+                                <span>
+                                    Chưa có món
+                                </span>
+
+                            @endforelse
+
+                        </td>
+
+                        <td>
+
+                            @if($combo->status)
 
                                 <span style="color:green;">
                                     Hiển thị
@@ -118,16 +154,18 @@
                         <td>
 
                             <a
-                                href="{{ route('admin.menu.items.edit', $item) }}"
+                                href="{{ route('admin.menu.combos.edit', $combo) }}"
                             >
                                 Sửa
                             </a>
 
                             <form
-                                action="{{ route('admin.menu.items.destroy', $item) }}"
+                                action="{{ route('admin.menu.combos.destroy', $combo) }}"
                                 method="POST"
                                 style="display:inline;"
-                                onsubmit="return confirm('Bạn có chắc muốn xóa món này?')"
+                                onsubmit="
+                                    return confirm('Bạn có chắc muốn xóa Combo này?')
+                                "
                             >
 
                                 @csrf
@@ -136,7 +174,10 @@
 
                                 <button
                                     type="submit"
-                                    style="color:red; margin-left:10px;"
+                                    style="
+                                        color:red;
+                                        margin-left:10px;
+                                    "
                                 >
                                     Xóa
                                 </button>
@@ -152,10 +193,10 @@
                     <tr>
 
                         <td
-                            colspan="8"
+                            colspan="7"
                             style="text-align:center;"
                         >
-                            Chưa có món ăn nào.
+                            Chưa có Combo nào.
                         </td>
 
                     </tr>
