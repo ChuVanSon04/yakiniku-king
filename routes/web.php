@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\TipController;
+use App\Http\Controllers\Admin\RestaurantController;
 
 Route::prefix('admin')->group(function () {
 
@@ -46,6 +47,9 @@ Route::prefix('admin')->group(function () {
                 ->except(['show']);
 
             Route::resource('tips', TipController::class)
+                ->except(['show']);
+
+            Route::resource('restaurants', RestaurantController::class)
                 ->except(['show']);
         });
 

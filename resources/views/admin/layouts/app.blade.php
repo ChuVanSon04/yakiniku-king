@@ -175,7 +175,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.restaurants.index') }}">
                     Nhà hàng
                 </a>
             </li>
