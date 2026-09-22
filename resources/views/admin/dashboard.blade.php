@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <h1>Dashboard</h1>
+    <h1>Yakiniku King Dashboard</h1>
 
     <p>
         Chào mừng bạn đến trang quản trị Yakiniku King.

@@ -145,14 +145,14 @@
             </li>
 
             <li>
-                <a href="#">
-                    Combo
+                <a href="{{ route('admin.menu.combos.index') }}">
+                    Combos
                 </a>
             </li>
 
             <li>
-                <a href="#">
-                    Banner
+                <a href="{{ route('admin.menu.banners.index') }}">
+                    Banners
                 </a>
             </li>
 

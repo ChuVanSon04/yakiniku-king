@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MenuItem extends Model
 {
@@ -33,5 +34,13 @@ class MenuItem extends Model
             MenuCategory::class,
             'category_id'
         );
+    }
+
+    public function combos(): BelongsToMany
+    {
+    return $this->belongsToMany(
+        Combo::class,
+        'combo_items'
+    )->withPivot('quantity');
     }
 }

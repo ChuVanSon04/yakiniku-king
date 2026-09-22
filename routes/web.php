@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\BannerController;
 
 Route::prefix('admin')->group(function () {
 
@@ -26,6 +28,12 @@ Route::prefix('admin')->group(function () {
                 ->except(['show']);
 
             Route::resource('items', MenuItemController::class)
+                ->except(['show']);
+
+            Route::resource('combos', ComboController::class)
+                ->except(['show']);
+                
+            Route::resource('banners', BannerController::class)
                 ->except(['show']);
         });
 
