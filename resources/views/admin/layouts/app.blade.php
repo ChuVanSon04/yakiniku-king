@@ -181,7 +181,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.bookings.index') }}">
                     Đặt bàn
                 </a>
             </li>

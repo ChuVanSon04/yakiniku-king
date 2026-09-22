@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\TipController;
 use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Admin\BookingController;
 
 Route::prefix('admin')->group(function () {
 
@@ -50,6 +51,9 @@ Route::prefix('admin')->group(function () {
                 ->except(['show']);
 
             Route::resource('restaurants', RestaurantController::class)
+                ->except(['show']);
+
+            Route::resource('bookings', BookingController::class)
                 ->except(['show']);
         });
 
