@@ -133,26 +133,26 @@
             </li>
 
             <li>
+                <a href="{{ route('admin.menu.banners.index') }}">
+                    Biển quảng cáo
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('admin.menu.categories.index') }}">
-                    Menu Categories
+                    Danh mục thực đơn
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('admin.menu.items.index') }}">
-                    Menu Items
+                    Món ăn
                 </a>
             </li>
 
             <li>
                 <a href="{{ route('admin.menu.combos.index') }}">
                     Combos
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('admin.menu.banners.index') }}">
-                    Banners
                 </a>
             </li>
 
@@ -164,7 +164,7 @@
 
             <li>
                 <a href="{{ route('admin.menu.recipes.index') }}">
-                    Recipes
+                    Công thưc nấu ăn
                 </a>
             </li>
 
