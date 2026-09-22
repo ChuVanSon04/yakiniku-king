@@ -192,6 +192,12 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('admin.menu.settings.index') }}">
+                    Settings
+                </a>
+            </li>
+
         </ul>
 
     </aside>

@@ -1,17 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\ComboController;
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
-use App\Http\Controllers\Admin\ComboController;
-use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\RecipeController;
-use App\Http\Controllers\Admin\TipController;
 use App\Http\Controllers\Admin\RestaurantController;
-use App\Http\Controllers\Admin\BookingController;
-use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TipController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
 
@@ -38,7 +39,7 @@ Route::prefix('admin')->group(function () {
 
             Route::resource('combos', ComboController::class)
                 ->except(['show']);
-                
+
             Route::resource('banners', BannerController::class)
                 ->except(['show']);
 
@@ -59,6 +60,11 @@ Route::prefix('admin')->group(function () {
 
             Route::resource('leads', LeadController::class)
                 ->except(['show']);
+
+            Route::get('settings', [SettingController::class, 'index'])
+                ->name('settings.index');
+            Route::match(['post', 'put', 'patch'], 'settings', [SettingController::class, 'update'])
+                ->name('settings.update');
         });
 
         Route::post('/logout', [AuthController::class, 'logout'])
