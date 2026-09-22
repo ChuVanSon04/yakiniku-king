@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menu_items', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('menu_items', function (Blueprint $table) {
     $table->id();
 
     $table->foreignId('category_id')
@@ -47,6 +36,14 @@ return new class extends Migration
     $table->boolean('status')->default(true);
 
     $table->timestamps();
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('menu_items');
     }
 };

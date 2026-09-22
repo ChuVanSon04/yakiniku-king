@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('combos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('combos', function (Blueprint $table) {
     $table->id();
 
     $table->string('name');
@@ -44,6 +33,14 @@ return new class extends Migration
     $table->integer('sort_order')->default(0);
 
     $table->timestamps();
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('combos');
     }
 };

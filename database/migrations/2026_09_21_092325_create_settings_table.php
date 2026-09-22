@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('settings', function (Blueprint $table) {
     $table->id();
 
     $table->string('key')->unique();
@@ -30,6 +19,14 @@ return new class extends Migration
     $table->text('value')->nullable();
 
     $table->timestamps();
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('settings');
     }
 };

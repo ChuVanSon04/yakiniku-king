@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('combo_items', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('combo_items', function (Blueprint $table) {
     $table->id();
 
     $table->foreignId('combo_id')
@@ -41,6 +30,14 @@ return new class extends Migration
         'combo_id',
         'menu_item_id'
     ]);
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('combo_items');
     }
 };

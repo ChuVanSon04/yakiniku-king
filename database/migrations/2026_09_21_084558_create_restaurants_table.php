@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('restaurants', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('restaurants', function (Blueprint $table) {
     $table->id();
 
     $table->string('name');
@@ -46,6 +35,14 @@ return new class extends Migration
     $table->boolean('status')->default(true);
 
     $table->timestamps();
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('restaurants');
     }
 };

@@ -12,17 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::create('recipes', function (Blueprint $table) {
     $table->id();
 
     $table->string('title');
@@ -39,6 +28,14 @@ return new class extends Migration
     $table->timestamp('published_at')->nullable();
 
     $table->timestamps();
-});
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('recipes');
     }
 };
