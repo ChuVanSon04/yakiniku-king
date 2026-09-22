@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\ComboController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\RecipeController;
+use App\Http\Controllers\Admin\TipController;
 
 Route::prefix('admin')->group(function () {
 
@@ -34,6 +37,15 @@ Route::prefix('admin')->group(function () {
                 ->except(['show']);
                 
             Route::resource('banners', BannerController::class)
+                ->except(['show']);
+
+            Route::resource('promotions', PromotionController::class)
+                ->except(['show']);
+
+            Route::resource('recipes', RecipeController::class)
+                ->except(['show']);
+
+            Route::resource('tips', TipController::class)
                 ->except(['show']);
         });
 

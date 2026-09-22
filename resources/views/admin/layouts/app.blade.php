@@ -157,19 +157,19 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.promotions.index') }}">
                     Khuyến mãi
                 </a>
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.recipes.index') }}">
                     Recipes
                 </a>
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.menu.tips.index') }}">
                     Bí kíp ăn ngon
                 </a>
             </li>
