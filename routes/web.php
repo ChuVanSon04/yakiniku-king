@@ -13,9 +13,41 @@ use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TipController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SecretController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home.index')->name('home');
+
+Route::get('/menu', [MenuController::class, 'index'])
+    ->name('menu.index');
+
+Route::get('/menu/must-try', [MenuController::class, 'mustTry'])
+    ->name('menu.must-try');
+
+Route::get('/menu/combos', [MenuController::class, 'combos'])
+    ->name('menu.combos');
+
+Route::get('/menu/for-kids', [MenuController::class, 'forKids'])
+    ->name('menu.for-kids');
+
+Route::get('/menu/promotions', [MenuController::class, 'promotions'])
+    ->name('menu.promotions');
+
+Route::get('/menu/category/{category:slug}', [MenuController::class, 'index'])
+    ->name('menu.category');
+
+Route::get('/our-secret/recipes', [SecretController::class, 'recipes'])
+    ->name('secret.recipes');
+
+Route::get('/our-secret/recipes/{recipe:slug}', [SecretController::class, 'recipe'])
+    ->name('secret.recipe');
+
+Route::get('/our-secret/tips', [SecretController::class, 'tips'])
+    ->name('secret.tips');
+
+Route::get('/our-secret/tips/{tip:slug}', [SecretController::class, 'tip'])
+    ->name('secret.tip');
 
 Route::prefix('admin')
     ->name('admin.')

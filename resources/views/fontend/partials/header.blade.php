@@ -27,75 +27,72 @@
             <div class="collapse navbar-collapse"
                  id="frontendNavbar">
 
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav align-items-right ms-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ url('/') }}">
-                            Trang chủ
+                            Home
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="{{ route('menu.index') }}"
+                           id="menuDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
                             Menu
                         </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="menuDropdown">
+                            <li><a class="dropdown-item" href="{{ route('menu.must-try') }}">Must Try</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.combos') }}">Combo</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.for-kids') }}">For Kids</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.promotions') }}">Khuyến Mãi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.index') }}">Our Menu</a></li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"
                            href="#">
-                            Must Try
+                            CTKM
                         </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="ourSecretDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Our Secret
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="ourSecretDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('secret.recipes') }}">
+                                    Recipes
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('secret.tips') }}">
+                                    Bí kíp ăn ngon
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"
                            href="#">
-                            Combo
+                            About Us
                         </a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            For Kids
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            Khuyến mãi
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            Recipes
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="#">
-                            Bí kíp ăn ngon
-                        </a>
-                    </li>
-
                 </ul>
-
-
-                {{-- Book Now --}}
-                <a href="#"
-                   class="btn btn-danger">
-
-                    Book Now
-
-                </a>
-
             </div>
 
         </div>
