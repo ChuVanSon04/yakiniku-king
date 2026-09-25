@@ -16,11 +16,11 @@ class SettingSeeder extends Seeder
 
             'email' => 'info@yakinikuking.vn',
 
-            'facebook_url' => '',
+            'facebook_url' => 'https://www.facebook.com/yakiniku.king.official',
 
-            'youtube_url' => '',
+            'x_url' => 'https://x.com/yakiniku_king_',
 
-            'zalo_url' => '',
+            'instagram_url' => 'https://www.instagram.com/yakiniku_king_official/',
 
             'footer_address' => 'Hà Nội, Việt Nam',
 

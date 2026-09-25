@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TipController;
 use Illuminate\Support\Facades\Route;
 
+Route::view('/', 'home.index')->name('home');
+
 Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
