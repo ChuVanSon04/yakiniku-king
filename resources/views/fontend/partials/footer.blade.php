@@ -75,7 +75,13 @@
                         Đăng ký nhận thư điện tử từ chúng tôi để nhận ngay những ưu đãi tốt nhất
                     </a><br>
                     <div>
-                    <a>Đăng ký</a>
+                    <button
+                        type="button"
+                        class="btn btn-outline-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#offerRegistrationModal">
+                        Đăng ký
+                    </button>
                     </div>
                 </p>
                 <p>NHÀ HÀNG USSINA – VINCOM LANDMARK 81<br>
@@ -106,6 +112,20 @@
                 </p>
                 </h4>
                 </div>
+                <div class="mt-3">
+                    <iframe
+                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fussinavietnam%2F&tabs=&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                        width="340"
+                        height="300"
+                        style="border:none;overflow:hidden;max-width:100%"
+                        scrolling="no"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        title="Facebook Ussina Vietnam"
+                        loading="lazy">
+                    </iframe>
+                </div>
             </div>
 
         </div>
@@ -127,3 +147,110 @@
     </div>
 
 </footer>
+
+<div
+    class="modal fade"
+    id="offerRegistrationModal"
+    tabindex="-1"
+    aria-labelledby="offerRegistrationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="offerRegistrationModalLabel">Đăng ký nhận ưu đãi</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Đóng"></button>
+            </div>
+
+            <form id="offerRegistrationForm" action="{{ route('leads.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div
+                        id="offerRegistrationMessage"
+                        class="alert d-none"
+                        role="alert"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="offerName">Họ và tên</label>
+                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="offerEmail">Email</label>
+                        <input class="form-control" id="offerEmail" name="email" type="email" maxlength="255" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="offerPhone">Số điện thoại</label>
+                        <input class="form-control" id="offerPhone" name="phone" type="tel" maxlength="30">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" id="offerRegistrationSubmit">Gửi đăng ký</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('offerRegistrationForm');
+            const message = document.getElementById('offerRegistrationMessage');
+            const submitButton = document.getElementById('offerRegistrationSubmit');
+            const modalElement = document.getElementById('offerRegistrationModal');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+
+                message.className = 'alert d-none';
+                submitButton.disabled = true;
+                submitButton.textContent = 'Đang gửi...';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                        },
+                        body: new FormData(form),
+                    });
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        const validationErrors = Object.values(data.errors ?? {}).flat();
+                        throw new Error(validationErrors.join(' ') || 'Không thể gửi đăng ký.');
+                    }
+
+                    message.className = 'alert alert-success';
+                    message.textContent = data.message;
+                    form.reset();
+                    form.classList.remove('was-validated');
+
+                    window.setTimeout(() => {
+                        bootstrap.Modal.getOrCreateInstance(modalElement).hide();
+                        message.className = 'alert d-none';
+                    }, 1800);
+                } catch (error) {
+                    message.className = 'alert alert-danger';
+                    message.textContent = error.message;
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Gửi đăng ký';
+                }
+            });
+        });
+    </script>
+@endpush

@@ -13,11 +13,15 @@ use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TipController;
+use App\Http\Controllers\LeadController as FrontendLeadController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SecretController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home.index')->name('home');
+
+Route::post('/leads', [FrontendLeadController::class, 'store'])
+    ->name('leads.store');
 
 Route::get('/menu', [MenuController::class, 'index'])
     ->name('menu.index');
