@@ -135,7 +135,7 @@
 
     <div class="border-top border-secondary">
 
-        <div class="container py-3">
+        <div class="container py-3 text-center">
             <small a>
                 © {{ date('2019') }}
                 {{ setting('site_name') }}.
@@ -147,6 +147,16 @@
     </div>
 
 </footer>
+
+<button
+    type="button"
+    id="backToTop"
+    class="btn btn-danger position-fixed bottom-0 end-0 m-3 rounded-circle d-none shadow"
+    style="width: 48px; height: 48px; z-index: 1030;"
+    aria-label="Lên đầu trang"
+    title="Lên đầu trang">
+    <span aria-hidden="true">&uarr;</span>
+</button>
 
 <div
     class="modal fade"
@@ -205,6 +215,18 @@
             const message = document.getElementById('offerRegistrationMessage');
             const submitButton = document.getElementById('offerRegistrationSubmit');
             const modalElement = document.getElementById('offerRegistrationModal');
+            const backToTopButton = document.getElementById('backToTop');
+
+            const updateBackToTopVisibility = () => {
+                backToTopButton.classList.toggle('d-none', window.scrollY < 250);
+            };
+
+            window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+            updateBackToTopVisibility();
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
