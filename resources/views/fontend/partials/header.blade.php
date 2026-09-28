@@ -88,7 +88,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="#">
+                           href="{{ route('about') }}">
                             About Us
                         </a>
                     </li>

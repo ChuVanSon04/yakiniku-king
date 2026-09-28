@@ -37,7 +37,7 @@
 		}
 
 		.home-eyebrow {
-			color: #e6b86a;
+			color: #ff0000;
 			font-size: .75rem;
 			font-weight: 700;
 			letter-spacing: .18em;

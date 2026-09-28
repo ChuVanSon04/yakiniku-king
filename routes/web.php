@@ -35,6 +35,9 @@ Route::post('/book-now/cancel', [FrontendBookingController::class, 'cancel'])
 Route::post('/leads', [FrontendLeadController::class, 'store'])
     ->name('leads.store');
 
+Route::view('/about', 'about.index')
+    ->name('about');
+
 Route::get('/menu', [MenuController::class, 'index'])
     ->name('menu.index');
 
