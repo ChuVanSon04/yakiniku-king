@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
 
             'email' => 'ussina.landmark81@ussinavietnam.com',
 
-            'facebook_url' => 'https://www.facebook.com/yakiniku.king.official',
+            'facebook_url' => 'https://www.facebook.com/ussinavietnam',
 
             'x_url' => 'https://x.com/yakiniku_king_',
 

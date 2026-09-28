@@ -137,9 +137,9 @@
 
         <div class="container py-3 text-center">
             <small a>
-                © {{ date('2019') }}
+                © {{ date('Y') }}
                 {{ setting('site_name') }}.
-                Managed by V Lotus Holding
+                Managed by Sagi
             </small>
 
         </div>
