@@ -57,7 +57,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="#">
+                           href="{{ route('menu.promotions') }}">
                             CTKM
                         </a>
                     </li>
