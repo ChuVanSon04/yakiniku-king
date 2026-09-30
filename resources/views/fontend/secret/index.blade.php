@@ -20,7 +20,7 @@
                         <div class="card-body d-flex flex-column">
                             <h2 class="h5 card-title">{{ $article->title }}</h2>
                             <p class="card-text text-muted">{{ $article->short_description }}</p>
-                            <button class="btn btn-outline-danger mt-auto align-self-start" type="button"
+                            <button class="btn btn-dark mt-auto align-self-start" type="button"
                                     data-bs-toggle="modal"
                                     data-bs-target="#article-modal-{{ $articleType }}-{{ $article->getKey() }}">
                                 Xem chi tiết

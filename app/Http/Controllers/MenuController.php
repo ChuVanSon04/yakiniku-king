@@ -78,6 +78,7 @@ class MenuController extends Controller
             'pageTitle' => $pageTitle,
             'menuCategories' => $this->activeCategories(),
             'menuItems' => $menuItems,
+            'menuItemsByCategory' => $menuItems->groupBy('category_id'),
             'combos' => collect(),
             'promotions' => collect(),
         ]);

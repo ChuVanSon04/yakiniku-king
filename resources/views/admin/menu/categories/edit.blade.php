@@ -30,6 +30,7 @@
     <form
         action="{{ route('admin.menu.categories.update', $category) }}"
         method="POST"
+        enctype="multipart/form-data"
         style="background: white; padding: 25px;"
     >
 
@@ -101,11 +102,17 @@
             <br>
 
             <input
-                type="text"
+                type="file"
                 name="image"
-                value="{{ old('image', $category->image) }}"
+                accept=".jpg,.jpeg,.png,.webp"
                 style="width: 100%; padding: 10px;"
             >
+
+            @if($category->image)
+                <p>Ảnh hiện tại:</p>
+                <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="max-width: 240px;">
+                <p>Để trống nếu muốn giữ ảnh hiện tại.</p>
+            @endif
 
         </div>
 

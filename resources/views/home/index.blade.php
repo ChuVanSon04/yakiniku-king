@@ -124,11 +124,6 @@
 			width: 100%;
 			aspect-ratio: 4 / 3;
 			object-fit: cover;
-			transition: transform 500ms ease;
-		}
-
-		.home-menu-item:hover img {
-			transform: scale(1.04);
 		}
 
 		.home-menu-caption {
@@ -168,11 +163,6 @@
 			color: #000;
 		}
 
-		@media (prefers-reduced-motion: reduce) {
-			.home-menu-item img {
-				transition: none;
-			}
-		}
 	</style>
 @endpush
 
@@ -213,14 +203,14 @@
 			<div class="row g-3 g-lg-4">
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/snow-aging-wagyu.jpg') }}" alt="Thịt bò Snow Aging Wagyu" loading="lazy">
-						<div class="home-menu-caption"><h3>Snow Aging Wagyu</h3></div>
+						<img src="{{ asset('yakiniku-king/snow-aging-wagyu-set.jpg') }}" alt="Set Snow Aging Wagyu" loading="lazy">
+						<div class="home-menu-caption"><h3>Snow Aging Wagyu Set</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/snow-aging-wagyu-set.jpg') }}" alt="Set Snow Aging Wagyu" loading="lazy">
-						<div class="home-menu-caption"><h3>Snow Aging Wagyu Set</h3></div>
+						<img src="{{ asset('yakiniku-king/snow-aging-wagyu.jpg') }}" alt="Thịt bò Snow Aging Wagyu" loading="lazy">
+						<div class="home-menu-caption"><h3>Snow Aging Wagyu</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
@@ -231,20 +221,20 @@
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/hot-dish.jpg') }}" alt="Món nóng tại Yakiniku King" loading="lazy">
-						<div class="home-menu-caption"><h3>Món nóng</h3></div>
-					</article>
-				</div>
-				<div class="col-12 col-md-6 col-lg-4">
-					<article class="home-menu-item">
 						<img src="{{ asset('yakiniku-king/salad.jpg') }}" alt="Salad tươi" loading="lazy">
 						<div class="home-menu-caption"><h3>Salad</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
+						<img src="{{ asset('yakiniku-king/hot-dish.jpg') }}" alt="Món nóng tại Yakiniku King" loading="lazy">
+						<div class="home-menu-caption"><h3>Hot Dish</h3></div>
+					</article>
+				</div>
+				<div class="col-12 col-md-6 col-lg-4">
+					<article class="home-menu-item">
 						<img src="{{ asset('yakiniku-king/pasta-rice.jpg') }}" alt="Món cơm và mì" loading="lazy">
-						<div class="home-menu-caption"><h3>Cơm &amp; mì</h3></div>
+						<div class="home-menu-caption"><h3>Pasta &amp; Rice</h3></div>
 					</article>
 				</div>
 			</div>

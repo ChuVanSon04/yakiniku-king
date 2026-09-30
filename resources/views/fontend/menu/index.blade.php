@@ -45,6 +45,42 @@
             white-space: pre-line;
         }
 
+        .menu-category-group + .menu-category-group {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #ded9d2;
+        }
+
+        .menu-category-image {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 4 / 3;
+            margin-inline: auto;
+            object-fit: cover;
+            background: #f1eee9;
+        }
+
+        .menu-category-image-placeholder {
+            display: grid;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 4 / 3;
+            place-items: center;
+            margin-inline: auto;
+            background: #f1eee9;
+            color: #6c6258;
+            font-weight: 600;
+        }
+
+        .menu-category-layout-reversed .menu-category-media {
+            order: 2;
+        }
+
+        .menu-category-layout-reversed .menu-category-dishes {
+            order: 1;
+        }
+
         .combo-page {
             color: #25221f;
         }
@@ -113,6 +149,11 @@
         }
 
         @media (max-width: 767.98px) {
+            .menu-category-layout-reversed .menu-category-media,
+            .menu-category-layout-reversed .menu-category-dishes {
+                order: initial;
+            }
+
             .combo-section + .combo-section {
                 margin-top: 3rem;
                 padding-top: 3rem;
@@ -254,44 +295,102 @@
                 </section>
             </div>
         @else
-            <div class="row g-4">
-                @forelse ($menuItems as $menuItem)
-                    <div class="col-md-6 col-lg-4">
-                        <article class="card h-100 shadow-sm">
-                            @if ($menuItem->image)
-                                <img src="{{ asset($menuItem->image) }}" class="card-img-top" alt="{{ $menuItem->name }}">
-                            @endif
+            @if (request()->routeIs('menu.index'))
+                @forelse ($menuCategories as $menuCategory)
+                    <div class="menu-category-group">
+                        <h2 class="h3 mb-3">{{ $menuCategory->name }}</h2>
 
-                            <div class="card-body">
-                                <h2 class="h5 card-title">{{ $menuItem->name }}</h2>
-                                @if ($menuItem->description)
-                                    <p class="card-text text-muted">{{ $menuItem->description }}</p>
+                        <div class="row align-items-center g-4 menu-category-layout {{ $loop->even ? 'menu-category-layout-reversed' : '' }}">
+                            <div class="col-12 col-md-4 menu-category-media">
+                                @if ($menuCategory->image)
+                                    <img
+                                        src="{{ asset(str_starts_with($menuCategory->image, 'menu/') ? 'storage/' . $menuCategory->image : $menuCategory->image) }}"
+                                        class="menu-category-image"
+                                        alt="{{ $menuCategory->name }}"
+                                        loading="lazy"
+                                    >
+                                @else
+                                    <div class="menu-category-image-placeholder" aria-hidden="true">
+                                        {{ $menuCategory->name }}
+                                    </div>
                                 @endif
-                                <p class="fw-bold mb-0">{{ number_format($menuItem->price, 0, ',', '.') }} đ</p>
                             </div>
-                        </article>
+
+                            <div class="col-12 col-md-8 menu-category-dishes">
+                                <div class="row g-4">
+                                    @forelse ($menuItemsByCategory->get($menuCategory->id, collect()) as $menuItem)
+                                        <div class="col-12 col-sm-6">
+                                            <article class="card h-100 shadow-sm">
+                                                @if ($menuItem->image)
+                                                    <img
+                                                        src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}"
+                                                        class="card-img-top"
+                                                        alt="{{ $menuItem->name }}"
+                                                        loading="lazy"
+                                                    >
+                                                @endif
+
+                                                <div class="card-body">
+                                                    <h3 class="h5 card-title">{{ $menuItem->name }}</h3>
+                                                    @if ($menuItem->description)
+                                                        <p class="card-text text-muted">{{ $menuItem->description }}</p>
+                                                    @endif
+                                                    <p class="fw-bold mb-0">{{ number_format($menuItem->price, 0, ',', '.') }} đ</p>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @empty
+                                        <div class="col-12">
+                                            <p class="text-muted">Danh mục này hiện chưa có món ăn.</p>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @empty
-                    @forelse ($combos as $combo)
+                    <p class="text-muted">Hiện chưa có danh mục thực đơn nào.</p>
+                @endforelse
+            @else
+                <div class="row g-4">
+                    @forelse ($menuItems as $menuItem)
                         <div class="col-md-6 col-lg-4">
                             <article class="card h-100 shadow-sm">
-                                @if ($combo->image)
-                                    <img src="{{ asset($combo->image) }}" class="card-img-top" alt="{{ $combo->name }}">
+                                @if ($menuItem->image)
+                                    <img src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}" class="card-img-top" alt="{{ $menuItem->name }}">
                                 @endif
+
                                 <div class="card-body">
-                                    <h2 class="h5 card-title">{{ $combo->name }}</h2>
-                                    <p class="card-text text-muted">{{ $combo->description }}</p>
-                                    <p class="fw-bold mb-0">{{ number_format($combo->price, 0, ',', '.') }} đ</p>
+                                    <h2 class="h5 card-title">{{ $menuItem->name }}</h2>
+                                    @if ($menuItem->description)
+                                        <p class="card-text text-muted">{{ $menuItem->description }}</p>
+                                    @endif
+                                    <p class="fw-bold mb-0">{{ number_format($menuItem->price, 0, ',', '.') }} đ</p>
                                 </div>
                             </article>
                         </div>
                     @empty
-                        <div class="col-12">
-                            <p class="text-muted">Hiện chưa có dữ liệu cho mục này.</p>
-                        </div>
+                        @forelse ($combos as $combo)
+                            <div class="col-md-6 col-lg-4">
+                                <article class="card h-100 shadow-sm">
+                                    @if ($combo->image)
+                                        <img src="{{ asset($combo->image) }}" class="card-img-top" alt="{{ $combo->name }}">
+                                    @endif
+                                    <div class="card-body">
+                                        <h2 class="h5 card-title">{{ $combo->name }}</h2>
+                                        <p class="card-text text-muted">{{ $combo->description }}</p>
+                                        <p class="fw-bold mb-0">{{ number_format($combo->price, 0, ',', '.') }} đ</p>
+                                    </div>
+                                </article>
+                            </div>
+                        @empty
+                            <div class="col-12">
+                                <p class="text-muted">Hiện chưa có dữ liệu cho mục này.</p>
+                            </div>
+                        @endforelse
                     @endforelse
-                @endforelse
-            </div>
+                </div>
+            @endif
         @endif
     </section>
 @endsection

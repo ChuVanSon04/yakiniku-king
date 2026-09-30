@@ -33,6 +33,7 @@
     <form
         action="{{ route('admin.menu.combos.update', $combo) }}"
         method="POST"
+        enctype="multipart/form-data"
         style="
             background:white;
             padding:25px;

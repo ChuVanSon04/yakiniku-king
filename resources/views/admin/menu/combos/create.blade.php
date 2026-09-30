@@ -33,6 +33,7 @@
     <form
         action="{{ route('admin.menu.combos.store') }}"
         method="POST"
+        enctype="multipart/form-data"
         style="
             background:white;
             padding:25px;

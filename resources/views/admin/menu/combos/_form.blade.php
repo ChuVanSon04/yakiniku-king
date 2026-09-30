@@ -61,11 +61,17 @@
     <br>
 
     <input
-        type="text"
+        type="file"
         name="image"
-        value="{{ old('image', $combo->image ?? '') }}"
+        accept=".jpg,.jpeg,.png,.webp"
         style="width:100%; padding:10px;"
     >
+
+    @if(isset($combo) && $combo->image)
+        <p>Ảnh hiện tại:</p>
+        <img src="{{ asset('storage/' . $combo->image) }}" alt="{{ $combo->name }}" style="max-width:240px;">
+        <p>Để trống nếu muốn giữ ảnh hiện tại.</p>
+    @endif
 
 </div>
 

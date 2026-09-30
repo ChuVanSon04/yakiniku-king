@@ -7,6 +7,7 @@ use App\Models\Combo;
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ComboController extends Controller
@@ -68,8 +69,9 @@ class ComboController extends Controller
 
             'image' => [
                 'nullable',
-                'string',
-                'max:255',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
             ],
 
             'price' => [
@@ -134,6 +136,8 @@ class ComboController extends Controller
 
         $validated['status'] =
             $request->boolean('status');
+
+        $validated['image'] = $request->file('image')?->store('menu/combos', 'public');
 
         DB::transaction(function () use (
             $validated,
@@ -211,7 +215,7 @@ class ComboController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                'unique:combos,slug,' . $combo->id,
+                'unique:combos,slug,'.$combo->id,
             ],
 
             'description' => [
@@ -221,8 +225,9 @@ class ComboController extends Controller
 
             'image' => [
                 'nullable',
-                'string',
-                'max:255',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:5120',
             ],
 
             'price' => [
@@ -282,11 +287,18 @@ class ComboController extends Controller
             );
         }
 
+        $imagePath = $combo->image;
+        $oldImagePath = $combo->image;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('menu/combos', 'public');
+        }
+
         $combo->update([
             'name' => $validated['name'],
             'slug' => $validated['slug'],
             'description' => $validated['description'] ?? null,
-            'image' => $validated['image'] ?? null,
+            'image' => $imagePath,
             'price' => $validated['price'],
             'original_price' => $validated['original_price'] ?? null,
             'start_date' => $validated['start_date'] ?? null,
@@ -305,6 +317,10 @@ class ComboController extends Controller
         }
 
         $combo->menuItems()->sync($items);
+
+        if ($request->hasFile('image') && $oldImagePath) {
+            Storage::disk('public')->delete($oldImagePath);
+        }
 
         return redirect()
             ->route('admin.menu.combos.index')

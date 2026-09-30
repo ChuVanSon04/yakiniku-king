@@ -30,6 +30,7 @@
     <form
         action="{{ route('admin.menu.items.store') }}"
         method="POST"
+        enctype="multipart/form-data"
         style="background:white; padding:25px;"
     >
 
@@ -124,9 +125,9 @@
             <br>
 
             <input
-                type="text"
+                type="file"
                 name="image"
-                value="{{ old('image') }}"
+                accept=".jpg,.jpeg,.png,.webp"
                 style="width:100%; padding:10px;"
             >
 
