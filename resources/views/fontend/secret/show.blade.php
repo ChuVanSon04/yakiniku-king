@@ -14,7 +14,7 @@
             @endif
 
             @if ($article->image)
-                <img src="{{ asset($article->image) }}" class="img-fluid rounded mb-4" alt="{{ $article->title }}">
+                <img src="{{ asset('storage/' . $article->image) }}" class="img-fluid rounded mb-4" alt="{{ $article->title }}">
             @endif
 
             @if ($article->short_description)
