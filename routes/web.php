@@ -70,10 +70,9 @@ Route::get('/our-secret/tips/{tip:slug}', [SecretController::class, 'tip'])
 
 Route::prefix('admin')
     ->name('admin.')
+    ->middleware('cache.headers:no_store')
     ->group(function () {
 
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
         // Login
         Route::get('/login', [AuthController::class, 'showLogin'])
             ->name('login');
@@ -83,6 +82,8 @@ Route::prefix('admin')
 
         // Khu vực cần đăng nhập
         Route::middleware('auth')->group(function () {
+            Route::get('/', [DashboardController::class, 'index'])
+                ->name('dashboard');
 
             Route::prefix('menu')->name('menu.')->group(function () {
                 Route::resource('categories', MenuCategoryController::class)
