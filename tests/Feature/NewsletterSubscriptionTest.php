@@ -7,6 +7,7 @@ uses(RefreshDatabase::class);
 
 test('a visitor can register for offers', function () {
     $response = $this->postJson(route('leads.store'), [
+        'salutation' => 'Ông',
         'name' => 'Nguyen Van A',
         'email' => 'a@example.com',
         'phone' => '0901234567',
@@ -17,6 +18,7 @@ test('a visitor can register for offers', function () {
         ->assertJsonPath('lead.status', 'new');
 
     $this->assertDatabaseHas('leads', [
+        'salutation' => 'Ông',
         'name' => 'Nguyen Van A',
         'email' => 'a@example.com',
         'phone' => '0901234567',
@@ -26,12 +28,40 @@ test('a visitor can register for offers', function () {
 
 test('offer registration requires a valid email', function () {
     $response = $this->postJson(route('leads.store'), [
+        'salutation' => 'Ông',
         'name' => 'Nguyen Van A',
         'email' => 'invalid-email',
+        'phone' => '0901234567',
     ]);
 
     $response->assertUnprocessable()
         ->assertJsonValidationErrors(['email']);
+
+    expect(Lead::count())->toBe(0);
+});
+
+test('offer registration requires a salutation and phone number', function () {
+    $response = $this->postJson(route('leads.store'), [
+        'name' => 'Nguyen Van A',
+        'email' => 'a@example.com',
+    ]);
+
+    $response->assertUnprocessable()
+        ->assertJsonValidationErrors(['salutation', 'phone']);
+
+    expect(Lead::count())->toBe(0);
+});
+
+test('offer registration only accepts ông or bà as salutation', function () {
+    $response = $this->postJson(route('leads.store'), [
+        'salutation' => 'Khác',
+        'name' => 'Nguyen Van A',
+        'email' => 'a@example.com',
+        'phone' => '0901234567',
+    ]);
+
+    $response->assertUnprocessable()
+        ->assertJsonValidationErrors(['salutation']);
 
     expect(Lead::count())->toBe(0);
 });

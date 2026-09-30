@@ -1,151 +1,453 @@
-<footer class="bg-dark text-white mt-5">
+<style>
+        .site-footer {
+            --footer-bg: #191d1b;
+            --footer-panel: #222825;
+            --footer-text: #c5cbc6;
+            --footer-line: rgba(255, 255, 255, .12);
+            --footer-accent: #ff0000;
+            --footer-action: #a83d32;
+            margin-top: 0;
+            background: var(--footer-bg);
+            color: var(--footer-text);
+        }
 
-    <div class="container py-5">
+        .site-footer__main {
+            padding-top: 4.5rem;
+            padding-bottom: 3.5rem;
+        }
 
-        <div class="row g-4">
+        .site-footer__grid {
+            display: grid;
+            grid-template-columns: 1.15fr .9fr 1fr;
+            gap: 3rem;
+        }
 
-            {{-- Company --}}
-            <div class="col-md-4">
-                <div>
-                    <h5>
+        .site-footer__brandline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .site-footer__logo {
+            display: block;
+            width: 76px;
+            height: 68px;
+            object-fit: contain;
+        }
+
+        .site-footer__brand-name {
+            margin: 0;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .site-footer__eyebrow {
+            display: block;
+            margin-bottom: .65rem;
+            color: var(--footer-accent);
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .site-footer__title {
+            margin-bottom: 1rem;
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 650;
+        }
+
+        .site-footer__copy {
+            margin-bottom: .8rem;
+            color: var(--footer-text);
+            font-size: .925rem;
+            line-height: 1.75;
+        }
+
+        .site-footer__contact {
+            display: grid;
+            gap: .5rem;
+            margin-top: 1.25rem;
+        }
+
+        .site-footer a {
+            color: #f1f2ef;
+            text-decoration: none;
+            transition: color .18s ease, background-color .18s ease, border-color .18s ease;
+        }
+
+        .site-footer a:hover,
+        .site-footer a:focus-visible {
+            color: var(--footer-accent);
+        }
+
+        .site-footer__signup {
+            margin: 1.25rem 0 1.75rem;
+            padding: 1.25rem;
+            border: 1px solid var(--footer-line);
+            border-left: 3px solid var(--footer-accent);
+            background: var(--footer-panel);
+        }
+
+        .site-footer__signup p {
+            margin-bottom: 1rem;
+            font-size: .925rem;
+            line-height: 1.65;
+        }
+
+        .site-footer__signup .btn {
+            padding: .65rem 1.1rem;
+            border: 1px solid var(--footer-action);
+            border-radius: 2px;
+            background: var(--footer-action);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .site-footer__signup .btn:hover,
+        .site-footer__signup .btn:focus-visible {
+            border-color: #c75a4d;
+            background: #c75a4d;
+            color: #fff;
+        }
+
+        .site-footer__legal {
+            margin: 0;
+            color: #aab2ac;
+            font-size: .8rem;
+            line-height: 1.7;
+        }
+
+        .site-footer__topics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .6rem 1rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .site-footer__topics a {
+            color: var(--footer-text);
+            font-size: .9rem;
+            line-height: 1.5;
+        }
+
+        .site-footer__socials {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .7rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .site-footer__social-link {
+            display: grid;
+            width: 48px;
+            height: 48px;
+            place-items: center;
+            border: 1px solid var(--footer-line);
+            border-radius: 3px;
+            background: var(--footer-panel);
+        }
+
+        .site-footer__social-link img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .site-footer__certificate {
+            display: inline-block;
+            max-width: 200px;
+        }
+
+        .site-footer__certificate img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .site-footer__facebook {
+            width: 100%;
+            height: 240px;
+            margin-top: 1.5rem;
+            border: 0;
+            overflow: hidden;
+        }
+
+        .offer-modal .modal-dialog {
+            width: calc(100% - 1.5rem);
+            max-width: 520px;
+        }
+
+        .offer-modal__content {
+            overflow: hidden;
+            border: 1px solid rgba(215, 179, 106, .4);
+            border-radius: 6px;
+            background: #f6f4ee;
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .28);
+        }
+
+        .offer-modal__header {
+            position: relative;
+            display: block;
+            padding: 2rem 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            background: #1c2420;
+            color: #fff;
+        }
+
+        .offer-modal__eyebrow {
+            display: block;
+            margin-bottom: .65rem;
+            color: #ff0000;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .offer-modal__title {
+            margin: 0 2rem .65rem 0;
+            color: #fff;
+            font-size: 1.55rem;
+            font-weight: 700;
+        }
+
+        .offer-modal__intro {
+            max-width: 390px;
+            margin: 0;
+            color: #c5cbc6;
+            font-size: .9rem;
+            line-height: 1.65;
+        }
+
+        .offer-modal__close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+        }
+
+        .offer-modal__body {
+            padding: 1.75rem 2rem 1rem;
+        }
+
+        .offer-modal .form-label {
+            margin-bottom: .5rem;
+            color: #29322d;
+            font-size: .85rem;
+            font-weight: 650;
+        }
+
+        .offer-modal .form-control,
+        .offer-modal .form-select {
+            min-height: 48px;
+            border-color: #d7dad5;
+            border-radius: 3px;
+            background: #fff;
+            color: #202722;
+        }
+
+        .offer-modal .form-control::placeholder {
+            color: #858b85;
+        }
+
+        .offer-modal .form-control:focus,
+        .offer-modal .form-select:focus {
+            border-color: #a83d32;
+            box-shadow: 0 0 0 .2rem rgba(168, 61, 50, .14);
+        }
+
+        .offer-modal__footer {
+            padding: .5rem 2rem 2rem;
+            border-top: 0;
+        }
+
+        .offer-modal__submit {
+            width: 100%;
+            min-height: 48px;
+            border: 1px solid #a83d32;
+            border-radius: 3px;
+            background: #a83d32;
+            color: #fff;
+            font-weight: 650;
+        }
+
+        .offer-modal__submit:hover,
+        .offer-modal__submit:focus-visible {
+            border-color: #c75a4d;
+            background: #c75a4d;
+            color: #fff;
+        }
+
+        .offer-modal__submit:disabled {
+            border-color: #8f4942;
+            background: #8f4942;
+            color: #fff;
+        }
+
+        #offerRegistrationMessage {
+            border-radius: 3px;
+        }
+
+        @media (max-width: 575.98px) {
+            .offer-modal .modal-dialog {
+                width: calc(100% - 1rem);
+                margin: .5rem auto;
+            }
+
+            .offer-modal__header {
+                padding: 1.5rem 1.25rem 1.25rem;
+            }
+
+            .offer-modal__title {
+                font-size: 1.35rem;
+            }
+
+            .offer-modal__body {
+                padding: 1.25rem 1.25rem .75rem;
+            }
+
+            .offer-modal__footer {
+                padding: .5rem 1.25rem 1.25rem;
+            }
+        }
+
+        .site-footer__bottom {
+            border-top: 1px solid var(--footer-line);
+        }
+
+        .site-footer__copyright {
+            padding: 1rem 0;
+            color: #aab2ac;
+            font-size: .8rem;
+        }
+
+        @media (max-width: 991.98px) {
+            .site-footer__grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 2.5rem;
+            }
+
+        }
+
+        @media (max-width: 767.98px) {
+            .site-footer__main {
+                padding-top: 3rem;
+                padding-bottom: 2.5rem;
+            }
+
+            .site-footer__grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 2rem;
+            }
+
+        }
+</style>
+
+<footer class="site-footer">
+    <div class="container site-footer__main site-footer__grid">
+            <section aria-labelledby="footer-brand-title">
+                <div class="site-footer__brandline">
+                    <a href="{{ url('/') }}" aria-label="{{ setting('site_name') }} - trang chủ">
+                        <img
+                            class="site-footer__logo"
+                            src="{{ asset('yakiniku-king/logo1.png') }}"
+                            alt="Yakiniku King logo"
+                            width="76"
+                            height="68">
+                    </a>
+                    <h2 class="site-footer__brand-name" id="footer-brand-title">
                         {{ setting('site_name') }}
-                        <h6>
-                            <a class="navbar-brand fw-bold"
-                            href="{{ url('/') }}">
-                            <img src="{{ asset('yakiniku-king/logo1.png') }}" alt="Yakiniku King logo" width="none" height="75">
-                            </a>
-                        </h6>
-                    </h5>
+                    </h2>
                 </div>
-                <div class="textwidget">
-                    <p>
-                        {{ setting('footer_address') }}
-                    </p>
-                    <p>
-                        Thời gian phục vụ từ 11h đến 23h.
-                    </p>
-                    <div>
-                        <p>
-                            <a
-                                href="tel:{{ setting('hotline') }}"
-                                class="text-white">
-                                {{ setting('hotline_vn_jp') }}</a>
-                            <br>
-                            <a
-                                href="tel:{{ setting('hotline') }}"
-                                class="text-white">
-                                {{ setting('hotline_en') }}</a>
-                        </p>
-                        <a
-                                href="ussina.landmark81@ussinavietnam.com"
-                                class="text-white">
-                                {{ setting('email') }}
-                        </a>
-                    </div>
-                </div>
-                <div>
-                <a href="https://www.facebook.com/ussinavietnam/">
-                    <img src="{{ asset('yakiniku-king/logo-facebook.png') }}" width="50" height="50">
-                </a>
-                <a href="https://www.google.com/search?sxsrf=ACYBGNQPLfjiPbZ8qK6wTcU4GcFIQNJDsA%3A1568026028380&ei=rC12XazzFpDj-AaSx4_ADw&q=Ussina+Aging+Beef+%26+Bar+landmark+81&oq=Ussina+Aging+Beef+%26+Bar+landmark+81&gs_l=psy-ab.3..35i39l2j38.8560.16186..16983...2.2..0.180.1696.1j14......0....1..gws-wiz.......0i71j0j0i22i30j0i203j33i160j35i304i39.kzaVPMSedbs&ved=0ahUKEwis-a2TyMPkAhWQMd4KHZLjA_gQ4dUDCAs&uact=5#lrd=0x31752965c64ce237:0x8b8e188d592080ca,1,,">
-                    <img src="{{ asset('yakiniku-king/gg-my-business.png') }}" width="45" height="45">
-                </a>
-                <a href="tripadvisor.com.vn/Restaurant_Review-g293925-d19647189-Reviews-Ussina_Aging_Beef_Bar-Ho_Chi_Minh_City.html">
-                    <img src="{{ asset('yakiniku-king/tripadvisor-icon.png') }}" width="40" height="40">
-                </a>
-                </div>
-                <div>
-                    <p>
-                        <a href="https://online.gov.vn/nen-tang/76be9e1f-3034-43bf-a3b6-193d8d81904a">
-                            <img src="https://ussinavietnam.vn/wp-content/uploads/2020/08/dathongbaobct.png" width="200" height="70">
-                        </a>
-                    </p>
-                </div>
-            </div>
 
+                <span class="site-footer__eyebrow">Nhà hàng</span>
+                <p class="site-footer__copy">{{ setting('footer_address') }}</p>
+                <p class="site-footer__copy">Thời gian phục vụ từ 11h đến 23h.</p>
 
-            {{-- Contact --}}
-            <div class="col-md-4">
+                <div class="site-footer__contact">
+                    <a href="tel:{{ setting('hotline') }}">{{ setting('hotline_vn_jp') }}</a>
+                    <a href="tel:{{ setting('hotline') }}">{{ setting('hotline_en') }}</a>
+                    <a href="mailto:ussina.landmark81@ussinavietnam.com">{{ setting('email') }}</a>
+                </div>
+                <br>
+                <span class="site-footer__eyebrow">Theo dõi và đánh giá</span>
+                <div class="site-footer__socials">
+                    <a class="site-footer__social-link" href="https://www.facebook.com/ussinavietnam/" aria-label="Facebook Ussina Vietnam">
+                        <img src="{{ asset('yakiniku-king/logo-facebook.png') }}" alt="" width="28" height="28">
+                    </a>
+                    <a class="site-footer__social-link" href="https://www.google.com/search?sxsrf=ACYBGNQPLfjiPbZ8qK6wTcU4GcFIQNJDsA%3A1568026028380&ei=rC12XazzFpDj-AaSx4_ADw&q=Ussina+Aging+Beef+%26+Bar+landmark+81&oq=Ussina+Aging+Beef+%26+Bar+landmark+81&gs_l=psy-ab.3..35i39l2j38.8560.16186..16983...2.2..0.180.1696.1j14......0....1..gws-wiz.......0i71j0j0i22i30j0i203j33i160j35i304i39.kzaVPMSedbs&ved=0ahUKEwis-a2TyMPkAhWQMd4KHZLjA_gQ4dUDCAs&uact=5#lrd=0x31752965c64ce237:0x8b8e188d592080ca,1,," aria-label="Đánh giá trên Google">
+                        <img src="{{ asset('yakiniku-king/gg-my-business.png') }}" alt="" width="28" height="28">
+                    </a>
+                    <a class="site-footer__social-link" href="https://www.tripadvisor.com.vn/Restaurant_Review-g293925-d19647189-Reviews-Ussina_Aging_Beef_Bar-Ho_Chi_Minh_City.html" aria-label="Ussina trên Tripadvisor">
+                        <img src="{{ asset('yakiniku-king/tripadvisor-icon.png') }}" alt="" width="28" height="28">
+                    </a>
+                </div>
+                <a
+                    class="site-footer__certificate"
+                    href="https://online.gov.vn/nen-tang/76be9e1f-3034-43bf-a3b6-193d8d81904a"
+                    aria-label="Thông tin đăng ký Bộ Công Thương">
+                    <img src="https://ussinavietnam.vn/wp-content/uploads/2020/08/dathongbaobct.png" alt="Đã thông báo Bộ Công Thương" width="200" height="70" loading="lazy">
+                </a>
+            </section>
 
-                <h5>
-                    ĐĂNG KÝ NHẬN ƯU ĐÃI
-                </h5>
-                <p>
-                    <a>
-                        Đăng ký nhận thư điện tử từ chúng tôi để nhận ngay những ưu đãi tốt nhất
-                    </a><br>
-                    <div>
+            <section aria-labelledby="footer-offers-title">
+                <span class="site-footer__eyebrow">Kết nối với chúng tôi</span>
+                <h2 class="site-footer__title" id="footer-offers-title">Đăng ký nhận ưu đãi</h2>
+                <div class="site-footer__signup">
+                    <p>Đăng ký nhận thư điện tử để không bỏ lỡ những ưu đãi mới nhất.</p>
                     <button
                         type="button"
-                        class="btn btn-outline-light"
+                        class="btn"
                         data-bs-toggle="modal"
                         data-bs-target="#offerRegistrationModal">
                         Đăng ký
                     </button>
-                    </div>
-                </p>
-                <p>NHÀ HÀNG USSINA – VINCOM LANDMARK 81<br>
-                Giấy CNĐKDN: 0312225168-002 – Ngày cấp: 01/04/2019<br>
-                Cơ quan cấp: Phòng Đăng ký kinh doanh – Sở kế hoạch và Đầu tư TP.HCM<br>
-                Địa chỉ đăng ký kinh doanh: Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam
-                </p>
-            </div>
-
-
-            {{-- Social --}}
-            <div class="col-md-4">
-                <div>
-                <h4>
-                    CHỦ ĐỀ NỔI BẬT
-                </h4>
-                <p>
-                    <a href="https://ussinavietnam.vn/tag/am-thuc-nhat-ban/" class="text-white">Ẩm thực Nhật Bản</a>,
-                    <a href="https://ussinavietnam.vn/tag/nha-hang-nhat-ban/" class="text-white">Nhà hàng nhật bản</a>,
-                    <a href="https://ussinavietnam.vn/tag/mon-an-nhat-ban/" class="text-white">Món ăn Nhật Bản</a>,
-                    <a href="https://ussinavietnam.vn/tag/mon-ngon-nhat-ban/" class="text-white">món ngon nhật bản</a>,
-                    <a href="https://ussinavietnam.vn/tag/nha-hang-co-view-dep/" class="text-white">nhà hàng có view đẹp</a>,
-                    <a href="https://ussinavietnam.vn/tag/nha-hang-mon-nhat/" class="text-white">Nhà hàng món nhật</a>,
-                    <a href="https://ussinavietnam.vn/tag/nha-hang-sang-trong/" class="text-white">Nhà hàng sang trọng</a>,
-                    <a href="https://ussinavietnam.vn/tag/bo-wagyu/" class="text-white">Bò Wagyu</a>,
-                    <a href="https://ussinavietnam.vn/tag/nha-hang-bo-wagyu/" class="text-white">Nhà hàng bò wagyu</a>,
-                    <a href="https://ussinavietnam.vn/tag/thit-bo-wagyu-cao-cap/" class="text-white">Thịt bò Wagyu cao cấp</a>,...
-                </p>
-                </h4>
                 </div>
-                <div class="mt-3">
-                    <iframe
-                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fussinavietnam%2F&tabs=&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                        width="340"
-                        height="300"
-                        style="border:none;overflow:hidden;max-width:100%"
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                        title="Facebook Ussina Vietnam"
-                        loading="lazy">
-                    </iframe>
-                </div>
-            </div>
+                <p class="site-footer__legal">
+                    NHÀ HÀNG USSINA – VINCOM LANDMARK 81<br>
+                    Giấy CNĐKDN: 0312225168-002 – Ngày cấp: 01/04/2019<br>
+                    Cơ quan cấp: Phòng Đăng ký kinh doanh – Sở kế hoạch và Đầu tư TP.HCM<br>
+                    Địa chỉ đăng ký kinh doanh: Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam
+                </p>
+            </section>
 
-        </div>
-
+            <section aria-labelledby="footer-topics-title">
+                <span class="site-footer__eyebrow">Khám phá</span>
+                <h2 class="site-footer__title" id="footer-topics-title">Chủ đề nổi bật</h2>
+                <ul class="site-footer__topics">
+                    <li><a href="https://ussinavietnam.vn/tag/am-thuc-nhat-ban/">Ẩm thực Nhật Bản</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-nhat-ban/">Nhà hàng Nhật Bản</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/mon-an-nhat-ban/">Món ăn Nhật Bản</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/mon-ngon-nhat-ban/">Món ngon Nhật Bản</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-co-view-dep/">Nhà hàng có view đẹp</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-mon-nhat/">Nhà hàng món Nhật</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-sang-trong/">Nhà hàng sang trọng</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/bo-wagyu/">Bò Wagyu</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-bo-wagyu/">Nhà hàng bò Wagyu</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/thit-bo-wagyu-cao-cap/">Thịt bò Wagyu cao cấp</a></li>
+                </ul>
+                <iframe
+                    class="site-footer__facebook"
+                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fussinavietnam%2F&tabs=&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                    title="Facebook Ussina Vietnam"
+                    scrolling="no"
+                    frameborder="0"
+                    allowfullscreen="true"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    loading="lazy">
+                </iframe>
+            </section>
     </div>
 
-
-    <div class="border-top border-secondary">
-
-        <div class="container py-3 text-center">
-            <small a>
-                © {{ date('Y') }}
-                {{ setting('site_name') }}.
-                Managed by Sagi
-            </small>
-
+    <div class="site-footer__bottom">
+        <div class="container site-footer__copyright">
+            © {{ date('Y') }} {{ setting('site_name') }}. Managed by Sagi
         </div>
-
     </div>
-
 </footer>
 
 <button
@@ -159,49 +461,59 @@
 </button>
 
 <div
-    class="modal fade"
+    class="modal fade offer-modal"
     id="offerRegistrationModal"
     tabindex="-1"
     aria-labelledby="offerRegistrationModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-dark">
-            <div class="modal-header">
-                <h5 class="modal-title" id="offerRegistrationModalLabel">Đăng ký nhận ưu đãi</h5>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content offer-modal__content">
+            <div class="modal-header offer-modal__header">
+                <span class="offer-modal__eyebrow">Yakiniku King</span>
+                <h2 class="modal-title offer-modal__title" id="offerRegistrationModalLabel">Đăng ký nhận ưu đãi</h2>
+                <p class="offer-modal__intro" id="offerRegistrationDescription">Nhận tin mới về thực đơn và ưu đãi dành riêng từ nhà hàng.</p>
                 <button
                     type="button"
-                    class="btn-close"
+                    class="btn-close btn-close-white offer-modal__close"
                     data-bs-dismiss="modal"
-                    aria-label="Đóng"></button>
+                    aria-label="Đóng cửa sổ đăng ký"></button>
             </div>
 
             <form id="offerRegistrationForm" action="{{ route('leads.store') }}" method="POST">
                 @csrf
-                <div class="modal-body">
+                <div class="modal-body offer-modal__body">
                     <div
                         id="offerRegistrationMessage"
                         class="alert d-none"
                         role="alert"></div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="offerName">Họ và tên</label>
-                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" required>
+                    <div class="mb-4">
+                        <label class="form-label" for="offerSalutation">Danh xưng</label>
+                        <select class="form-select" id="offerSalutation" name="salutation" required>
+                            <option value="" selected disabled>Chọn danh xưng</option>
+                            <option value="Ông">Ông</option>
+                            <option value="Bà">Bà</option>
+                        </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
+                        <label class="form-label" for="offerName">Họ và tên</label>
+                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" autocomplete="name" placeholder="Nguyễn Văn An" required>
+                    </div>
+
+                    <div class="mb-4">
                         <label class="form-label" for="offerEmail">Email</label>
-                        <input class="form-control" id="offerEmail" name="email" type="email" maxlength="255" required>
+                        <input class="form-control" id="offerEmail" name="email" type="email" maxlength="255" autocomplete="email" placeholder="ban@example.com" required>
                     </div>
 
                     <div>
                         <label class="form-label" for="offerPhone">Số điện thoại</label>
-                        <input class="form-control" id="offerPhone" name="phone" type="tel" maxlength="30">
+                        <input class="form-control" id="offerPhone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="09xx xxx xxx" required>
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-danger" id="offerRegistrationSubmit">Gửi đăng ký</button>
+                <div class="modal-footer offer-modal__footer">
+                    <button type="submit" class="btn offer-modal__submit" id="offerRegistrationSubmit">Gửi đăng ký</button>
                 </div>
             </form>
         </div>
