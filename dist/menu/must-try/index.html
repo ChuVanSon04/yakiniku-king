@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Must Try    </title>
+
+    <meta name="description"
+          content="Yakiniku King - Nhà hàng thịt nướng phong cách Nhật Bản.">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+        <style>
+        .promotion-card {
+            height: 100%;
+            overflow: hidden;
+            border: 0;
+            border-radius: 4px;
+            box-shadow: 0 10px 28px rgba(28, 25, 22, 0.1);
+        }
+
+        .promotion-image {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            background: #f1eee9;
+        }
+
+        .promotion-image-placeholder {
+            display: grid;
+            place-items: center;
+            color: #6c6258;
+            font-weight: 600;
+        }
+
+        .promotion-card .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .promotion-card .btn {
+            margin-top: auto;
+        }
+
+        .promotion-period {
+            color: #6c6258;
+            font-size: 0.9rem;
+        }
+
+        .promotion-detail-copy {
+            white-space: pre-line;
+        }
+
+        .menu-category-group + .menu-category-group {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #ded9d2;
+        }
+
+        .menu-category-image {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 4 / 3;
+            margin-inline: auto;
+            object-fit: cover;
+            background: #f1eee9;
+        }
+
+        .menu-category-image-placeholder {
+            display: grid;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 4 / 3;
+            place-items: center;
+            margin-inline: auto;
+            background: #f1eee9;
+            color: #6c6258;
+            font-weight: 600;
+        }
+
+        .menu-category-layout-reversed .menu-category-media {
+            order: 2;
+        }
+
+        .menu-category-layout-reversed .menu-category-dishes {
+            order: 1;
+        }
+
+        .combo-page {
+            color: #25221f;
+        }
+
+        .combo-section + .combo-section {
+            margin-top: 5rem;
+            padding-top: 4rem;
+            border-top: 1px solid #ded9d2;
+        }
+
+        .combo-section-heading {
+            margin-bottom: 2rem;
+        }
+
+        .combo-row {
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid #ded9d2;
+        }
+
+        .combo-row:first-child {
+            padding-top: 0;
+        }
+
+        .combo-row-copy {
+            padding: 1.5rem clamp(1rem, 4vw, 4rem);
+        }
+
+        .combo-row-image,
+        .kids-menu-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .combo-row-image-wrap {
+            min-height: 240px;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: #f1eee9;
+        }
+
+        .combo-row-image-placeholder {
+            display: grid;
+            min-height: 240px;
+            place-items: center;
+            background: #f1eee9;
+            color: #6c6258;
+        }
+
+        .kids-menu-copy {
+            padding-right: clamp(1rem, 5vw, 5rem);
+        }
+
+        .kids-menu-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .kids-menu-image-wrap {
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #f1eee9;
+        }
+
+        @media (max-width: 767.98px) {
+            .menu-category-layout-reversed .menu-category-media,
+            .menu-category-layout-reversed .menu-category-dishes {
+                order: initial;
+            }
+
+            .combo-section + .combo-section {
+                margin-top: 3rem;
+                padding-top: 3rem;
+            }
+
+            .combo-row-copy {
+                padding: 1.5rem 0 0;
+            }
+
+            .kids-menu-copy {
+                padding-right: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .kids-menu-gallery {
+                gap: 0.65rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+
+        <div class="container">
+
+            
+            <a class="navbar-brand fw-bold"
+               href="http://localhost:8000">
+                <img src="http://localhost:8000/yakiniku-king/logo.png" alt="Yakiniku King logo" width="none" height="80">
+            </a>
+
+
+            
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#frontendNavbar">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            
+            <div class="collapse navbar-collapse"
+                 id="frontendNavbar">
+
+                <ul class="navbar-nav align-items-right ms-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="http://localhost:8000">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="http://localhost:8000/menu"
+                           id="menuDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Menu
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="menuDropdown">
+                            <li><a class="dropdown-item" href="http://localhost:8000/menu/must-try">Must Try</a></li>
+                            <li><a class="dropdown-item" href="http://localhost:8000/menu/combos">Combo</a></li>
+                            <li><a class="dropdown-item" href="http://localhost:8000/menu/for-kids">For Kids</a></li>
+                            <li><a class="dropdown-item" href="http://localhost:8000/menu/promotions">Khuyến Mãi</a></li>
+                            <li><a class="dropdown-item" href="http://localhost:8000/menu">Our Menu</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="http://localhost:8000/menu/promotions">
+                            CTKM
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="ourSecretDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Our Secret
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="ourSecretDropdown">
+                            <li>
+                                <a class="dropdown-item" href="http://localhost:8000/our-secret/recipes">
+                                    Recipes
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="http://localhost:8000/our-secret/tips">
+                                    Bí kíp ăn ngon
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="http://localhost:8000/about">
+                            About Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+    <main>
+            <section class="container py-5">
+        <div class="mb-4">
+            <h1>Must Try</h1>
+            <p class="text-muted">
+                                    Khám phá các món ngon tại Yakiniku King.
+                            </p>
+        </div>
+
+                                    <div class="row g-4">
+                                            <div class="col-md-6 col-lg-4">
+                            <article class="card h-100 shadow-sm">
+                                
+                                <div class="card-body">
+                                    <h2 class="h5 card-title">Wagyu</h2>
+                                                                            <p class="card-text text-muted">Thịt bò Wagyu</p>
+                                                                        <p class="fw-bold mb-0">299.000 đ</p>
+                                </div>
+                            </article>
+                        </div>
+                                            <div class="col-md-6 col-lg-4">
+                            <article class="card h-100 shadow-sm">
+                                
+                                <div class="card-body">
+                                    <h2 class="h5 card-title">Beef Karubi</h2>
+                                                                            <p class="card-text text-muted">Thịt bò Karubi</p>
+                                                                        <p class="fw-bold mb-0">199.000 đ</p>
+                                </div>
+                            </article>
+                        </div>
+                                    </div>
+                        </section>
+    </main>
+
+    <footer class="bg-dark text-white mt-5">
+
+    <div class="container py-5">
+
+        <div class="row g-4">
+
+            
+            <div class="col-md-4">
+                <div>
+                    <h5>
+                        NHÀ HÀNG USSINA AGING BEEF &amp; BAR
+                        <h6>
+                            <a class="navbar-brand fw-bold"
+                            href="http://localhost:8000">
+                            <img src="http://localhost:8000/yakiniku-king/logo1.png" alt="Yakiniku King logo" width="none" height="75">
+                            </a>
+                        </h6>
+                    </h5>
+                </div>
+                <div class="textwidget">
+                    <p>
+                        Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam
+                    </p>
+                    <p>
+                        Thời gian phục vụ từ 11h đến 23h.
+                    </p>
+                    <div>
+                        <p>
+                            <a
+                                href="tel:1900 1234"
+                                class="text-white">
+                                089.667.2861 (VN – JP)</a>
+                            <br>
+                            <a
+                                href="tel:1900 1234"
+                                class="text-white">
+                                0287.307.9793 (EN)</a>
+                        </p>
+                        <a
+                                href="mailto:ussina.landmark81@ussinavietnam.com"
+                                class="text-white">
+                                ussina.landmark81@ussinavietnam.com
+                        </a>
+                    </div>
+                </div>
+                <div>
+                <a href="https://www.facebook.com/ussinavietnam/">
+                    <img src="http://localhost:8000/yakiniku-king/logo-facebook.png" width="50" height="50">
+                </a>
+                <a href="https://www.google.com/search?sxsrf=ACYBGNQPLfjiPbZ8qK6wTcU4GcFIQNJDsA%3A1568026028380&ei=rC12XazzFpDj-AaSx4_ADw&q=Ussina+Aging+Beef+%26+Bar+landmark+81&oq=Ussina+Aging+Beef+%26+Bar+landmark+81&gs_l=psy-ab.3..35i39l2j38.8560.16186..16983...2.2..0.180.1696.1j14......0....1..gws-wiz.......0i71j0j0i22i30j0i203j33i160j35i304i39.kzaVPMSedbs&ved=0ahUKEwis-a2TyMPkAhWQMd4KHZLjA_gQ4dUDCAs&uact=5#lrd=0x31752965c64ce237:0x8b8e188d592080ca,1,,">
+                    <img src="http://localhost:8000/yakiniku-king/gg-my-business.png" width="45" height="45">
+                </a>
+                <a href="https://www.tripadvisor.com.vn/Restaurant_Review-g293925-d19647189-Reviews-Ussina_Aging_Beef_Bar-Ho_Chi_Minh_City.html">
+                    <img src="http://localhost:8000/yakiniku-king/tripadvisor-icon.png" width="40" height="40">
+                </a>
+                </div>
+                <div>
+                    <p>
+                        <a href="https://online.gov.vn/nen-tang/76be9e1f-3034-43bf-a3b6-193d8d81904a">
+                            <img src="https://ussinavietnam.vn/wp-content/uploads/2020/08/dathongbaobct.png" width="200" height="70">
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+
+            
+            <div class="col-md-4">
+
+                <h5>
+                    ĐĂNG KÝ NHẬN ƯU ĐÃI
+                </h5>
+                <p>
+                    <a>
+                        Đăng ký nhận thư điện tử từ chúng tôi để nhận ngay những ưu đãi tốt nhất
+                    </a><br>
+                    <div>
+                    <button
+                        type="button"
+                        class="btn btn-outline-light"
+                        data-bs-toggle="modal"
+                        data-bs-target="#offerRegistrationModal">
+                        Đăng ký
+                    </button>
+                    </div>
+                </p>
+                <p>NHÀ HÀNG USSINA – VINCOM LANDMARK 81<br>
+                Giấy CNĐKDN: 0312225168-002 – Ngày cấp: 01/04/2019<br>
+                Cơ quan cấp: Phòng Đăng ký kinh doanh – Sở kế hoạch và Đầu tư TP.HCM<br>
+                Địa chỉ đăng ký kinh doanh: Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam
+                </p>
+            </div>
+
+
+            
+            <div class="col-md-4">
+                <div>
+                <h4>
+                    CHỦ ĐỀ NỔI BẬT
+                </h4>
+                <p>
+                    <a href="https://ussinavietnam.vn/tag/am-thuc-nhat-ban/" class="text-white">Ẩm thực Nhật Bản</a>,
+                    <a href="https://ussinavietnam.vn/tag/nha-hang-nhat-ban/" class="text-white">Nhà hàng nhật bản</a>,
+                    <a href="https://ussinavietnam.vn/tag/mon-an-nhat-ban/" class="text-white">Món ăn Nhật Bản</a>,
+                    <a href="https://ussinavietnam.vn/tag/mon-ngon-nhat-ban/" class="text-white">món ngon nhật bản</a>,
+                    <a href="https://ussinavietnam.vn/tag/nha-hang-co-view-dep/" class="text-white">nhà hàng có view đẹp</a>,
+                    <a href="https://ussinavietnam.vn/tag/nha-hang-mon-nhat/" class="text-white">Nhà hàng món nhật</a>,
+                    <a href="https://ussinavietnam.vn/tag/nha-hang-sang-trong/" class="text-white">Nhà hàng sang trọng</a>,
+                    <a href="https://ussinavietnam.vn/tag/bo-wagyu/" class="text-white">Bò Wagyu</a>,
+                    <a href="https://ussinavietnam.vn/tag/nha-hang-bo-wagyu/" class="text-white">Nhà hàng bò wagyu</a>,
+                    <a href="https://ussinavietnam.vn/tag/thit-bo-wagyu-cao-cap/" class="text-white">Thịt bò Wagyu cao cấp</a>,...
+                </p>
+                </h4>
+                </div>
+                <div class="mt-3">
+                    <iframe
+                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fussinavietnam%2F&tabs=&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+                        width="340"
+                        height="300"
+                        style="border:none;overflow:hidden;max-width:100%"
+                        scrolling="no"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        title="Facebook Ussina Vietnam"
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="border-top border-secondary">
+
+        <div class="container py-3 text-center">
+            <small a>
+                © 2026
+                NHÀ HÀNG USSINA AGING BEEF &amp; BAR.
+                Managed by Sagi
+            </small>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<button
+    type="button"
+    id="backToTop"
+    class="btn btn-danger position-fixed bottom-0 end-0 m-3 rounded-circle d-none shadow"
+    style="width: 48px; height: 48px; z-index: 1030;"
+    aria-label="Lên đầu trang"
+    title="Lên đầu trang">
+    <span aria-hidden="true">&uarr;</span>
+</button>
+
+<div
+    class="modal fade"
+    id="offerRegistrationModal"
+    tabindex="-1"
+    aria-labelledby="offerRegistrationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title" id="offerRegistrationModalLabel">Đăng ký nhận ưu đãi</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Đóng"></button>
+            </div>
+
+            <form id="offerRegistrationForm" action="http://localhost:8000/leads" method="POST">
+                <input type="hidden" name="_token" value="kN2oElp176SvXMYAEnB0JwqOhpeyuVeh8qpubwXH" autocomplete="off">                <div class="modal-body">
+                    <div
+                        id="offerRegistrationMessage"
+                        class="alert d-none"
+                        role="alert"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="offerName">Họ và tên</label>
+                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="offerEmail">Email</label>
+                        <input class="form-control" id="offerEmail" name="email" type="email" maxlength="255" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="offerPhone">Số điện thoại</label>
+                        <input class="form-control" id="offerPhone" name="phone" type="tel" maxlength="30">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" id="offerRegistrationSubmit">Gửi đăng ký</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('offerRegistrationForm');
+            const message = document.getElementById('offerRegistrationMessage');
+            const submitButton = document.getElementById('offerRegistrationSubmit');
+            const modalElement = document.getElementById('offerRegistrationModal');
+            const backToTopButton = document.getElementById('backToTop');
+
+            const updateBackToTopVisibility = () => {
+                backToTopButton.classList.toggle('d-none', window.scrollY < 250);
+            };
+
+            window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+            updateBackToTopVisibility();
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+
+                message.className = 'alert d-none';
+                submitButton.disabled = true;
+                submitButton.textContent = 'Đang gửi...';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                        },
+                        body: new FormData(form),
+                    });
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        const validationErrors = Object.values(data.errors ?? {}).flat();
+                        throw new Error(validationErrors.join(' ') || 'Không thể gửi đăng ký.');
+                    }
+
+                    message.className = 'alert alert-success';
+                    message.textContent = data.message;
+                    form.reset();
+                    form.classList.remove('was-validated');
+
+                    window.setTimeout(() => {
+                        bootstrap.Modal.getOrCreateInstance(modalElement).hide();
+                        message.className = 'alert d-none';
+                    }, 1800);
+                } catch (error) {
+                    message.className = 'alert alert-danger';
+                    message.textContent = error.message;
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Gửi đăng ký';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
