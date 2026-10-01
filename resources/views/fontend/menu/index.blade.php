@@ -225,7 +225,7 @@
                     <div class="col-12 col-md-6 col-lg-4">
                         <article class="card promotion-card">
                             @if ($promotion->image)
-                                <img src="{{ asset($promotion->image) }}" class="promotion-image" alt="{{ $promotion->title }}" loading="lazy">
+                                <img src="{{ asset('storage/' . $promotion->image) }}" class="promotion-image" alt="{{ $promotion->title }}" loading="lazy">
                             @else
                                 <div class="promotion-image promotion-image-placeholder" aria-hidden="true">Ưu đãi đặc biệt</div>
                             @endif
@@ -289,7 +289,7 @@
                             <div class="col-md-6">
                                 @if ($combo->image)
                                     <div class="combo-row-image-wrap">
-                                        <img src="{{ asset($combo->image) }}" class="combo-row-image" alt="Combo {{ $combo->name }}" loading="lazy">
+                                        <img src="{{ asset('storage/' . $combo->image) }}" class="combo-row-image" alt="Combo {{ $combo->name }}" loading="lazy">
                                     </div>
                                 @else
                                     <div class="combo-row-image-placeholder">{{ $combo->name }}</div>
@@ -465,7 +465,7 @@
                             <div class="col-md-6 col-lg-4">
                                 <article class="card h-100 shadow-sm">
                                     @if ($combo->image)
-                                        <img src="{{ asset($combo->image) }}" class="card-img-top" alt="{{ $combo->name }}">
+                                        <img src="{{ asset('storage/' . $combo->image) }}" class="card-img-top" alt="{{ $combo->name }}">
                                     @endif
                                     <div class="card-body">
                                         <h2 class="h5 card-title">{{ $combo->name }}</h2>

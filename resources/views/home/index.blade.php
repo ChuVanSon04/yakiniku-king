@@ -12,16 +12,34 @@
 			overflow: hidden;
 			color: #fff;
 			background: #171612 url('{{ asset('yakiniku-king/usina.jpg') }}') center / cover;
+			isolation: isolate;
 		}
 
 		.home-hero::after {
 			position: absolute;
 			inset: 0;
+			z-index: 1;
 			content: '';
 			background: linear-gradient(90deg, rgb(15 14 12 / 78%), rgb(15 14 12 / 8%) 78%), linear-gradient(0deg, rgb(15 14 12 / 56%), transparent 66%);
 		}
 
-		.home-hero video {
+		.home-hero .carousel-inner {
+			position: absolute;
+			inset: 0;
+			height: 100%;
+		}
+
+		.home-hero .carousel-item {
+			height: 100%;
+		}
+
+		.home-hero.carousel-fade .carousel-item,
+		.home-hero.carousel-fade .active.carousel-item-start,
+		.home-hero.carousel-fade .active.carousel-item-end {
+			transition: opacity 900ms ease-in-out;
+		}
+
+		.home-hero-media {
 			position: absolute;
 			inset: 0;
 			width: 100%;
@@ -29,11 +47,95 @@
 			object-fit: cover;
 		}
 
+		.home-hero iframe {
+			border: 0;
+		}
+
+		.home-hero-indicators {
+			right: max(calc((100% - 1320px) / 2), 1.5rem);
+			left: auto;
+			z-index: 3;
+			width: auto;
+			gap: .65rem;
+			margin: 0 0 2rem;
+		}
+
+		.home-hero-indicators [data-bs-target] {
+			width: 10px;
+			height: 10px;
+			flex: 0 0 10px;
+			margin: 0;
+			border: 1px solid #fff;
+			border-radius: 50%;
+			background: transparent;
+			text-indent: 0;
+			opacity: .7;
+		}
+
+		.home-hero-indicators .active {
+			background: #fff;
+			opacity: 1;
+		}
+
+		.home-hero-indicators [data-bs-target]:focus-visible {
+			outline: 2px solid #fff;
+			outline-offset: 4px;
+		}
+
+		.home-hero-arrow {
+			top: 50%;
+			bottom: auto;
+			z-index: 3;
+			width: 48px;
+			height: 48px;
+			padding: 0;
+			border: 1px solid rgb(255 255 255 / 55%);
+			border-radius: 50%;
+			background: rgb(22 20 17 / 30%);
+			opacity: .8;
+			transform: translateY(-50%);
+			transition: background-color 180ms ease, opacity 180ms ease;
+		}
+
+		.home-hero .carousel-control-prev.home-hero-arrow {
+			left: clamp(1rem, 4vw, 3.5rem);
+		}
+
+		.home-hero .carousel-control-next.home-hero-arrow {
+			right: clamp(1rem, 4vw, 3.5rem);
+		}
+
+		.home-hero-arrow:hover,
+		.home-hero-arrow:focus-visible {
+			background: rgb(22 20 17 / 65%);
+			opacity: 1;
+		}
+
+		.home-hero-arrow:focus-visible {
+			outline: 2px solid #fff;
+			outline-offset: 3px;
+		}
+
 		.home-hero-content {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			width: 100%;
 			padding-block: clamp(5rem, 12vw, 9rem);
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.home-hero.carousel-fade .carousel-item,
+			.home-hero.carousel-fade .active.carousel-item-start,
+			.home-hero.carousel-fade .active.carousel-item-end {
+				transition-duration: .01ms;
+			}
+		}
+
+		@media (max-width: 575.98px) {
+			.home-hero-arrow {
+				width: 40px;
+				height: 40px;
+			}
 		}
 
 		.home-eyebrow {
@@ -167,10 +269,64 @@
 @endpush
 
 @section('content')
-	<section class="home-hero" aria-label="Yakiniku King">
-		<video autoplay muted loop playsinline poster="{{ asset('yakiniku-king/usina.jpg') }}" aria-hidden="true">
-			<source src="{{ asset('yakiniku-king/1.mp4') }}" type="video/mp4">
-		</video>
+    <section id="homeHeroCarousel" class="home-hero carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="false" aria-label="Banner Yakiniku King">
+		<div class="carousel-inner">
+			@forelse ($banners as $banner)
+				<div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+					@if ($banner->type === 'image' && $banner->image)
+						<img class="home-hero-media" src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title ?: 'Yakiniku King' }}">
+					@elseif ($banner->video_embed_url)
+						<iframe
+							class="home-hero-media"
+							data-video-src="{{ $banner->video_embed_url }}"
+							@if ($loop->first) src="{{ $banner->video_embed_url }}" @endif
+							title="{{ $banner->title ?: 'Video Yakiniku King' }}"
+							allow="autoplay; encrypted-media; picture-in-picture"
+							allowfullscreen
+							loading="lazy"
+						></iframe>
+					@else
+						<video
+							class="home-hero-media"
+							data-video-src="{{ $banner->video_url }}"
+							@if ($loop->first) src="{{ $banner->video_url }}" @endif
+							muted
+							loop
+							playsinline
+							preload="none"
+							aria-label="{{ $banner->title ?: 'Video Yakiniku King' }}"
+						></video>
+					@endif
+				</div>
+			@empty
+				<div class="carousel-item active">
+					<img class="home-hero-media" src="{{ asset('yakiniku-king/usina.jpg') }}" alt="Yakiniku King">
+				</div>
+			@endforelse
+		</div>
+
+		@if ($banners->count() > 1)
+			<div class="carousel-indicators home-hero-indicators" aria-label="Điều hướng banner">
+				@foreach ($banners as $banner)
+					<button
+						type="button"
+						data-bs-target="#homeHeroCarousel"
+						data-bs-slide-to="{{ $loop->index }}"
+						class="{{ $loop->first ? 'active' : '' }}"
+						@if ($loop->first) aria-current="true" @endif
+						aria-label="Hiển thị banner {{ $loop->iteration }}"
+					></button>
+				@endforeach
+			</div>
+
+			<button class="carousel-control-prev home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="prev" aria-label="Banner trước">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</button>
+			<button class="carousel-control-next home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="next" aria-label="Banner tiếp theo">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</button>
+		@endif
+
 		<div class="container home-hero-content">
 			<p class="home-eyebrow mb-0">Japanese barbecue</p>
 			<h1 class="home-display">Yakiniku<br>King</h1>
@@ -189,6 +345,50 @@
 			</div>
 		</div>
 	</section>
+
+	@push('scripts')
+		<script>
+			(() => {
+				const carousel = document.getElementById('homeHeroCarousel');
+
+				if (!carousel) {
+					return;
+				}
+
+				const stopMedia = (slide) => {
+					slide.querySelectorAll('video').forEach((video) => video.pause());
+					slide.querySelectorAll('iframe[data-video-src]').forEach((frame) => frame.removeAttribute('src'));
+				};
+
+				const playMedia = (slide) => {
+					slide.querySelectorAll('video[data-video-src]').forEach((video) => {
+						if (!video.src) {
+							video.src = video.dataset.videoSrc;
+						}
+
+						video.play().catch(() => {});
+					});
+
+					slide.querySelectorAll('iframe[data-video-src]').forEach((frame) => {
+						if (!frame.src) {
+							frame.src = frame.dataset.videoSrc;
+						}
+					});
+				};
+
+				carousel.addEventListener('slide.bs.carousel', () => {
+					const activeSlide = carousel.querySelector('.carousel-item.active');
+
+					if (activeSlide) {
+						stopMedia(activeSlide);
+					}
+				});
+
+				carousel.addEventListener('slid.bs.carousel', (event) => playMedia(event.relatedTarget));
+				playMedia(carousel.querySelector('.carousel-item.active'));
+			})();
+		</script>
+	@endpush
 
 	<section class="home-section home-menu" id="thuc-don">
 		<div class="container">

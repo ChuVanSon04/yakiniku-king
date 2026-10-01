@@ -14,12 +14,13 @@ use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TipController;
 use App\Http\Controllers\BookingController as FrontendBookingController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController as FrontendLeadController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SecretController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home.index')->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::get('/book-now', [FrontendBookingController::class, 'create'])
     ->name('booking.create');

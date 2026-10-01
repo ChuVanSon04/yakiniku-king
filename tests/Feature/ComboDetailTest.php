@@ -22,6 +22,7 @@ test('combo list shows a popup with included dishes and their prices', function 
     $combo = Combo::create([
         'name' => 'Combo gia đình',
         'slug' => 'combo-gia-dinh',
+        'image' => 'menu/combos/family.jpg',
         'price' => 199000,
     ]);
     $combo->menuItems()->attach($menuItem, ['quantity' => 2]);
@@ -30,6 +31,7 @@ test('combo list shows a popup with included dishes and their prices', function 
         ->assertOk()
         ->assertSee('data-bs-toggle="modal"', false)
         ->assertSee('id="combo-detail-'.$combo->id.'"', false)
+        ->assertSee('/storage/menu/combos/family.jpg', false)
         ->assertSee('Combo gia đình')
         ->assertSee('Ba chỉ bò Mỹ')
         ->assertSee('Thịt bò nướng mềm')
