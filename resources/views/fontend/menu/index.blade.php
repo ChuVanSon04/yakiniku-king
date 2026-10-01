@@ -456,6 +456,10 @@
         @else
             @if (request()->routeIs('menu.index'))
                 @forelse ($menuCategories as $menuCategory)
+                    @php
+                        $menuCategoryItems = $menuItemsByCategory->get($menuCategory->id, collect());
+                    @endphp
+
                     <div class="menu-category-group">
                         <h2 class="h3 mb-3">{{ localized_text($menuCategory, 'name') }}</h2>
 
@@ -477,7 +481,7 @@
 
                             <div class="col-12 col-md-8 menu-category-dishes">
                                 <div class="row g-4">
-                                    @forelse ($menuItemsByCategory->get($menuCategory->id, collect()) as $menuItem)
+                                    @forelse ($menuCategoryItems->take(4) as $menuItem)
                                         <div class="col-12 col-sm-6">
                                             <article class="card h-100 shadow-sm">
                                                 @if ($menuItem->image)
@@ -506,6 +510,33 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if ($menuCategoryItems->count() > 4)
+                            <div class="row g-4 mt-1">
+                                @foreach ($menuCategoryItems->skip(4) as $menuItem)
+                                    <div class="col-12 col-sm-6 col-md-4">
+                                        <article class="card h-100 shadow-sm">
+                                            @if ($menuItem->image)
+                                                <img
+                                                    src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}"
+                                                    class="card-img-top"
+                                                    alt="{{ localized_text($menuItem, 'name') }}"
+                                                    loading="lazy"
+                                                >
+                                            @endif
+
+                                            <div class="card-body">
+                                                <h3 class="h5 card-title">{{ localized_text($menuItem, 'name') }}</h3>
+                                                @if (localized_text($menuItem, 'description'))
+                                                    <p class="card-text text-muted">{{ localized_text($menuItem, 'description') }}</p>
+                                                @endif
+                                                <p class="fw-bold mb-0">{{ localized_price($menuItem->price) }}</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @empty
                     <p class="text-muted">{{ __('Hiện chưa có danh mục thực đơn nào.') }}</p>
