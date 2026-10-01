@@ -16,7 +16,6 @@ class MenuItem extends Model
         'image',
         'price',
         'is_must_try',
-        'is_for_kids',
         'sort_order',
         'status',
     ];
@@ -24,7 +23,6 @@ class MenuItem extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'is_must_try' => 'boolean',
-        'is_for_kids' => 'boolean',
         'status' => 'boolean',
     ];
 
@@ -38,9 +36,9 @@ class MenuItem extends Model
 
     public function combos(): BelongsToMany
     {
-    return $this->belongsToMany(
-        Combo::class,
-        'combo_items'
-    )->withPivot('quantity');
+        return $this->belongsToMany(
+            Combo::class,
+            'combo_items'
+        )->withPivot('quantity');
     }
 }

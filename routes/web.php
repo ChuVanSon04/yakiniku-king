@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\ComboController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KidsItemController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
@@ -122,6 +123,9 @@ Route::prefix('admin')
                 Route::match(['post', 'put', 'patch'], 'settings', [SettingController::class, 'update'])
                     ->name('settings.update');
             });
+
+            Route::resource('kids-items', KidsItemController::class)
+                ->except(['show']);
 
             Route::post('/logout', [AuthController::class, 'logout'])
                 ->name('logout');

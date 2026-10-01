@@ -213,6 +213,8 @@
                     Khám phá những ưu đãi đang diễn ra tại Yakiniku King.
                 @elseif (request()->routeIs('menu.combos'))
                     Những lựa chọn dành cho bữa ăn cùng gia đình và các thực khách nhí.
+                @elseif (request()->routeIs('menu.for-kids'))
+                    Đồ ăn, dụng cụ và đồ dùng dành riêng cho các bé.
                 @else
                     Khám phá các món ngon tại Yakiniku King.
                 @endif
@@ -384,6 +386,72 @@
                         </div>
                     </div>
                 </section>
+            </div>
+        @elseif (request()->routeIs('menu.for-kids'))
+            <form action="{{ route('menu.for-kids') }}" method="GET" class="row g-3 align-items-end mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="kids-type" class="form-label">Phân loại</label>
+                    <select id="kids-type" name="type" class="form-select">
+                        <option value="">Tất cả</option>
+                        @foreach ($kidsItemTypeLabels as $value => $label)
+                            <option value="{{ $value }}" @selected($selectedType === $value)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="kids-food-category" class="form-label">Nhóm món ăn</label>
+                    <select id="kids-food-category" name="food_category" class="form-select">
+                        <option value="">Tất cả nhóm</option>
+                        @foreach ($foodCategoryLabels as $value => $label)
+                            <option value="{{ $value }}" @selected($selectedFoodCategory === $value)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="kids-sort" class="form-label">Sắp xếp</label>
+                    <select id="kids-sort" name="sort" class="form-select">
+                        @foreach ($kidsItemSortLabels as $value => $label)
+                            <option value="{{ $value }}" @selected($selectedSort === $value)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 d-flex gap-2">
+                    <button class="btn btn-dark flex-grow-1" type="submit">Lọc</button>
+                    @if ($selectedType || $selectedFoodCategory || $selectedSort !== 'featured')
+                        <a class="btn btn-outline-secondary" href="{{ route('menu.for-kids') }}">Xóa</a>
+                    @endif
+                </div>
+            </form>
+
+            <div class="row g-4">
+                @forelse ($kidsItems as $kidsItem)
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <article class="card h-100 shadow-sm">
+                            @if ($kidsItem->image)
+                                <img src="{{ asset('storage/' . $kidsItem->image) }}" class="card-img-top" alt="{{ $kidsItem->name }}" loading="lazy">
+                            @endif
+                            <div class="card-body">
+                                <p class="small text-muted mb-2">
+                                    {{ $kidsItemTypeLabels[$kidsItem->type] ?? $kidsItem->type }}
+                                    @if ($kidsItem->food_category)
+                                        · {{ $foodCategoryLabels[$kidsItem->food_category] ?? $kidsItem->food_category }}
+                                    @endif
+                                </p>
+                                <h2 class="h5 card-title">{{ $kidsItem->name }}</h2>
+                                @if ($kidsItem->description)
+                                    <p class="card-text text-muted">{{ $kidsItem->description }}</p>
+                                @endif
+                                @if ($kidsItem->price !== null)
+                                    <p class="fw-bold mb-0">{{ number_format($kidsItem->price, 0, ',', '.') }} đ</p>
+                                @endif
+                            </div>
+                        </article>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-muted">Hiện chưa có nội dung dành cho trẻ em.</p>
+                    </div>
+                @endforelse
             </div>
         @else
             @if (request()->routeIs('menu.index'))

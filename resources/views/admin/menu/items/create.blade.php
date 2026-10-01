@@ -187,23 +187,6 @@
         </div>
 
 
-        <div style="margin-bottom:15px;">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    name="is_for_kids"
-                    value="1"
-                >
-
-                For Kids
-
-            </label>
-
-        </div>
-
-
         <div style="margin-bottom:20px;">
 
             <label>

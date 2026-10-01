@@ -3,13 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Combo;
+use App\Models\KidsItem;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Models\Promotion;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MenuController extends Controller
 {
+    private const KIDS_ITEM_TYPE_LABELS = [
+        'food' => 'Đồ ăn',
+        'utensil' => 'Dụng cụ',
+        'supply' => 'Đồ dùng',
+    ];
+
+    private const FOOD_CATEGORY_LABELS = [
+        'meat' => 'Thịt',
+        'side_dish' => 'Món ăn kèm',
+        'vegetable' => 'Rau củ',
+        'soup' => 'Súp',
+        'rice_noodles' => 'Cơm và mì',
+        'dessert' => 'Tráng miệng',
+    ];
+
+    private const KIDS_ITEM_SORT_LABELS = [
+        'featured' => 'Thứ tự mặc định',
+        'name_asc' => 'Tên: A-Z',
+        'name_desc' => 'Tên: Z-A',
+        'price_asc' => 'Giá: thấp đến cao',
+        'price_desc' => 'Giá: cao đến thấp',
+    ];
+
     public function index(?MenuCategory $category = null): View
     {
         return $this->menuView('Our Menu', $category, function ($query) use ($category) {
@@ -26,11 +51,56 @@ class MenuController extends Controller
         });
     }
 
-    public function forKids(): View
+    public function forKids(Request $request): View
     {
-        return $this->menuView('For Kids', null, function ($query) {
-            $query->where('is_for_kids', true);
-        });
+        $requestedType = $request->query('type');
+        $selectedType = is_string($requestedType) && array_key_exists($requestedType, self::KIDS_ITEM_TYPE_LABELS)
+            ? $requestedType
+            : '';
+
+        $requestedFoodCategory = $request->query('food_category');
+        $selectedFoodCategory = is_string($requestedFoodCategory) && array_key_exists($requestedFoodCategory, self::FOOD_CATEGORY_LABELS)
+            ? $requestedFoodCategory
+            : '';
+
+        $requestedSort = $request->query('sort');
+        $selectedSort = is_string($requestedSort) && array_key_exists($requestedSort, self::KIDS_ITEM_SORT_LABELS)
+            ? $requestedSort
+            : 'featured';
+
+        $kidsItemsQuery = KidsItem::query()
+            ->where('status', true)
+            ->when($selectedType !== '', fn ($query) => $query->where('type', $selectedType))
+            ->when($selectedFoodCategory !== '', fn ($query) => $query->where('food_category', $selectedFoodCategory));
+
+        match ($selectedSort) {
+            'name_asc' => $kidsItemsQuery->orderBy('name'),
+            'name_desc' => $kidsItemsQuery->orderByDesc('name'),
+            'price_asc' => $kidsItemsQuery->orderBy('price')->orderBy('name'),
+            'price_desc' => $kidsItemsQuery->orderByDesc('price')->orderBy('name'),
+            default => $kidsItemsQuery
+                ->orderBy('type')
+                ->orderBy('food_category')
+                ->orderBy('sort_order')
+                ->orderBy('name'),
+        };
+
+        $kidsItems = $kidsItemsQuery->get();
+
+        return view('fontend.menu.index', [
+            'pageTitle' => 'For Kids',
+            'menuCategories' => $this->activeCategories(),
+            'menuItems' => collect(),
+            'kidsItems' => $kidsItems,
+            'kidsItemTypeLabels' => self::KIDS_ITEM_TYPE_LABELS,
+            'foodCategoryLabels' => self::FOOD_CATEGORY_LABELS,
+            'kidsItemSortLabels' => self::KIDS_ITEM_SORT_LABELS,
+            'selectedType' => $selectedType,
+            'selectedFoodCategory' => $selectedFoodCategory,
+            'selectedSort' => $selectedSort,
+            'combos' => collect(),
+            'promotions' => collect(),
+        ]);
     }
 
     public function combos(): View

@@ -44,7 +44,6 @@ class MenuItemController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_must_try' => ['nullable', 'boolean'],
-            'is_for_kids' => ['nullable', 'boolean'],
             'status' => ['nullable', 'boolean'],
         ]);
 
@@ -56,7 +55,6 @@ class MenuItemController extends Controller
 
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['is_must_try'] = $request->boolean('is_must_try');
-        $validated['is_for_kids'] = $request->boolean('is_for_kids');
         $validated['status'] = $request->boolean('status');
 
         MenuItem::create($validated);
@@ -94,7 +92,6 @@ class MenuItemController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_must_try' => ['nullable', 'boolean'],
-            'is_for_kids' => ['nullable', 'boolean'],
             'status' => ['nullable', 'boolean'],
         ]);
 
@@ -116,7 +113,6 @@ class MenuItemController extends Controller
 
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['is_must_try'] = $request->boolean('is_must_try');
-        $validated['is_for_kids'] = $request->boolean('is_for_kids');
         $validated['status'] = $request->boolean('status');
 
         $item->update($validated);

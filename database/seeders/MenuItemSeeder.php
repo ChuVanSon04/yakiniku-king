@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
+use Illuminate\Database\Seeder;
 
 class MenuItemSeeder extends Seeder
 {
@@ -22,7 +22,6 @@ class MenuItemSeeder extends Seeder
             'description' => 'Thịt bò Wagyu',
             'price' => 299000,
             'is_must_try' => true,
-            'is_for_kids' => false,
             'sort_order' => 1,
             'status' => true,
         ]);
@@ -34,7 +33,6 @@ class MenuItemSeeder extends Seeder
             'description' => 'Thịt bò Karubi',
             'price' => 199000,
             'is_must_try' => true,
-            'is_for_kids' => false,
             'sort_order' => 2,
             'status' => true,
         ]);

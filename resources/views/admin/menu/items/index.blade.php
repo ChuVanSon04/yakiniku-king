@@ -60,7 +60,6 @@
                     <th>Danh mục</th>
                     <th>Giá</th>
                     <th>Must Try</th>
-                    <th>For Kids</th>
                     <th>Trạng thái</th>
                     <th>Thao tác</th>
                 </tr>
@@ -91,10 +90,6 @@
 
                         <td>
                             {{ $item->is_must_try ? 'Có' : 'Không' }}
-                        </td>
-
-                        <td>
-                            {{ $item->is_for_kids ? 'Có' : 'Không' }}
                         </td>
 
                         <td>
@@ -152,7 +147,7 @@
                     <tr>
 
                         <td
-                            colspan="8"
+                            colspan="7"
                             style="text-align:center;"
                         >
                             Chưa có món ăn nào.
