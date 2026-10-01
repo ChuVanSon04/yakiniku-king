@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\MenuItem;
 use App\Models\Restaurant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,15 @@ use Illuminate\View\View;
 
 class BookingController extends Controller
 {
+    private const TABLE_CAPACITIES = [
+        'B1' => 4,
+        'B2' => 4,
+        'B3' => 6,
+        'B4' => 2,
+        'B5' => 2,
+        'B6' => 4,
+    ];
+
     public function create(): View
     {
         $restaurants = Restaurant::query()
@@ -19,30 +29,88 @@ class BookingController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
+        $mustTryMenuItems = MenuItem::query()
+            ->where('status', true)
+            ->where('is_must_try', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get(['id', 'name', 'description', 'image', 'price']);
+
         $booking = Booking::query()
             ->with('restaurant')
             ->find(session('booking_id'));
 
-        return view('fontend.bookings.create', compact('booking', 'restaurants'));
+        $tableCapacities = self::TABLE_CAPACITIES;
+        $maximumFloorCapacity = array_sum(self::TABLE_CAPACITIES);
+
+        return view('fontend.bookings.create', compact('booking', 'maximumFloorCapacity', 'mustTryMenuItems', 'restaurants', 'tableCapacities'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'restaurant_id' => ['required', 'integer', Rule::exists('restaurants', 'id')->where('status', true)],
+            'floor' => ['required', 'integer', Rule::in([1, 2])],
             'customer_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
             'email' => ['nullable', 'email', 'max:255'],
             'booking_date' => ['required', 'date', 'after_or_equal:today'],
             'booking_time' => ['required', 'date_format:H:i'],
             'number_of_guests' => ['required', 'integer', 'between:1,100'],
+            'table_codes' => ['nullable', 'array'],
+            'table_codes.*' => ['string', 'distinct', Rule::in(array_keys(self::TABLE_CAPACITIES))],
             'note' => ['nullable', 'string', 'max:2000'],
+            'pre_order_items' => ['nullable', 'array'],
+            'pre_order_items.*' => [
+                'integer',
+                'distinct',
+                Rule::exists('menu_items', 'id')
+                    ->where('status', true)
+                    ->where('is_must_try', true),
+            ],
         ]);
+
+        $tableCodes = $validated['table_codes'] ?? [];
+        $tableCapacity = array_sum(array_map(
+            fn (string $tableCode): int => self::TABLE_CAPACITIES[$tableCode],
+            $tableCodes,
+        ));
+        $partySize = $validated['number_of_guests'];
+        $maximumFloorCapacity = array_sum(self::TABLE_CAPACITIES);
+
+        if ($partySize <= $maximumFloorCapacity && $tableCodes === []) {
+            return back()
+                ->withErrors(['table_codes' => 'Vui lòng chọn bàn phù hợp với số lượng người.'])
+                ->withInput();
+        }
+
+        if ($tableCodes !== [] && $tableCapacity < $partySize) {
+            return back()
+                ->withErrors(['table_codes' => 'Tổng sức chứa bàn đã chọn chưa đủ số lượng người.'])
+                ->withInput();
+        }
+
+        $preOrderItems = MenuItem::query()
+            ->whereIn('id', $validated['pre_order_items'] ?? [])
+            ->where('status', true)
+            ->where('is_must_try', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get(['id', 'name'])
+            ->map(fn (MenuItem $menuItem): array => [
+                'id' => $menuItem->id,
+                'name' => $menuItem->name,
+            ])
+            ->all();
+
+        unset($validated['pre_order_items'], $validated['table_codes']);
 
         $bookingCode = $this->generateBookingCode();
 
         $booking = Booking::create([
             ...$validated,
+            'table_codes' => $tableCodes ?: null,
+            'pre_order_items' => $preOrderItems ?: null,
             'booking_code' => $bookingCode,
             'qr_code' => $bookingCode,
             'status' => 'pending',

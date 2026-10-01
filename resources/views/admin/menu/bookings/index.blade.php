@@ -35,11 +35,14 @@
         <tr>
             <th>Mã booking</th>
             <th>Nhà hàng</th>
+            <th>Tầng</th>
+            <th>Bàn</th>
             <th>Khách hàng</th>
             <th>SĐT</th>
             <th>Ngày</th>
             <th>Giờ</th>
             <th>Số người</th>
+            <th>Món gọi trước</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>
@@ -60,6 +63,14 @@
 
                 <td>
                     {{ $booking->restaurant->name ?? '-' }}
+                </td>
+
+                <td>
+                    {{ $booking->floor ? 'Tầng '.$booking->floor : '-' }}
+                </td>
+
+                <td>
+                    {{ $booking->table_codes ? implode(', ', $booking->table_codes) : 'Nhà hàng bố trí' }}
                 </td>
 
 
@@ -85,6 +96,10 @@
 
                 <td>
                     {{ $booking->number_of_guests }}
+                </td>
+
+                <td>
+                    {{ collect($booking->pre_order_items ?? [])->pluck('name')->join(', ') ?: '-' }}
                 </td>
 
 
@@ -144,7 +159,7 @@
 
             <tr>
 
-                <td colspan="9">
+                <td colspan="12">
                     Chưa có booking nào.
                 </td>
 
