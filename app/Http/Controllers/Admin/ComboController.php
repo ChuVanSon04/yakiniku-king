@@ -73,6 +73,7 @@ class ComboController extends Controller
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
+            'remove_image' => ['nullable', 'boolean'],
 
             'price' => [
                 'required',
@@ -292,6 +293,8 @@ class ComboController extends Controller
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('menu/combos', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            $imagePath = null;
         }
 
         $combo->update([
@@ -318,7 +321,7 @@ class ComboController extends Controller
 
         $combo->menuItems()->sync($items);
 
-        if ($request->hasFile('image') && $oldImagePath) {
+        if (($request->hasFile('image') || $request->boolean('remove_image')) && $oldImagePath) {
             Storage::disk('public')->delete($oldImagePath);
         }
 

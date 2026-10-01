@@ -34,13 +34,14 @@
     <textarea name="content" rows="15" style="width:100%; padding:10px;">{{ old('content', $tip->content ?? '') }}</textarea>
 </div>
 
-<div style="margin-bottom:15px;">
+<div data-image-field style="margin-bottom:15px;">
     <label>Hình ảnh</label>
     <br>
     <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
 
     @if(isset($tip) && $tip->image)
-        <div style="margin-top:10px;">
+        <input type="hidden" name="remove_image" value="0" data-image-remove-value>
+        <div data-current-image-preview style="margin-top:10px;">
             <p>Ảnh hiện tại:</p>
             <img
                 src="{{ asset('storage/' . $tip->image) }}"
@@ -48,6 +49,7 @@
                 style="width:300px; max-height:200px; object-fit:cover;"
             >
         </div>
+        <button class="admin-image-remove-button" type="button" data-image-remove-toggle aria-pressed="false">Xóa ảnh hiện tại</button>
     @endif
 </div>
 

@@ -55,11 +55,15 @@
             <textarea id="description" name="description" rows="5" style="display:block; width:100%; padding:10px;">{{ old('description', $kidsItem->description) }}</textarea>
         </div>
 
-        <div style="margin-bottom:20px;">
+        <div data-image-field style="margin-bottom:20px;">
             <label for="image">Hình ảnh</label>
             <input id="image" type="file" name="image" accept=".jpg,.jpeg,.png,.webp" style="display:block; width:100%; padding:10px;">
             @if ($kidsItem->image)
-                <img src="{{ asset('storage/' . $kidsItem->image) }}" alt="{{ $kidsItem->name }}" style="display:block; max-width:240px; margin-top:12px;">
+                <input type="hidden" name="remove_image" value="0" data-image-remove-value>
+                <div data-current-image-preview>
+                    <img src="{{ asset('storage/' . $kidsItem->image) }}" alt="{{ $kidsItem->name }}" style="display:block; max-width:240px; margin-top:12px;">
+                </div>
+                <button class="admin-image-remove-button" type="button" data-image-remove-toggle aria-pressed="false">Xóa ảnh hiện tại</button>
             @endif
         </div>
 

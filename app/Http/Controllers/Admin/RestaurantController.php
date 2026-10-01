@@ -87,6 +87,7 @@ class RestaurantController extends Controller
             'closing_time' => 'nullable|date_format:H:i',
 
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'remove_image' => 'nullable|boolean',
 
             'status' => 'nullable|boolean',
         ]);
@@ -100,8 +101,15 @@ class RestaurantController extends Controller
             $validated['image'] = $request
                 ->file('image')
                 ->store('restaurants', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($restaurant->image) {
+                Storage::disk('public')->delete($restaurant->image);
+            }
+
+            $validated['image'] = null;
         }
 
+        unset($validated['remove_image']);
         $validated['status'] = $request->boolean('status');
 
         $restaurant->update($validated);

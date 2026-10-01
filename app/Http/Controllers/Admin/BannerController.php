@@ -30,37 +30,37 @@ class BannerController extends Controller
 
             'type' => [
                 'required',
-                'in:image,video'
+                'in:image,video',
             ],
 
             'image' => [
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120'
+                'max:5120',
             ],
 
             'video_url' => [
                 'nullable',
                 'url',
-                'max:255'
+                'max:255',
             ],
 
             'link' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'sort_order' => [
                 'nullable',
                 'integer',
-                'min:0'
+                'min:0',
             ],
 
             'status' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
         ]);
 
@@ -111,37 +111,38 @@ class BannerController extends Controller
 
             'type' => [
                 'required',
-                'in:image,video'
+                'in:image,video',
             ],
 
             'image' => [
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:5120'
+                'max:5120',
             ],
+            'remove_image' => ['nullable', 'boolean'],
 
             'video_url' => [
                 'nullable',
                 'url',
-                'max:255'
+                'max:255',
             ],
 
             'link' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'sort_order' => [
                 'nullable',
                 'integer',
-                'min:0'
+                'min:0',
             ],
 
             'status' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
         ]);
 
@@ -162,6 +163,12 @@ class BannerController extends Controller
             $imagePath = $request
                 ->file('image')
                 ->store('banners', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($banner->image) {
+                Storage::disk('public')->delete($banner->image);
+            }
+
+            $imagePath = null;
         }
 
         $banner->update([

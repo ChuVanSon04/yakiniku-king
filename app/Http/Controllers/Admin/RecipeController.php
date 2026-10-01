@@ -100,18 +100,15 @@ class RecipeController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'content' =>
-                $validated['content'] ?? null,
+            'content' => $validated['content'] ?? null,
 
             'image' => $imagePath,
 
             'status' => $request->boolean('status'),
 
-            'published_at' =>
-                $validated['published_at'] ?? null,
+            'published_at' => $validated['published_at'] ?? null,
         ]);
 
         return redirect()
@@ -145,7 +142,7 @@ class RecipeController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                'unique:recipes,slug,' . $recipe->id,
+                'unique:recipes,slug,'.$recipe->id,
             ],
 
             'short_description' => [
@@ -164,6 +161,7 @@ class RecipeController extends Controller
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
+            'remove_image' => ['nullable', 'boolean'],
 
             'published_at' => [
                 'nullable',
@@ -200,6 +198,12 @@ class RecipeController extends Controller
             $imagePath = $request
                 ->file('image')
                 ->store('recipes', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($recipe->image) {
+                Storage::disk('public')->delete($recipe->image);
+            }
+
+            $imagePath = null;
         }
 
         $recipe->update([
@@ -207,18 +211,15 @@ class RecipeController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'content' =>
-                $validated['content'] ?? null,
+            'content' => $validated['content'] ?? null,
 
             'image' => $imagePath,
 
             'status' => $request->boolean('status'),
 
-            'published_at' =>
-                $validated['published_at'] ?? null,
+            'published_at' => $validated['published_at'] ?? null,
         ]);
 
         return redirect()

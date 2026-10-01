@@ -100,18 +100,15 @@ class TipController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'content' =>
-                $validated['content'] ?? null,
+            'content' => $validated['content'] ?? null,
 
             'image' => $imagePath,
 
             'status' => $request->boolean('status'),
 
-            'published_at' =>
-                $validated['published_at'] ?? null,
+            'published_at' => $validated['published_at'] ?? null,
         ]);
 
         return redirect()
@@ -145,7 +142,7 @@ class TipController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                'unique:tips,slug,' . $tip->id,
+                'unique:tips,slug,'.$tip->id,
             ],
 
             'short_description' => [
@@ -164,6 +161,7 @@ class TipController extends Controller
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
+            'remove_image' => ['nullable', 'boolean'],
 
             'published_at' => [
                 'nullable',
@@ -200,6 +198,12 @@ class TipController extends Controller
             $imagePath = $request
                 ->file('image')
                 ->store('tips', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($tip->image) {
+                Storage::disk('public')->delete($tip->image);
+            }
+
+            $imagePath = null;
         }
 
         $tip->update([
@@ -207,18 +211,15 @@ class TipController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'content' =>
-                $validated['content'] ?? null,
+            'content' => $validated['content'] ?? null,
 
             'image' => $imagePath,
 
             'status' => $request->boolean('status'),
 
-            'published_at' =>
-                $validated['published_at'] ?? null,
+            'published_at' => $validated['published_at'] ?? null,
         ]);
 
         return redirect()

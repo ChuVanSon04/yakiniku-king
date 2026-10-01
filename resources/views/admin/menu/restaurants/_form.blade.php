@@ -104,7 +104,7 @@
 </div>
 
 
-<div style="margin-bottom: 15px;">
+<div data-image-field style="margin-bottom: 15px;">
     <label>Ảnh nhà hàng</label>
 
     <input
@@ -115,13 +115,16 @@
 
     @if(isset($restaurant) && $restaurant->image)
 
-        <div style="margin-top: 10px;">
+        <input type="hidden" name="remove_image" value="0" data-image-remove-value>
+        <div data-current-image-preview style="margin-top: 10px;">
             <img
                 src="{{ asset('storage/' . $restaurant->image) }}"
                 alt="{{ $restaurant->name }}"
                 width="150"
             >
         </div>
+
+        <button class="admin-image-remove-button" type="button" data-image-remove-toggle aria-pressed="false">Xóa ảnh hiện tại</button>
 
     @endif
 </div>

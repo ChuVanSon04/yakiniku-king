@@ -273,6 +273,22 @@
             color: var(--admin-accent-dark);
         }
 
+        .admin-image-remove-button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: 1px solid var(--admin-accent);
+            border-radius: 4px;
+            background: var(--admin-paper);
+            color: var(--admin-accent-dark);
+            cursor: pointer;
+        }
+
+        .admin-image-remove-button:hover,
+        .admin-image-remove-button[aria-pressed="true"] {
+            background: var(--admin-accent);
+            color: #fff;
+        }
+
         .admin-content {
             width: 100%;
             max-width: 1720px;
@@ -692,6 +708,30 @@
 
         document.querySelectorAll('.admin-nav-link').forEach((adminNavLink) => {
             adminNavLink.addEventListener('click', closeAdminMenu);
+        });
+
+        document.querySelectorAll('[data-image-remove-toggle]').forEach((button) => {
+            const imageField = button.closest('[data-image-field]');
+            const removeImageInput = imageField.querySelector('[data-image-remove-value]');
+            const imagePreview = imageField.querySelector('[data-current-image-preview]');
+            const imageInput = imageField.querySelector('input[type="file"][name="image"]');
+
+            const setImageRemoval = (shouldRemove) => {
+                removeImageInput.value = shouldRemove ? '1' : '0';
+                imagePreview.hidden = shouldRemove;
+                button.setAttribute('aria-pressed', String(shouldRemove));
+                button.textContent = shouldRemove ? 'Giữ ảnh hiện tại' : 'Xóa ảnh hiện tại';
+            };
+
+            button.addEventListener('click', () => {
+                setImageRemoval(removeImageInput.value !== '1');
+            });
+
+            imageInput.addEventListener('change', () => {
+                if (imageInput.files.length > 0) {
+                    setImageRemoval(false);
+                }
+            });
         });
 
         document.addEventListener('keydown', (event) => {

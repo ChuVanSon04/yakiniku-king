@@ -59,6 +59,7 @@ class KidsItemController extends Controller
             'food_category' => ['nullable', 'in:meat,side_dish,vegetable,soup,rice_noodles,dessert'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'remove_image' => ['nullable', 'boolean'],
             'price' => ['nullable', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['nullable', 'boolean'],
@@ -112,10 +113,17 @@ class KidsItemController extends Controller
             }
 
             $validated['image'] = $imagePath;
+        } elseif ($request->boolean('remove_image')) {
+            if ($kidsItem->image) {
+                Storage::disk('public')->delete($kidsItem->image);
+            }
+
+            $validated['image'] = null;
         } else {
             unset($validated['image']);
         }
 
+        unset($validated['remove_image']);
         $validated['food_category'] = $validated['type'] === 'food'
             ? ($validated['food_category'] ?? null)
             : null;

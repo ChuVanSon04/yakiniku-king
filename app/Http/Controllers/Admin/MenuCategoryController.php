@@ -40,6 +40,7 @@ class MenuCategoryController extends Controller
             'slug' => ['nullable', 'string', 'max:255', 'unique:menu_categories,slug'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'remove_image' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['nullable', 'boolean'],
         ]);
@@ -102,10 +103,17 @@ class MenuCategoryController extends Controller
             }
 
             $validated['image'] = $imagePath;
+        } elseif ($request->boolean('remove_image')) {
+            if ($category->image) {
+                Storage::disk('public')->delete($category->image);
+            }
+
+            $validated['image'] = null;
         } else {
             unset($validated['image']);
         }
 
+        unset($validated['remove_image']);
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['status'] = $request->boolean('status');
 

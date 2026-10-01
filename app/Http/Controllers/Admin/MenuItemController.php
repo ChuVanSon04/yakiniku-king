@@ -41,6 +41,7 @@ class MenuItemController extends Controller
             'slug' => ['nullable', 'string', 'max:255', 'unique:menu_items,slug'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'remove_image' => ['nullable', 'boolean'],
             'price' => ['required', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_must_try' => ['nullable', 'boolean'],
@@ -107,10 +108,17 @@ class MenuItemController extends Controller
             }
 
             $validated['image'] = $imagePath;
+        } elseif ($request->boolean('remove_image')) {
+            if ($item->image) {
+                Storage::disk('public')->delete($item->image);
+            }
+
+            $validated['image'] = null;
         } else {
             unset($validated['image']);
         }
 
+        unset($validated['remove_image']);
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
         $validated['is_must_try'] = $request->boolean('is_must_try');
         $validated['status'] = $request->boolean('status');

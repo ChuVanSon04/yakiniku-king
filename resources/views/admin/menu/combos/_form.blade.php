@@ -52,7 +52,7 @@
 </div>
 
 
-<div style="margin-bottom:20px;">
+<div data-image-field style="margin-bottom:20px;">
 
     <label>
         Hình ảnh
@@ -68,9 +68,13 @@
     >
 
     @if(isset($combo) && $combo->image)
-        <p>Ảnh hiện tại:</p>
-        <img src="{{ asset('storage/' . $combo->image) }}" alt="{{ $combo->name }}" style="max-width:240px;">
-        <p>Để trống nếu muốn giữ ảnh hiện tại.</p>
+        <input type="hidden" name="remove_image" value="0" data-image-remove-value>
+        <div data-current-image-preview>
+            <p>Ảnh hiện tại:</p>
+            <img src="{{ asset('storage/' . $combo->image) }}" alt="{{ $combo->name }}" style="max-width:240px;">
+            <p>Để trống nếu muốn giữ ảnh hiện tại.</p>
+        </div>
+        <button class="admin-image-remove-button" type="button" data-image-remove-toggle aria-pressed="false">Xóa ảnh hiện tại</button>
     @endif
 
 </div>

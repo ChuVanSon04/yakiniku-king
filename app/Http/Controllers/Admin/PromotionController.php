@@ -106,19 +106,15 @@ class PromotionController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'description' =>
-                $validated['description'] ?? null,
+            'description' => $validated['description'] ?? null,
 
             'image' => $imagePath,
 
-            'start_date' =>
-                $validated['start_date'] ?? null,
+            'start_date' => $validated['start_date'] ?? null,
 
-            'end_date' =>
-                $validated['end_date'] ?? null,
+            'end_date' => $validated['end_date'] ?? null,
 
             'status' => $request->boolean('status'),
         ]);
@@ -154,7 +150,7 @@ class PromotionController extends Controller
                 'nullable',
                 'string',
                 'max:255',
-                'unique:promotions,slug,' . $promotion->id,
+                'unique:promotions,slug,'.$promotion->id,
             ],
 
             'short_description' => [
@@ -173,6 +169,7 @@ class PromotionController extends Controller
                 'mimes:jpg,jpeg,png,webp',
                 'max:5120',
             ],
+            'remove_image' => ['nullable', 'boolean'],
 
             'start_date' => [
                 'nullable',
@@ -215,6 +212,12 @@ class PromotionController extends Controller
             $imagePath = $request
                 ->file('image')
                 ->store('promotions', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($promotion->image) {
+                Storage::disk('public')->delete($promotion->image);
+            }
+
+            $imagePath = null;
         }
 
         $promotion->update([
@@ -222,19 +225,15 @@ class PromotionController extends Controller
 
             'slug' => $validated['slug'],
 
-            'short_description' =>
-                $validated['short_description'] ?? null,
+            'short_description' => $validated['short_description'] ?? null,
 
-            'description' =>
-                $validated['description'] ?? null,
+            'description' => $validated['description'] ?? null,
 
             'image' => $imagePath,
 
-            'start_date' =>
-                $validated['start_date'] ?? null,
+            'start_date' => $validated['start_date'] ?? null,
 
-            'end_date' =>
-                $validated['end_date'] ?? null,
+            'end_date' => $validated['end_date'] ?? null,
 
             'status' => $request->boolean('status'),
         ]);

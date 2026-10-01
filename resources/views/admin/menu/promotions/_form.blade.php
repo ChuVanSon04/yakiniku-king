@@ -81,7 +81,7 @@
 </div>
 
 
-<div style="margin-bottom:15px;">
+<div data-image-field style="margin-bottom:15px;">
 
     <label>
         Hình ảnh
@@ -98,7 +98,8 @@
 
     @if(isset($promotion) && $promotion->image)
 
-        <div style="margin-top:10px;">
+        <input type="hidden" name="remove_image" value="0" data-image-remove-value>
+        <div data-current-image-preview style="margin-top:10px;">
 
             <p>Ảnh hiện tại:</p>
 
@@ -113,6 +114,8 @@
             >
 
         </div>
+
+        <button class="admin-image-remove-button" type="button" data-image-remove-toggle aria-pressed="false">Xóa ảnh hiện tại</button>
 
     @endif
 
