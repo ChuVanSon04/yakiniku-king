@@ -132,6 +132,35 @@
             color: #6c6258;
         }
 
+        .combo-modal-items {
+            border-top: 1px solid #ded9d2;
+        }
+
+        .combo-modal-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ded9d2;
+        }
+
+        .combo-modal-item-copy {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .combo-modal-summary {
+            width: min(100%, 420px);
+            margin: 1.5rem 0 0 auto;
+        }
+
+        .combo-modal-summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.4rem 0;
+        }
+
         .kids-menu-copy {
             padding-right: clamp(1rem, 5vw, 5rem);
         }
@@ -252,6 +281,9 @@
                                         <p class="text-muted">{{ $combo->description }}</p>
                                     @endif
                                     <p class="fw-bold fs-5 mb-0">{{ number_format($combo->price, 0, ',', '.') }} đ</p>
+                                    <button class="btn btn-outline-dark mt-3" type="button" data-bs-toggle="modal" data-bs-target="#combo-detail-{{ $combo->id }}">
+                                        Xem chi tiết
+                                    </button>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -264,6 +296,65 @@
                                 @endif
                             </div>
                         </article>
+
+                        <div class="modal fade" id="combo-detail-{{ $combo->id }}" tabindex="-1" aria-labelledby="combo-detail-title-{{ $combo->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title h5" id="combo-detail-title-{{ $combo->id }}">{{ $combo->name }}</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @if ($combo->description)
+                                            <p class="text-muted">{{ $combo->description }}</p>
+                                        @endif
+
+                                        <h3 class="h6 mb-3">Các món trong combo</h3>
+                                        <div class="combo-modal-items">
+                                            @forelse ($combo->menuItems as $menuItem)
+                                                <article class="combo-modal-item">
+                                                    <div class="combo-modal-item-copy">
+                                                        @if ($menuItem->category)
+                                                            <p class="small text-muted mb-1">{{ $menuItem->category->name }}</p>
+                                                        @endif
+                                                        <h4 class="h6 mb-1">{{ $menuItem->name }}</h4>
+                                                        @if ($menuItem->description)
+                                                            <p class="small text-muted mb-2">{{ $menuItem->description }}</p>
+                                                        @endif
+                                                        <p class="small text-muted mb-0">
+                                                            {{ $menuItem->pivot->quantity }} phần × {{ number_format($menuItem->price, 0, ',', '.') }} đ
+                                                        </p>
+                                                    </div>
+                                                    <strong class="text-nowrap">
+                                                        {{ number_format($menuItem->price * $menuItem->pivot->quantity, 0, ',', '.') }} đ
+                                                    </strong>
+                                                </article>
+                                            @empty
+                                                <p class="text-muted py-3 mb-0">Thông tin các món trong combo chưa được cập nhật.</p>
+                                            @endforelse
+                                        </div>
+
+                                        @if ($combo->menuItems->isNotEmpty())
+                                            <div class="combo-modal-summary">
+                                                <div class="combo-modal-summary-row">
+                                                    <span>Tổng giá lẻ các món</span>
+                                                    <span>{{ number_format($combo->retail_total, 0, ',', '.') }} đ</span>
+                                                </div>
+                                                <div class="combo-modal-summary-row border-top mt-2 pt-3">
+                                                    <strong>Giá combo</strong>
+                                                    <strong>{{ number_format($combo->price, 0, ',', '.') }} đ</strong>
+                                                </div>
+                                                @if ($combo->retail_total > $combo->price)
+                                                    <p class="text-success text-end small mb-0">
+                                                        Tiết kiệm {{ number_format($combo->retail_total - $combo->price, 0, ',', '.') }} đ
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @empty
                         <p class="text-muted">Hiện chưa có combo nào.</p>
                     @endforelse

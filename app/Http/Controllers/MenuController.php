@@ -35,15 +35,30 @@ class MenuController extends Controller
 
     public function combos(): View
     {
+        $combos = Combo::query()
+            ->where('status', true)
+            ->with([
+                'menuItems' => fn ($query) => $query
+                    ->where('menu_items.status', true)
+                    ->with('category')
+                    ->orderBy('menu_items.sort_order')
+                    ->orderBy('menu_items.name'),
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $combos->each(function (Combo $combo): void {
+            $combo->setAttribute('retail_total', $combo->menuItems->sum(
+                fn (MenuItem $menuItem): float => (float) $menuItem->price * $menuItem->pivot->quantity
+            ));
+        });
+
         return view('fontend.menu.index', [
             'pageTitle' => 'Combo',
             'menuCategories' => $this->activeCategories(),
             'menuItems' => collect(),
-            'combos' => Combo::query()
-                ->where('status', true)
-                ->orderBy('sort_order')
-                ->orderBy('name')
-                ->get(),
+            'combos' => $combos,
             'promotions' => collect(),
         ]);
     }
