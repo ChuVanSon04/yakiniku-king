@@ -2,9 +2,6 @@
 
 @section('content')
 
-<h1>Quản lý đặt bàn</h1>
-
-
 @if(session('success'))
 
     <div style="margin-bottom: 15px;">
@@ -14,9 +11,22 @@
 @endif
 
 
-<div style="margin-bottom: 20px;">
-
-    <a href="{{ route('admin.menu.bookings.create') }}">
+<div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+    ">
+    <h1>Quản lý đặt bàn</h1>
+    <a href="{{ route('admin.menu.bookings.create') }}"
+    style="
+            background:#111;
+            color:white;
+            padding:10px 15px;
+            text-decoration:none;
+            border-radius:5px;
+        "
+    >
         + Thêm booking
     </a>
 
