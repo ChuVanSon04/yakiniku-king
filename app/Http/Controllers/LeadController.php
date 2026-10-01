@@ -24,7 +24,7 @@ class LeadController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Đăng ký nhận ưu đãi thành công.',
+            'message' => __('Đăng ký nhận ưu đãi thành công.'),
             'lead' => $lead,
         ], 201);
     }

@@ -27,6 +27,7 @@ class BannerController extends Controller
     {
         $validated = $request->validate([
             'title' => ['nullable', 'string', 'max:255'],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'type' => [
                 'required',
@@ -80,6 +81,7 @@ class BannerController extends Controller
 
         Banner::create([
             'title' => $validated['title'] ?? null,
+            'title_en' => $validated['title_en'] ?? null,
 
             'type' => $validated['type'],
 
@@ -108,6 +110,7 @@ class BannerController extends Controller
     {
         $validated = $request->validate([
             'title' => ['nullable', 'string', 'max:255'],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'type' => [
                 'required',
@@ -173,6 +176,7 @@ class BannerController extends Controller
 
         $banner->update([
             'title' => $validated['title'] ?? null,
+            'title_en' => $validated['title_en'] ?? null,
 
             'type' => $validated['type'],
 

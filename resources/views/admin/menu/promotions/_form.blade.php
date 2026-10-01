@@ -18,6 +18,12 @@
 
 </div>
 
+@include('admin.menu.partials.english-field', [
+    'name' => 'title_en',
+    'label' => 'Tiêu đề',
+    'value' => $promotion->title_en ?? '',
+])
+
 
 <div style="margin-bottom:15px;">
 
@@ -39,6 +45,14 @@
     >
 
 </div>
+
+@include('admin.menu.partials.english-field', [
+    'name' => 'short_description_en',
+    'label' => 'Mô tả ngắn',
+    'value' => $promotion->short_description_en ?? '',
+    'type' => 'textarea',
+    'rows' => 4,
+])
 
 
 <div style="margin-bottom:15px;">
@@ -79,6 +93,14 @@
     >{{ old('description', $promotion->description ?? '') }}</textarea>
 
 </div>
+
+@include('admin.menu.partials.english-field', [
+    'name' => 'description_en',
+    'label' => 'Nội dung chi tiết',
+    'value' => $promotion->description_en ?? '',
+    'type' => 'textarea',
+    'rows' => 10,
+])
 
 
 <div data-image-field style="margin-bottom:15px;">

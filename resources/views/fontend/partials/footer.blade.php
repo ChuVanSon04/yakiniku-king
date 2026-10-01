@@ -351,7 +351,7 @@
     <div class="container site-footer__main site-footer__grid">
             <section aria-labelledby="footer-brand-title">
                 <div class="site-footer__brandline">
-                    <a href="{{ url('/') }}" aria-label="{{ setting('site_name') }} - trang chủ">
+                    <a href="{{ url('/') }}" aria-label="{{ localized_setting('site_name') }} - {{ __('Trang chủ') }}">
                         <img
                             class="site-footer__logo"
                             src="{{ asset('yakiniku-king/logo1.png') }}"
@@ -360,13 +360,13 @@
                             height="68">
                     </a>
                     <h2 class="site-footer__brand-name" id="footer-brand-title">
-                        {{ setting('site_name') }}
+                        {{ localized_setting('site_name') }}
                     </h2>
                 </div>
 
-                <span class="site-footer__eyebrow">Nhà hàng</span>
-                <p class="site-footer__copy">{{ setting('footer_address') }}</p>
-                <p class="site-footer__copy">Thời gian phục vụ từ 11h đến 23h.</p>
+                <span class="site-footer__eyebrow">{{ __('Nhà hàng') }}</span>
+                <p class="site-footer__copy">{{ localized_setting('footer_address') }}</p>
+                <p class="site-footer__copy">{{ __('Thời gian phục vụ từ 11h đến 23h.') }}</p>
 
                 <div class="site-footer__contact">
                     <a href="tel:{{ setting('hotline') }}">{{ setting('hotline_vn_jp') }}</a>
@@ -374,66 +374,66 @@
                     <a href="mailto:ussina.landmark81@ussinavietnam.com">{{ setting('email') }}</a>
                 </div>
                 <br>
-                <span class="site-footer__eyebrow">Theo dõi và đánh giá</span>
+                <span class="site-footer__eyebrow">{{ __('Theo dõi và đánh giá') }}</span>
                 <div class="site-footer__socials">
                     <a class="site-footer__social-link" href="https://www.facebook.com/ussinavietnam/" aria-label="Facebook Ussina Vietnam">
                         <img src="{{ asset('yakiniku-king/logo-facebook.png') }}" alt="" width="28" height="28">
                     </a>
-                    <a class="site-footer__social-link" href="https://www.google.com/search?sxsrf=ACYBGNQPLfjiPbZ8qK6wTcU4GcFIQNJDsA%3A1568026028380&ei=rC12XazzFpDj-AaSx4_ADw&q=Ussina+Aging+Beef+%26+Bar+landmark+81&oq=Ussina+Aging+Beef+%26+Bar+landmark+81&gs_l=psy-ab.3..35i39l2j38.8560.16186..16983...2.2..0.180.1696.1j14......0....1..gws-wiz.......0i71j0j0i22i30j0i203j33i160j35i304i39.kzaVPMSedbs&ved=0ahUKEwis-a2TyMPkAhWQMd4KHZLjA_gQ4dUDCAs&uact=5#lrd=0x31752965c64ce237:0x8b8e188d592080ca,1,," aria-label="Đánh giá trên Google">
+                    <a class="site-footer__social-link" href="https://www.google.com/search?sxsrf=ACYBGNQPLfjiPbZ8qK6wTcU4GcFIQNJDsA%3A1568026028380&ei=rC12XazzFpDj-AaSx4_ADw&q=Ussina+Aging+Beef+%26+Bar+landmark+81&oq=Ussina+Aging+Beef+%26+Bar+landmark+81&gs_l=psy-ab.3..35i39l2j38.8560.16186..16983...2.2..0.180.1696.1j14......0....1..gws-wiz.......0i71j0j0i22i30j0i203j33i160j35i304i39.kzaVPMSedbs&ved=0ahUKEwis-a2TyMPkAhWQMd4KHZLjA_gQ4dUDCAs&uact=5#lrd=0x31752965c64ce237:0x8b8e188d592080ca,1,," aria-label="{{ __('Đánh giá trên Google') }}">
                         <img src="{{ asset('yakiniku-king/gg-my-business.png') }}" alt="" width="28" height="28">
                     </a>
-                    <a class="site-footer__social-link" href="https://www.tripadvisor.com.vn/Restaurant_Review-g293925-d19647189-Reviews-Ussina_Aging_Beef_Bar-Ho_Chi_Minh_City.html" aria-label="Ussina trên Tripadvisor">
+                    <a class="site-footer__social-link" href="https://www.tripadvisor.com.vn/Restaurant_Review-g293925-d19647189-Reviews-Ussina_Aging_Beef_Bar-Ho_Chi_Minh_City.html" aria-label="{{ __('Ussina trên Tripadvisor') }}">
                         <img src="{{ asset('yakiniku-king/tripadvisor-icon.png') }}" alt="" width="28" height="28">
                     </a>
                 </div>
                 <a
                     class="site-footer__certificate"
                     href="https://online.gov.vn/nen-tang/76be9e1f-3034-43bf-a3b6-193d8d81904a"
-                    aria-label="Thông tin đăng ký Bộ Công Thương">
-                    <img src="https://ussinavietnam.vn/wp-content/uploads/2020/08/dathongbaobct.png" alt="Đã thông báo Bộ Công Thương" width="200" height="70" loading="lazy">
+                    aria-label="{{ __('Thông tin đăng ký Bộ Công Thương') }}">
+                    <img src="https://ussinavietnam.vn/wp-content/uploads/2020/08/dathongbaobct.png" alt="{{ __('Đã thông báo Bộ Công Thương') }}" width="200" height="70" loading="lazy">
                 </a>
             </section>
 
             <section aria-labelledby="footer-offers-title">
-                <span class="site-footer__eyebrow">Kết nối với chúng tôi</span>
-                <h2 class="site-footer__title" id="footer-offers-title">Đăng ký nhận ưu đãi</h2>
+                <span class="site-footer__eyebrow">{{ __('Kết nối với chúng tôi') }}</span>
+                <h2 class="site-footer__title" id="footer-offers-title">{{ __('Đăng ký nhận ưu đãi') }}</h2>
                 <div class="site-footer__signup">
-                    <p>Đăng ký nhận thư điện tử để không bỏ lỡ những ưu đãi mới nhất.</p>
+                    <p>{{ __('Đăng ký nhận thư điện tử để không bỏ lỡ những ưu đãi mới nhất.') }}</p>
                     <button
                         type="button"
                         class="btn"
                         data-bs-toggle="modal"
                         data-bs-target="#offerRegistrationModal">
-                        Đăng ký
+                        {{ __('Đăng ký') }}
                     </button>
                 </div>
                 <p class="site-footer__legal">
-                    NHÀ HÀNG USSINA – VINCOM LANDMARK 81<br>
-                    Giấy CNĐKDN: 0312225168-002 – Ngày cấp: 01/04/2019<br>
-                    Cơ quan cấp: Phòng Đăng ký kinh doanh – Sở kế hoạch và Đầu tư TP.HCM<br>
-                    Địa chỉ đăng ký kinh doanh: Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam
+                    {{ __('NHÀ HÀNG USSINA – VINCOM LANDMARK 81') }}<br>
+                    {{ __('Giấy CNĐKDN: 0312225168-002 – Ngày cấp: 01/04/2019') }}<br>
+                    {{ __('Cơ quan cấp: Phòng Đăng ký kinh doanh – Sở kế hoạch và Đầu tư TP.HCM') }}<br>
+                    {{ __('Địa chỉ đăng ký kinh doanh: Tầng L77, Tòa nhà Landmark 81, 720A Điện Biên Phủ, phường Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam') }}
                 </p>
             </section>
 
             <section aria-labelledby="footer-topics-title">
-                <span class="site-footer__eyebrow">Khám phá</span>
-                <h2 class="site-footer__title" id="footer-topics-title">Chủ đề nổi bật</h2>
+                <span class="site-footer__eyebrow">{{ __('Khám phá') }}</span>
+                <h2 class="site-footer__title" id="footer-topics-title">{{ __('Chủ đề nổi bật') }}</h2>
                 <ul class="site-footer__topics">
-                    <li><a href="https://ussinavietnam.vn/tag/am-thuc-nhat-ban/">Ẩm thực Nhật Bản</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-nhat-ban/">Nhà hàng Nhật Bản</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/mon-an-nhat-ban/">Món ăn Nhật Bản</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/mon-ngon-nhat-ban/">Món ngon Nhật Bản</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-co-view-dep/">Nhà hàng có view đẹp</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-mon-nhat/">Nhà hàng món Nhật</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-sang-trong/">Nhà hàng sang trọng</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/bo-wagyu/">Bò Wagyu</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-bo-wagyu/">Nhà hàng bò Wagyu</a></li>
-                    <li><a href="https://ussinavietnam.vn/tag/thit-bo-wagyu-cao-cap/">Thịt bò Wagyu cao cấp</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/am-thuc-nhat-ban/">{{ __('Ẩm thực Nhật Bản') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-nhat-ban/">{{ __('Nhà hàng Nhật Bản') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/mon-an-nhat-ban/">{{ __('Món ăn Nhật Bản') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/mon-ngon-nhat-ban/">{{ __('Món ngon Nhật Bản') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-co-view-dep/">{{ __('Nhà hàng có view đẹp') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-mon-nhat/">{{ __('Nhà hàng món Nhật') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-sang-trong/">{{ __('Nhà hàng sang trọng') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/bo-wagyu/">{{ __('Bò Wagyu') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/nha-hang-bo-wagyu/">{{ __('Nhà hàng bò Wagyu') }}</a></li>
+                    <li><a href="https://ussinavietnam.vn/tag/thit-bo-wagyu-cao-cap/">{{ __('Thịt bò Wagyu cao cấp') }}</a></li>
                 </ul>
                 <iframe
                     class="site-footer__facebook"
                     src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fussinavietnam%2F&tabs=&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-                    title="Facebook Ussina Vietnam"
+                    title="{{ __('Facebook Ussina Vietnam') }}"
                     scrolling="no"
                     frameborder="0"
                     allowfullscreen="true"
@@ -445,7 +445,7 @@
 
     <div class="site-footer__bottom">
         <div class="container site-footer__copyright">
-            © {{ date('Y') }} {{ setting('site_name') }}. Managed by Sagi
+            © {{ date('Y') }} {{ localized_setting('site_name') }}. {{ __('Quản lý bởi Sagi') }}
         </div>
     </div>
 </footer>
@@ -455,8 +455,8 @@
     id="backToTop"
     class="btn btn-danger position-fixed bottom-0 end-0 m-3 rounded-circle d-none shadow"
     style="width: 48px; height: 48px; z-index: 1030;"
-    aria-label="Lên đầu trang"
-    title="Lên đầu trang">
+    aria-label="{{ __('Lên đầu trang') }}"
+    title="{{ __('Lên đầu trang') }}">
     <span aria-hidden="true">&uarr;</span>
 </button>
 
@@ -470,13 +470,13 @@
         <div class="modal-content offer-modal__content">
             <div class="modal-header offer-modal__header">
                 <span class="offer-modal__eyebrow">Yakiniku King</span>
-                <h2 class="modal-title offer-modal__title" id="offerRegistrationModalLabel">Đăng ký nhận ưu đãi</h2>
-                <p class="offer-modal__intro" id="offerRegistrationDescription">Nhận tin mới về thực đơn và ưu đãi dành riêng từ nhà hàng.</p>
+                <h2 class="modal-title offer-modal__title" id="offerRegistrationModalLabel">{{ __('Đăng ký nhận ưu đãi') }}</h2>
+                <p class="offer-modal__intro" id="offerRegistrationDescription">{{ __('Nhận tin mới về thực đơn và ưu đãi dành riêng từ nhà hàng.') }}</p>
                 <button
                     type="button"
                     class="btn-close btn-close-white offer-modal__close"
                     data-bs-dismiss="modal"
-                    aria-label="Đóng cửa sổ đăng ký"></button>
+                    aria-label="{{ __('Đóng cửa sổ đăng ký') }}"></button>
             </div>
 
             <form id="offerRegistrationForm" action="{{ route('leads.store') }}" method="POST">
@@ -488,17 +488,17 @@
                         role="alert"></div>
 
                     <div class="mb-4">
-                        <label class="form-label" for="offerSalutation">Danh xưng</label>
+                        <label class="form-label" for="offerSalutation">{{ __('Danh xưng') }}</label>
                         <select class="form-select" id="offerSalutation" name="salutation" required>
-                            <option value="" selected disabled>Chọn danh xưng</option>
-                            <option value="Ông">Ông</option>
-                            <option value="Bà">Bà</option>
+                            <option value="" selected disabled>{{ __('Chọn danh xưng') }}</option>
+                            <option value="Ông">{{ __('Ông') }}</option>
+                            <option value="Bà">{{ __('Bà') }}</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label" for="offerName">Họ và tên</label>
-                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" autocomplete="name" placeholder="Nguyễn Văn An" required>
+                        <label class="form-label" for="offerName">{{ __('Họ và tên') }}</label>
+                        <input class="form-control" id="offerName" name="name" type="text" maxlength="255" autocomplete="name" placeholder="Alex Morgan" required>
                     </div>
 
                     <div class="mb-4">
@@ -507,13 +507,13 @@
                     </div>
 
                     <div>
-                        <label class="form-label" for="offerPhone">Số điện thoại</label>
+                        <label class="form-label" for="offerPhone">{{ __('Số điện thoại') }}</label>
                         <input class="form-control" id="offerPhone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="09xx xxx xxx" required>
                     </div>
                 </div>
 
                 <div class="modal-footer offer-modal__footer">
-                    <button type="submit" class="btn offer-modal__submit" id="offerRegistrationSubmit">Gửi đăng ký</button>
+                    <button type="submit" class="btn offer-modal__submit" id="offerRegistrationSubmit">{{ __('Gửi đăng ký') }}</button>
                 </div>
             </form>
         </div>
@@ -550,7 +550,7 @@
 
                 message.className = 'alert d-none';
                 submitButton.disabled = true;
-                submitButton.textContent = 'Đang gửi...';
+                submitButton.textContent = @json(__('Đang gửi...'));
 
                 try {
                     const response = await fetch(form.action, {
@@ -565,7 +565,7 @@
 
                     if (!response.ok) {
                         const validationErrors = Object.values(data.errors ?? {}).flat();
-                        throw new Error(validationErrors.join(' ') || 'Không thể gửi đăng ký.');
+                        throw new Error(validationErrors.join(' ') || @json(__('Không thể gửi đăng ký.')));
                     }
 
                     message.className = 'alert alert-success';
@@ -582,7 +582,7 @@
                     message.textContent = error.message;
                 } finally {
                     submitButton.disabled = false;
-                    submitButton.textContent = 'Gửi đăng ký';
+                    submitButton.textContent = @json(__('Gửi đăng ký'));
                 }
             });
         });

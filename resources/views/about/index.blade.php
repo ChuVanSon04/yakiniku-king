@@ -1,6 +1,6 @@
 @extends('fontend.layouts.app')
 
-@section('title', 'About Us')
+@section('title', __('Giới thiệu'))
 
 @push('styles')
     <style>
@@ -134,13 +134,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <p class="about-eyebrow mb-3">About us</p>
+                        <p class="about-eyebrow mb-3">{{ __('Về chúng tôi') }}</p>
                         <img class="about-image mb-4" src="{{ asset('yakiniku-king/logo1.png') }}" alt="Yakiniku King restaurant" loading="lazy">
-                        <h1 class="about-title">Đơn vị 10 năm trong lĩnh vực ẩm thực nướng Nhật Bản</h1>
+                        <h1 class="about-title">{{ __('Đơn vị 10 năm trong lĩnh vực ẩm thực nướng Nhật Bản') }}</h1>
                         <p class="about-lead">
-                            Tại Yakiniku King, chúng tôi miệt mài vì chất lượng của từng món ăn, tin rằng mỗi buổi ăn tối nên là một trải nghiệm trọn vẹn: thực phẩm tươi ngon,
-                            không gian ấm cúng và dịch vụ tận tâm. Chúng tôi mang đến phong cách nướng Nhật Bản hiện đại, kết hợp giữa
-                            chất lượng nguyên liệu và sự sáng tạo trong từng món ăn.
+                            {{ __('Tại Yakiniku King, chúng tôi miệt mài vì chất lượng của từng món ăn, tin rằng mỗi buổi ăn tối nên là một trải nghiệm trọn vẹn: thực phẩm tươi ngon, không gian ấm cúng và dịch vụ tận tâm. Chúng tôi mang đến phong cách nướng Nhật Bản hiện đại, kết hợp giữa chất lượng nguyên liệu và sự sáng tạo trong từng món ăn.') }}
                         </p>
                     </div>
                 </div>
@@ -152,19 +150,13 @@
                 <div class="about-content-panel">
                     <div class="row g-4 align-items-start">
                         <div class="col-md-6">
-                            <h3>Thực đơn</h3>
-                            <p>
-                                Chúng tôi chọn nguyên liệu từ các nguồn uy tín, mang đến những món nướng thơm lừng, mềm ngon và đậm vị.
-                                Từ bò Wagyu, thịt tươi cho đến combo gia đình, mọi món đều được chế biến theo tiêu chuẩn cao.
-                            </p>
+                            <h3>{{ __('Thực đơn') }}</h3>
+                            <p>{{ __('Chúng tôi chọn nguyên liệu từ các nguồn uy tín, mang đến những món nướng thơm lừng, mềm ngon và đậm vị. Từ bò Wagyu, thịt tươi cho đến combo gia đình, mọi món đều được chế biến theo tiêu chuẩn cao.') }}</p>
                         </div>
 
                         <div class="col-md-6">
-                            <h3>Không gian &amp; Dịch vụ</h3>
-                            <p>
-                                Thiết kế hiện đại nhưng vẫn giữ cảm giác ấm áp, phù hợp cho các buổi hẹn hò, họp mặt bạn bè và tiệc gia đình.
-                                Mỗi góc nhỏ đều được chăm chút để tạo nên trải nghiệm thoải mái nhất. Đội ngũ nhân viên luôn sẵn sàng hỗ trợ bạn từ lúc đặt bàn đến khi kết thúc bữa ăn, nhằm mang lại sự hài lòng trong từng khoảnh khắc thưởng thức.
-                            </p>
+                            <h3>{{ __('Không gian & Dịch vụ') }}</h3>
+                            <p>{{ __('Thiết kế hiện đại nhưng vẫn giữ cảm giác ấm áp, phù hợp cho các buổi hẹn hò, họp mặt bạn bè và tiệc gia đình. Mỗi góc nhỏ đều được chăm chút để tạo nên trải nghiệm thoải mái nhất. Đội ngũ nhân viên luôn sẵn sàng hỗ trợ bạn từ lúc đặt bàn đến khi kết thúc bữa ăn, nhằm mang lại sự hài lòng trong từng khoảnh khắc thưởng thức.') }}</p>
                         </div>
                     </div>
                 </div>

@@ -38,8 +38,10 @@ class MenuItemController extends Controller
         $validated = $request->validate([
             'category_id' => ['required', 'exists:menu_categories,id'],
             'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:menu_items,slug'],
             'description' => ['nullable', 'string'],
+            'description_en' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'remove_image' => ['nullable', 'boolean'],
             'price' => ['required', 'numeric', 'min:0'],
@@ -82,6 +84,7 @@ class MenuItemController extends Controller
         $validated = $request->validate([
             'category_id' => ['required', 'exists:menu_categories,id'],
             'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['nullable', 'string', 'max:255'],
             'slug' => [
                 'nullable',
                 'string',
@@ -89,6 +92,7 @@ class MenuItemController extends Controller
                 'unique:menu_items,slug,'.$item->id,
             ],
             'description' => ['nullable', 'string'],
+            'description_en' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'price' => ['required', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],

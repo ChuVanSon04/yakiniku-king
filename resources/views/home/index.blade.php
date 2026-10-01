@@ -1,6 +1,6 @@
 @extends('fontend.layouts.app')
 
-@section('title', 'Trang chủ')
+@section('title', __('Trang chủ'))
 
 @push('styles')
 	<style>
@@ -269,18 +269,18 @@
 @endpush
 
 @section('content')
-    <section id="homeHeroCarousel" class="home-hero carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="false" aria-label="Banner Yakiniku King">
+	<section id="homeHeroCarousel" class="home-hero carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="false" aria-label="{{ __('Banner Yakiniku King') }}">
 		<div class="carousel-inner">
 			@forelse ($banners as $banner)
 				<div class="carousel-item {{ $loop->first ? 'active' : '' }}">
 					@if ($banner->type === 'image' && $banner->image)
-						<img class="home-hero-media" src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title ?: 'Yakiniku King' }}">
+						<img class="home-hero-media" src="{{ asset('storage/' . $banner->image) }}" alt="{{ localized_text($banner, 'title') ?: 'Yakiniku King' }}">
 					@elseif ($banner->video_embed_url)
 						<iframe
 							class="home-hero-media"
 							data-video-src="{{ $banner->video_embed_url }}"
 							@if ($loop->first) src="{{ $banner->video_embed_url }}" @endif
-							title="{{ $banner->title ?: 'Video Yakiniku King' }}"
+							title="{{ localized_text($banner, 'title') ?: __('Video Yakiniku King') }}"
 							allow="autoplay; encrypted-media; picture-in-picture"
 							allowfullscreen
 							loading="lazy"
@@ -294,7 +294,7 @@
 							loop
 							playsinline
 							preload="none"
-							aria-label="{{ $banner->title ?: 'Video Yakiniku King' }}"
+							aria-label="{{ localized_text($banner, 'title') ?: __('Video Yakiniku King') }}"
 						></video>
 					@endif
 				</div>
@@ -306,7 +306,7 @@
 		</div>
 
 		@if ($banners->count() > 1)
-			<div class="carousel-indicators home-hero-indicators" aria-label="Điều hướng banner">
+				<div class="carousel-indicators home-hero-indicators" aria-label="{{ __('Điều hướng banner') }}">
 				@foreach ($banners as $banner)
 					<button
 						type="button"
@@ -314,25 +314,25 @@
 						data-bs-slide-to="{{ $loop->index }}"
 						class="{{ $loop->first ? 'active' : '' }}"
 						@if ($loop->first) aria-current="true" @endif
-						aria-label="Hiển thị banner {{ $loop->iteration }}"
+						aria-label="{{ __('Hiển thị banner :number', ['number' => $loop->iteration]) }}"
 					></button>
 				@endforeach
 			</div>
 
-			<button class="carousel-control-prev home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="prev" aria-label="Banner trước">
+			<button class="carousel-control-prev home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="prev" aria-label="{{ __('Banner trước') }}">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			</button>
-			<button class="carousel-control-next home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="next" aria-label="Banner tiếp theo">
+			<button class="carousel-control-next home-hero-arrow" type="button" data-bs-target="#homeHeroCarousel" data-bs-slide="next" aria-label="{{ __('Banner tiếp theo') }}">
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 			</button>
 		@endif
 
 		<div class="container home-hero-content">
-			<p class="home-eyebrow mb-0">Japanese barbecue</p>
+			<p class="home-eyebrow mb-0">{{ __('Nướng kiểu Nhật') }}</p>
 			<h1 class="home-display">Yakiniku<br>King</h1>
-			<p class="home-hero-copy">Thưởng thức vị ngon nướng Nhật trong từng lát thịt tuyển chọn.</p>
-			<a class="btn btn-light rounded-0 px-4 py-3 fw-semibold" href="{{ route('booking.create') }}">Book now</a>
-			<div class="home-social-links" aria-label="Mạng xã hội">
+			<p class="home-hero-copy">{{ __('Thưởng thức vị ngon nướng Nhật trong từng lát thịt tuyển chọn.') }}</p>
+			<a class="btn btn-light rounded-0 px-4 py-3 fw-semibold" href="{{ route('booking.create') }}">{{ __('Đặt bàn ngay') }}</a>
+			<div class="home-social-links" aria-label="{{ __('Mạng xã hội') }}">
 				<a class="home-social-link" href="{{ setting('zalo_url', 'https://zalo.me/1592268671052817128') }}" target="_blank" rel="noopener noreferrer" aria-label="Zalo OA" title="Zalo OA">
 					<img src="{{ asset('yakiniku-king/logo-zalo.png') }}" alt="">
 				</a>
@@ -394,47 +394,47 @@
 		<div class="container">
 			<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4 mb-lg-5">
 				<div>
-					<p class="home-eyebrow mb-0">Tuyển chọn tại Yakiniku King</p>
-					<h2 class="home-section-title">Thực đơn</h2>
+					<p class="home-eyebrow mb-0">{{ __('Tuyển chọn tại Yakiniku King') }}</p>
+					<h2 class="home-section-title">{{ __('Thực đơn') }}</h2>
 				</div>
-				<a class="link-dark fw-semibold text-decoration-none" href="{{ route('menu.index') }}">Xem toàn bộ thực đơn <span aria-hidden="true">&rarr;</span></a>
+				<a class="link-dark fw-semibold text-decoration-none" href="{{ route('menu.index') }}">{{ __('Xem toàn bộ thực đơn') }} <span aria-hidden="true">&rarr;</span></a>
 			</div>
 
 			<div class="row g-3 g-lg-4">
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/snow-aging-wagyu-set.jpg') }}" alt="Set Snow Aging Wagyu" loading="lazy">
-						<div class="home-menu-caption"><h3>Snow Aging Wagyu Set</h3></div>
+						<img src="{{ asset('yakiniku-king/snow-aging-wagyu-set.jpg') }}" alt="{{ __('Set Snow Aging Wagyu') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Set Snow Aging Wagyu') }}</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/snow-aging-wagyu.jpg') }}" alt="Thịt bò Snow Aging Wagyu" loading="lazy">
-						<div class="home-menu-caption"><h3>Snow Aging Wagyu</h3></div>
+						<img src="{{ asset('yakiniku-king/snow-aging-wagyu.jpg') }}" alt="{{ __('Thịt bò Snow Aging Wagyu') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Snow Aging Wagyu') }}</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/aging-beef.jpg') }}" alt="Thịt bò ủ lạnh" loading="lazy">
-						<div class="home-menu-caption"><h3>Aging Beef</h3></div>
+						<img src="{{ asset('yakiniku-king/aging-beef.jpg') }}" alt="{{ __('Thịt bò ủ lạnh') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Thịt bò ủ lạnh') }}</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/salad.jpg') }}" alt="Salad tươi" loading="lazy">
-						<div class="home-menu-caption"><h3>Salad</h3></div>
+						<img src="{{ asset('yakiniku-king/salad.jpg') }}" alt="{{ __('Salad tươi') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Salad tươi') }}</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/hot-dish.jpg') }}" alt="Món nóng tại Yakiniku King" loading="lazy">
-						<div class="home-menu-caption"><h3>Hot Dish</h3></div>
+						<img src="{{ asset('yakiniku-king/hot-dish.jpg') }}" alt="{{ __('Món nóng tại Yakiniku King') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Món nóng') }}</h3></div>
 					</article>
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<article class="home-menu-item">
-						<img src="{{ asset('yakiniku-king/pasta-rice.jpg') }}" alt="Món cơm và mì" loading="lazy">
-						<div class="home-menu-caption"><h3>Pasta &amp; Rice</h3></div>
+						<img src="{{ asset('yakiniku-king/pasta-rice.jpg') }}" alt="{{ __('Món cơm và mì') }}" loading="lazy">
+						<div class="home-menu-caption"><h3>{{ __('Món cơm và mì') }}</h3></div>
 					</article>
 				</div>
 			</div>
@@ -445,14 +445,14 @@
 		<div class="container">
 			<div class="row align-items-center g-4 g-lg-5">
 				<div class="col-12 col-lg-7">
-					<img class="home-restaurant-image" src="{{ asset('yakiniku-king/gg-map.jpg') }}" alt="Không gian nhà hàng Yakiniku King" loading="lazy">
+					<img class="home-restaurant-image" src="{{ asset('yakiniku-king/gg-map.jpg') }}" alt="{{ __('Không gian nhà hàng Yakiniku King') }}" loading="lazy">
 				</div>
 				<div class="col-12 col-lg-5">
 					<div class="home-restaurant-copy">
-						<p class="home-eyebrow mb-0">Gặp gỡ tại Yakiniku King</p>
-						<h2 class="home-section-title mb-3">Nhà hàng</h2>
-						<p class="home-restaurant-address mb-4">12 Phố Hàng Gai, Quận Hoàn Kiếm, Hà Nội</p>
-						<a class="btn btn-light rounded-0 px-4 py-3 fw-semibold" href="{{ route('booking.create') }}">Book now</a>
+						<p class="home-eyebrow mb-0">{{ __('Gặp gỡ tại Yakiniku King') }}</p>
+						<h2 class="home-section-title mb-3">{{ __('Nhà hàng') }}</h2>
+						<p class="home-restaurant-address mb-4">{{ __('12 Phố Hàng Gai, Quận Hoàn Kiếm, Hà Nội') }}</p>
+						<a class="btn btn-light rounded-0 px-4 py-3 fw-semibold" href="{{ route('booking.create') }}">{{ __('Đặt bàn ngay') }}</a>
 					</div>
 				</div>
 			</div>

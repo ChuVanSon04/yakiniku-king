@@ -33,6 +33,7 @@ class PromotionController extends Controller
                 'string',
                 'max:255',
             ],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -45,11 +46,13 @@ class PromotionController extends Controller
                 'nullable',
                 'string',
             ],
+            'short_description_en' => ['nullable', 'string', 'max:255'],
 
             'description' => [
                 'nullable',
                 'string',
             ],
+            'description_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -103,12 +106,15 @@ class PromotionController extends Controller
 
         Promotion::create([
             'title' => $validated['title'],
+            'title_en' => $validated['title_en'] ?? null,
 
             'slug' => $validated['slug'],
 
             'short_description' => $validated['short_description'] ?? null,
+            'short_description_en' => $validated['short_description_en'] ?? null,
 
             'description' => $validated['description'] ?? null,
+            'description_en' => $validated['description_en'] ?? null,
 
             'image' => $imagePath,
 
@@ -145,6 +151,7 @@ class PromotionController extends Controller
                 'string',
                 'max:255',
             ],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -157,11 +164,13 @@ class PromotionController extends Controller
                 'nullable',
                 'string',
             ],
+            'short_description_en' => ['nullable', 'string', 'max:255'],
 
             'description' => [
                 'nullable',
                 'string',
             ],
+            'description_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -222,12 +231,15 @@ class PromotionController extends Controller
 
         $promotion->update([
             'title' => $validated['title'],
+            'title_en' => $validated['title_en'] ?? null,
 
             'slug' => $validated['slug'],
 
             'short_description' => $validated['short_description'] ?? null,
+            'short_description_en' => $validated['short_description_en'] ?? null,
 
             'description' => $validated['description'] ?? null,
+            'description_en' => $validated['description_en'] ?? null,
 
             'image' => $imagePath,
 

@@ -66,6 +66,8 @@
 
         </div>
 
+        @include('admin.menu.partials.english-field', ['name' => 'name_en', 'label' => 'Tên món', 'value' => $item->name_en ?? '', 'margin' => '20px'])
+
 
         <div style="margin-bottom:20px;">
 
@@ -113,6 +115,8 @@
             >{{ old('description', $item->description) }}</textarea>
 
         </div>
+
+        @include('admin.menu.partials.english-field', ['name' => 'description_en', 'label' => 'Mô tả', 'value' => $item->description_en ?? '', 'type' => 'textarea', 'rows' => 5, 'margin' => '20px'])
 
 
         <div data-image-field style="margin-bottom:20px;">

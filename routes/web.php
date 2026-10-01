@@ -19,7 +19,18 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeadController as FrontendLeadController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SecretController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/locale', function (Request $request) {
+    $validated = $request->validate([
+        'locale' => ['required', 'in:vi,en'],
+    ]);
+
+    $request->session()->put('locale', $validated['locale']);
+
+    return redirect()->back();
+})->name('locale.update');
 
 Route::get('/', HomeController::class)->name('home');
 

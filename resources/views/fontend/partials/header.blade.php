@@ -32,7 +32,7 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ url('/') }}">
-                            Home
+                            {{ __('Trang chủ') }}
                         </a>
                     </li>
 
@@ -43,22 +43,22 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Menu
+                            {{ __('Thực đơn') }}
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="menuDropdown">
-                            <li><a class="dropdown-item" href="{{ route('menu.must-try') }}">Must Try</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.must-try') }}">{{ __('Món nên thử') }}</a></li>
                             <li><a class="dropdown-item" href="{{ route('menu.combos') }}">Combo</a></li>
-                            <li><a class="dropdown-item" href="{{ route('menu.for-kids') }}">For Kids</a></li>
-                            <li><a class="dropdown-item" href="{{ route('menu.promotions') }}">Khuyến Mãi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('menu.index') }}">Our Menu</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.for-kids') }}">{{ __('Dành cho trẻ em') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.promotions') }}">{{ __('Khuyến mãi') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('menu.index') }}">{{ __('Khám phá thực đơn') }}</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ route('menu.promotions') }}">
-                            CTKM
+                            {{ __('Ưu đãi') }}
                         </a>
                     </li>
 
@@ -69,18 +69,18 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Our Secret
+                            {{ __('Bí quyết của chúng tôi') }}
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="ourSecretDropdown">
                             <li>
                                 <a class="dropdown-item" href="{{ route('secret.recipes') }}">
-                                    Recipes
+                                    {{ __('Công thức') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('secret.tips') }}">
-                                    Bí kíp ăn ngon
+                                    {{ __('Bí kíp ăn ngon') }}
                                 </a>
                             </li>
                         </ul>
@@ -89,10 +89,16 @@
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ route('about') }}">
-                            About Us
+                            {{ __('Về chúng tôi') }}
                         </a>
                     </li>
                 </ul>
+
+                <form class="d-flex align-items-center gap-1 ms-lg-3 pb-3 pb-lg-0" method="POST" action="{{ route('locale.update') }}" aria-label="{{ __('Chọn ngôn ngữ') }}">
+                    @csrf
+                    <button class="btn btn-sm {{ app()->getLocale() === 'vi' ? 'btn-danger' : 'btn-outline-secondary' }}" type="submit" name="locale" value="vi" lang="vi" aria-pressed="{{ app()->getLocale() === 'vi' ? 'true' : 'false' }}">VI</button>
+                    <button class="btn btn-sm {{ app()->getLocale() === 'en' ? 'btn-danger' : 'btn-outline-secondary' }}" type="submit" name="locale" value="en" lang="en" aria-pressed="{{ app()->getLocale() === 'en' ? 'true' : 'false' }}">EN</button>
+                </form>
             </div>
 
         </div>

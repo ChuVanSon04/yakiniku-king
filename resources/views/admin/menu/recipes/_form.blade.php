@@ -18,6 +18,12 @@
 
 </div>
 
+@include('admin.menu.partials.english-field', [
+    'name' => 'title_en',
+    'label' => 'Tiêu đề',
+    'value' => $recipe->title_en ?? '',
+])
+
 
 <div style="margin-bottom:15px;">
 
@@ -39,6 +45,14 @@
     >
 
 </div>
+
+@include('admin.menu.partials.english-field', [
+    'name' => 'short_description_en',
+    'label' => 'Mô tả ngắn',
+    'value' => $recipe->short_description_en ?? '',
+    'type' => 'textarea',
+    'rows' => 4,
+])
 
 
 <div style="margin-bottom:15px;">
@@ -85,6 +99,14 @@
     ) }}</textarea>
 
 </div>
+
+@include('admin.menu.partials.english-field', [
+    'name' => 'content_en',
+    'label' => 'Nội dung công thức',
+    'value' => $recipe->content_en ?? '',
+    'type' => 'textarea',
+    'rows' => 15,
+])
 
 
 <div data-image-field style="margin-bottom:15px;">

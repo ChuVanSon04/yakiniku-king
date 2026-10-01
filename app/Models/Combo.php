@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Combo extends Model
 {
     protected $fillable = [
         'name',
+        'name_en',
         'slug',
         'description',
+        'description_en',
         'image',
         'price',
         'original_price',

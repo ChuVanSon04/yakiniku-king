@@ -55,6 +55,8 @@
 
         </div>
 
+        @include('admin.menu.partials.english-field', ['name' => 'name_en', 'label' => 'Tên danh mục', 'value' => old('name_en', ''), 'margin' => '20px'])
+
 
         <div style="margin-bottom: 20px;">
 
@@ -73,6 +75,8 @@
             >
 
         </div>
+
+        @include('admin.menu.partials.english-field', ['name' => 'description_en', 'label' => 'Mô tả', 'value' => old('description_en', ''), 'type' => 'textarea', 'rows' => 5, 'margin' => '20px'])
 
 
         <div style="margin-bottom: 20px;">

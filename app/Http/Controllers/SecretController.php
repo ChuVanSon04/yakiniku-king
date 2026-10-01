@@ -11,8 +11,8 @@ class SecretController extends Controller
     public function recipes(): View
     {
         return view('fontend.secret.index', [
-            'pageTitle' => 'Recipes',
-            'pageDescription' => 'Khám phá những công thức ngon để thưởng thức cùng thịt nướng.',
+            'pageTitle' => __('Công thức'),
+            'pageDescription' => __('Khám phá những công thức ngon để thưởng thức cùng thịt nướng.'),
             'articles' => $this->published(Recipe::query())->get(),
             'articleType' => 'recipe',
         ]);
@@ -21,8 +21,8 @@ class SecretController extends Controller
     public function tips(): View
     {
         return view('fontend.secret.index', [
-            'pageTitle' => 'Bí kíp ăn ngon',
-            'pageDescription' => 'Bí quyết thưởng thức thịt nướng trọn vị hơn.',
+            'pageTitle' => __('Bí kíp ăn ngon'),
+            'pageDescription' => __('Bí quyết thưởng thức thịt nướng trọn vị hơn.'),
             'articles' => $this->published(Tip::query())->get(),
             'articleType' => 'tip',
         ]);
@@ -34,7 +34,7 @@ class SecretController extends Controller
 
         return view('fontend.secret.show', [
             'article' => $recipe,
-            'pageTitle' => $recipe->title,
+            'pageTitle' => localized_text($recipe, 'title'),
         ]);
     }
 
@@ -44,7 +44,7 @@ class SecretController extends Controller
 
         return view('fontend.secret.show', [
             'article' => $tip,
-            'pageTitle' => $tip->title,
+            'pageTitle' => localized_text($tip, 'title'),
         ]);
     }
 

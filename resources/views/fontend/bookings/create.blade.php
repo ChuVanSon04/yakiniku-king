@@ -1,6 +1,6 @@
 @extends('fontend.layouts.app')
 
-@section('title', 'Đặt bàn')
+@section('title', __('Đặt bàn'))
 
 @push('styles')
     <style>
@@ -320,30 +320,30 @@
                 <div class="col-12 col-lg-4 order-2 order-lg-1">
                     <div class="booking-intro">
                         <p class="booking-eyebrow mb-0">Yakiniku King</p>
-                        <h1 class="booking-title">Đặt bàn<br>của bạn</h1>
-                        <p class="mb-3">Hẹn một bữa ăn ngon cùng gia đình và bạn bè. Nhà hàng sẽ liên hệ xác nhận yêu cầu đặt bàn.</p>
-                        <p class="mb-0">12 Phố Hàng Gai, Quận Hoàn Kiếm, Hà Nội</p>
+                        <h1 class="booking-title">{{ __('Đặt bàn của bạn') }}</h1>
+                        <p class="mb-3">{{ __('Hẹn một bữa ăn ngon cùng gia đình và bạn bè. Nhà hàng sẽ liên hệ xác nhận yêu cầu đặt bàn.') }}</p>
+                        <p class="mb-0">{{ __('12 Phố Hàng Gai, Quận Hoàn Kiếm, Hà Nội') }}</p>
                     </div>
                 </div>
 
                 <div class="col-12 col-lg-7 order-1 order-lg-2">
                     <div class="booking-form-panel">
                         <div class="mb-4">
-                            <p class="booking-eyebrow mb-1">Reservation</p>
-                            <h2 class="booking-form-title">Thông tin đặt bàn</h2>
+                            <p class="booking-eyebrow mb-1">{{ __('Đặt bàn') }}</p>
+                            <h2 class="booking-form-title">{{ __('Thông tin đặt bàn') }}</h2>
                         </div>
 
                         @if (session('booking_success'))
-                            <div class="alert alert-success" role="status">Đã gửi thông tin đặt bàn.</div>
+                            <div class="alert alert-success" role="status">{{ __('Đã gửi thông tin đặt bàn.') }}</div>
                         @endif
 
                         @if (session('booking_cancelled'))
-                            <div class="alert alert-info" role="status">Đặt bàn đã được hủy.</div>
+                            <div class="alert alert-info" role="status">{{ __('Đặt bàn đã được hủy.') }}</div>
                         @endif
 
                         @if ($errors->any())
                             <div class="alert alert-danger" role="alert">
-                                Vui lòng kiểm tra lại thông tin đặt bàn.
+                                {{ __('Vui lòng kiểm tra lại thông tin đặt bàn.') }}
                             </div>
                         @endif
 
@@ -351,12 +351,12 @@
                             @csrf
                             <div class="row g-3">
                                 <div class="col-12 booking-field">
-                                    <label for="restaurant_id">Nhà hàng</label>
+                                    <label for="restaurant_id">{{ __('Nhà hàng') }}</label>
                                     <select id="restaurant_id" name="restaurant_id" class="form-select @error('restaurant_id') is-invalid @enderror" required>
-                                        <option value="">Chọn nhà hàng</option>
+                                        <option value="">{{ __('Chọn nhà hàng') }}</option>
                                         @foreach ($restaurants as $restaurant)
                                             <option value="{{ $restaurant->id }}" @selected(old('restaurant_id') == $restaurant->id)>
-                                                {{ $restaurant->name }}
+                                                {{ localized_text($restaurant, 'name') }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -366,11 +366,11 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="floor">Chọn tầng <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">(bắt buộc)</span></label>
+                                    <label for="floor">{{ __('Chọn tầng') }} <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">({{ __('Bắt buộc') }})</span></label>
                                     <select id="floor" name="floor" class="form-select @error('floor') is-invalid @enderror" required>
-                                        <option value="">Chọn tầng</option>
+                                        <option value="">{{ __('Chọn tầng') }}</option>
                                         @foreach ([1, 2] as $floor)
-                                            <option value="{{ $floor }}" @selected(old('floor') == $floor)>Tầng {{ $floor }}</option>
+                                            <option value="{{ $floor }}" @selected(old('floor') == $floor)>{{ __('Tầng') }} {{ $floor }}</option>
                                         @endforeach
                                     </select>
                                     @error('floor')
@@ -379,7 +379,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="customer_name">Họ và tên <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">(bắt buộc)</span></label>
+                                    <label for="customer_name">{{ __('Họ và tên') }} <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">({{ __('Bắt buộc') }})</span></label>
                                     <input id="customer_name" name="customer_name" type="text" class="form-control @error('customer_name') is-invalid @enderror" value="{{ old('customer_name') }}" autocomplete="name" required>
                                     @error('customer_name')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -387,7 +387,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="phone">Số điện thoại <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">(bắt buộc)</span></label>
+                                    <label for="phone">{{ __('Số điện thoại') }} <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">({{ __('Bắt buộc') }})</span></label>
                                     <input id="phone" name="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" autocomplete="tel" required>
                                     @error('phone')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -395,7 +395,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="number_of_guests">Số lượng người <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">(bắt buộc)</span></label>
+                                    <label for="number_of_guests">{{ __('Số lượng người') }} <span class="booking-required-mark" aria-hidden="true">*</span><span class="visually-hidden">({{ __('Bắt buộc') }})</span></label>
                                     <input id="number_of_guests" name="number_of_guests" type="number" min="1" max="100" class="form-control @error('number_of_guests') is-invalid @enderror" value="{{ old('number_of_guests', 2) }}" required>
                                     @error('number_of_guests')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -403,7 +403,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field booking-note">
-                                    <label for="note">Ghi chú</label>
+                                    <label for="note">{{ __('Ghi chú') }}</label>
                                     <input id="note" name="note" type="text" maxlength="2000" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}">
                                     @error('note')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -411,7 +411,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="booking_date">Ngày đặt</label>
+                                    <label for="booking_date">{{ __('Ngày đặt') }}</label>
                                     <input id="booking_date" name="booking_date" type="date" min="{{ now()->toDateString() }}" class="form-control @error('booking_date') is-invalid @enderror" value="{{ old('booking_date') }}" required>
                                     @error('booking_date')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -419,18 +419,18 @@
                                 </div>
 
                                 <div class="col-12 col-md-6 booking-field">
-                                    <label for="booking_time">Giờ đặt</label>
+                                    <label for="booking_time">{{ __('Giờ đặt') }}</label>
                                     <input id="booking_time" name="booking_time" type="time" class="form-control @error('booking_time') is-invalid @enderror" value="{{ old('booking_time') }}" required>
-                                    <div class="booking-time-note">Thời gian giữ bàn tối đa 10 phút</div>
+                                    <div class="booking-time-note">{{ __('Thời gian giữ bàn tối đa 10 phút') }}</div>
                                     @error('booking_time')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <fieldset class="col-12 booking-table-fieldset" aria-describedby="bookingTableHelp">
-                                    <legend class="booking-table-title">Chọn bàn</legend>
+                                    <legend class="booking-table-title">{{ __('Chọn bàn') }}</legend>
                                     <p class="booking-table-help" id="bookingTableHelp">
-                                        Chọn một hoặc nhiều bàn ở tầng đã chọn để đủ chỗ cho số khách. Mỗi tầng có tổng sức chứa {{ $maximumFloorCapacity }} người; với đoàn đông hơn, nhà hàng sẽ bố trí bàn khi xác nhận.
+                                        {{ __('Chọn một hoặc nhiều bàn ở tầng đã chọn để đủ chỗ cho số khách. Mỗi tầng có tổng sức chứa :capacity người; với đoàn đông hơn, nhà hàng sẽ bố trí bàn khi xác nhận.', ['capacity' => $maximumFloorCapacity]) }}
                                     </p>
                                     <div class="booking-table-grid">
                                         @foreach ($tableCapacities as $tableCode => $capacity)
@@ -442,7 +442,7 @@
                                                     value="{{ $tableCode }}"
                                                     @checked(in_array($tableCode, (array) old('table_codes', [])))>
                                                 <span class="booking-table-code">{{ $tableCode }}</span>
-                                                <span class="booking-table-capacity">{{ $capacity }} người</span>
+                                                <span class="booking-table-capacity">{{ $capacity }} {{ __('người') }}</span>
                                             </label>
                                         @endforeach
                                     </div>
@@ -452,8 +452,8 @@
                                 </fieldset>
 
                                 <section class="col-12 booking-preorder" aria-labelledby="preOrderTitle">
-                                    <h3 class="booking-preorder-title" id="preOrderTitle">Gọi món trước</h3>
-                                    <p class="booking-preorder-description">Chọn trước món Must Try để nhà hàng chuẩn bị cho bàn của bạn.</p>
+                                    <h3 class="booking-preorder-title" id="preOrderTitle">{{ __('Gọi món trước') }}</h3>
+                                    <p class="booking-preorder-description">{{ __('Chọn trước món Must Try để nhà hàng chuẩn bị cho bàn của bạn.') }}</p>
 
                                     @if ($mustTryMenuItems->isNotEmpty())
                                         <div class="booking-preorder-grid">
@@ -470,21 +470,21 @@
                                                         <img
                                                             class="booking-preorder-image"
                                                             src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}"
-                                                            alt="{{ $menuItem->name }}"
+                                                            alt="{{ localized_text($menuItem, 'name') }}"
                                                             loading="lazy">
                                                     @endif
                                                     <span class="booking-preorder-details">
-                                                        <span class="booking-preorder-name">{{ $menuItem->name }}</span>
-                                                        @if ($menuItem->description)
-                                                            <span class="booking-preorder-copy">{{ $menuItem->description }}</span>
+                                                        <span class="booking-preorder-name">{{ localized_text($menuItem, 'name') }}</span>
+                                                        @if (localized_text($menuItem, 'description'))
+                                                            <span class="booking-preorder-copy">{{ localized_text($menuItem, 'description') }}</span>
                                                         @endif
-                                                        <span class="booking-preorder-price">{{ number_format((float) $menuItem->price, 0, ',', '.') }} đ</span>
+                                                        <span class="booking-preorder-price">{{ localized_price($menuItem->price) }}</span>
                                                     </span>
                                                 </label>
                                             @endforeach
                                         </div>
                                     @else
-                                        <p class="booking-preorder-empty">Hiện chưa có món Must Try để chọn trước.</p>
+                                        <p class="booking-preorder-empty">{{ __('Hiện chưa có món Must Try để chọn trước.') }}</p>
                                     @endif
 
                                     @error('pre_order_items')
@@ -494,18 +494,18 @@
 
                                 <div class="col-12">
                                     <p class="booking-terms">
-                                        <strong>Điều khoản và lưu ý đặt bàn</strong><br>
-                                        Nhà hàng giữ bàn tối đa 15 phút, sau thời gian này xin phép phục vụ khách tiếp theo. Với đoàn đông từ 15 khách trở lên hoặc có yêu cầu đặc biệt, vui lòng chờ xác nhận đặt bàn thành công từ nhà hàng.
+                                        <strong>{{ __('Điều khoản và lưu ý đặt bàn') }}</strong><br>
+                                        {{ __('Nhà hàng giữ bàn tối đa 15 phút, sau thời gian này xin phép phục vụ khách tiếp theo. Với đoàn đông từ 15 khách trở lên hoặc có yêu cầu đặc biệt, vui lòng chờ xác nhận đặt bàn thành công từ nhà hàng.') }}
                                     </p>
                                 </div>
 
                                 <div class="col-12 pt-1">
                                     <div class="booking-actions">
                                         <a class="btn booking-cancel d-inline-flex align-items-center justify-content-center" href="{{ route('home') }}">
-                                            Hủy bỏ
+                                            {{ __('Hủy bỏ') }}
                                         </a>
                                         <button class="btn booking-submit w-100" type="submit" @disabled($restaurants->isEmpty())>
-                                            Gửi yêu cầu đặt bàn
+                                            {{ __('Gửi yêu cầu đặt bàn') }}
                                         </button>
                                     </div>
                                 </div>
@@ -524,25 +524,25 @@
                     <div class="modal-header border-0 pb-0">
                         <div>
                             <p class="booking-eyebrow mb-1">Yakiniku King</p>
-                            <h2 class="modal-title booking-form-title" id="bookingConfirmationTitle">Thông tin đặt bàn</h2>
+                            <h2 class="modal-title booking-form-title" id="bookingConfirmationTitle">{{ __('Thông tin đặt bàn') }}</h2>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Đóng') }}"></button>
                     </div>
 
                     <div class="modal-body pt-3">
                         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
                             <div>
-                                <div class="small text-secondary">Mã đặt bàn</div>
+                                <div class="small text-secondary">{{ __('Mã đặt bàn') }}</div>
                                 <strong class="fs-5">{{ $booking->booking_code }}</strong>
                             </div>
                             @if ($booking->status === 'confirmed')
-                                <span class="badge rounded-pill text-bg-success px-3 py-2">Đã xác nhận</span>
+                                <span class="badge rounded-pill text-bg-success px-3 py-2">{{ __('Đã xác nhận') }}</span>
                             @elseif ($booking->status === 'pending')
-                                <span class="badge rounded-pill text-bg-warning px-3 py-2">Chưa xác nhận</span>
+                                <span class="badge rounded-pill text-bg-warning px-3 py-2">{{ __('Chưa xác nhận') }}</span>
                             @elseif ($booking->status === 'cancelled')
-                                <span class="badge rounded-pill text-bg-secondary px-3 py-2">Đã hủy</span>
+                                <span class="badge rounded-pill text-bg-secondary px-3 py-2">{{ __('Đã hủy') }}</span>
                             @else
-                                <span class="badge rounded-pill text-bg-primary px-3 py-2">Hoàn thành</span>
+                                <span class="badge rounded-pill text-bg-primary px-3 py-2">{{ __('Hoàn thành') }}</span>
                             @endif
                         </div>
 
@@ -550,62 +550,62 @@
                             <div class="col-12 col-md-8">
                                 <div id="bookingCustomerDetails" class="booking-confirmation-details">
                                     <dl class="row g-0 mb-0">
-                                        <dt class="col-sm-5 py-2">Nhà hàng</dt>
-                                        <dd class="col-sm-7 py-2">{{ $booking->restaurant->name }}</dd>
-                                        <dt class="col-sm-5 py-2">Tầng</dt>
-                                        <dd class="col-sm-7 py-2">{{ $booking->floor ? 'Tầng '.$booking->floor : 'Nhà hàng bố trí khi xác nhận' }}</dd>
-                                        <dt class="col-sm-5 py-2">Bàn</dt>
-                                        <dd class="col-sm-7 py-2">{{ $booking->table_codes ? implode(', ', $booking->table_codes) : 'Nhà hàng bố trí khi xác nhận' }}</dd>
-                                        <dt class="col-sm-5 py-2">Họ và tên</dt>
+                                        <dt class="col-sm-5 py-2">{{ __('Nhà hàng') }}</dt>
+                                        <dd class="col-sm-7 py-2">{{ localized_text($booking->restaurant, 'name') }}</dd>
+                                        <dt class="col-sm-5 py-2">{{ __('Tầng') }}</dt>
+                                        <dd class="col-sm-7 py-2">{{ $booking->floor ? __('Tầng').' '.$booking->floor : __('Nhà hàng bố trí khi xác nhận') }}</dd>
+                                        <dt class="col-sm-5 py-2">{{ __('Bàn') }}</dt>
+                                        <dd class="col-sm-7 py-2">{{ $booking->table_codes ? implode(', ', $booking->table_codes) : __('Nhà hàng bố trí khi xác nhận') }}</dd>
+                                        <dt class="col-sm-5 py-2">{{ __('Họ và tên') }}</dt>
                                         <dd class="col-sm-7 py-2">{{ $booking->customer_name }}</dd>
-                                        <dt class="col-sm-5 py-2">Số điện thoại</dt>
+                                        <dt class="col-sm-5 py-2">{{ __('Số điện thoại') }}</dt>
                                         <dd class="col-sm-7 py-2">{{ $booking->phone }}</dd>
                                         @if ($booking->email)
                                             <dt class="col-sm-5 py-2">Email</dt>
                                             <dd class="col-sm-7 py-2">{{ $booking->email }}</dd>
                                         @endif
-                                        <dt class="col-sm-5 py-2">Ngày đặt</dt>
+                                        <dt class="col-sm-5 py-2">{{ __('Ngày đặt') }}</dt>
                                         <dd class="col-sm-7 py-2">{{ $booking->booking_date->format('d/m/Y') }}</dd>
-                                        <dt class="col-sm-5 py-2">Giờ đặt</dt>
+                                        <dt class="col-sm-5 py-2">{{ __('Giờ đặt') }}</dt>
                                         <dd class="col-sm-7 py-2">{{ substr($booking->booking_time, 0, 5) }}</dd>
-                                        <dt class="col-sm-5 py-2">Số khách</dt>
+                                        <dt class="col-sm-5 py-2">{{ __('Số khách') }}</dt>
                                         <dd class="col-sm-7 py-2">{{ $booking->number_of_guests }}</dd>
                                         @if ($booking->pre_order_items)
-                                            <dt class="col-sm-5 py-2">Gọi món trước</dt>
+                                            <dt class="col-sm-5 py-2">{{ __('Gọi món trước') }}</dt>
                                             <dd class="col-sm-7 py-2">
                                                 <ul class="mb-0 ps-3">
                                                     @foreach ($booking->pre_order_items as $preOrderItem)
-                                                        <li>{{ $preOrderItem['name'] }}</li>
+                                                        <li>{{ app()->getLocale() === 'en' ? (($preOrderItem['name_en'] ?? null) ?: __($preOrderItem['name'])) : $preOrderItem['name'] }}</li>
                                                     @endforeach
                                                 </ul>
                                             </dd>
                                         @endif
                                         @if ($booking->note)
-                                            <dt class="col-sm-5 py-2">Ghi chú</dt>
+                                            <dt class="col-sm-5 py-2">{{ __('Ghi chú') }}</dt>
                                             <dd class="col-sm-7 py-2">{{ $booking->note }}</dd>
                                         @endif
                                     </dl>
                                 </div>
                                 <button class="btn btn-link btn-sm px-0 mt-2" id="toggleBookingDetails" type="button" aria-controls="bookingCustomerDetails" aria-expanded="true">
-                                    Ẩn thông tin
+                                    {{ __('Ẩn thông tin') }}
                                 </button>
                             </div>
 
                             <div class="col-12 col-md-4">
                                 <div class="booking-qr-panel text-center">
-                                    <div id="bookingQrCode" class="booking-qr-code mx-auto" data-qr-value="{{ $booking->qr_code }}" aria-label="Mã QR đặt bàn"></div>
-                                    <p class="small text-secondary mb-0 mt-2">Quét mã khi đến nhà hàng</p>
+                                    <div id="bookingQrCode" class="booking-qr-code mx-auto" data-qr-value="{{ $booking->qr_code }}" aria-label="{{ __('Mã QR đặt bàn') }}"></div>
+                                    <p class="small text-secondary mb-0 mt-2">{{ __('Quét mã khi đến nhà hàng') }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer justify-content-between">
-                        <a class="btn btn-outline-dark" href="{{ route('home') }}">Trở về trang chủ</a>
+                        <a class="btn btn-outline-dark" href="{{ route('home') }}">{{ __('Trở về trang chủ') }}</a>
                         @if (in_array($booking->status, ['pending', 'confirmed'], true))
-                            <form method="POST" action="{{ route('booking.cancel') }}" onsubmit="return confirm('Bạn chắc chắn muốn hủy đặt bàn này?')">
+                            <form method="POST" action="{{ route('booking.cancel') }}" data-confirm="{{ __('Bạn chắc chắn muốn hủy đặt bàn này?') }}" onsubmit="return confirm(this.dataset.confirm)">
                                 @csrf
-                                <button class="btn btn-outline-danger" type="submit">Hủy đặt bàn</button>
+                                <button class="btn btn-outline-danger" type="submit">{{ __('Hủy đặt bàn') }}</button>
                             </form>
                         @endif
                     </div>
@@ -640,7 +640,7 @@
                     const isExpanded = toggleDetailsButton.getAttribute('aria-expanded') === 'true';
                     detailsElement.hidden = isExpanded;
                     toggleDetailsButton.setAttribute('aria-expanded', String(!isExpanded));
-                    toggleDetailsButton.textContent = isExpanded ? 'Hiện thông tin' : 'Ẩn thông tin';
+                    toggleDetailsButton.textContent = isExpanded ? @json(__('Hiện thông tin')) : @json(__('Ẩn thông tin'));
                 });
 
                 bootstrap.Modal.getOrCreateInstance(modalElement).show();

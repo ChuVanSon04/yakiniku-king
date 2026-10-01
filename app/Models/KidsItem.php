@@ -13,10 +13,12 @@ class KidsItem extends Model
 
     protected $fillable = [
         'name',
+        'name_en',
         'slug',
         'type',
         'food_category',
         'description',
+        'description_en',
         'image',
         'price',
         'sort_order',

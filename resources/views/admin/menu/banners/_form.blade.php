@@ -15,6 +15,12 @@
 
 </div>
 
+@include('admin.menu.partials.english-field', [
+    'name' => 'title_en',
+    'label' => 'Tiêu đề',
+    'value' => $banner->title_en ?? '',
+])
+
 
 <div style="margin-bottom:15px;">
 

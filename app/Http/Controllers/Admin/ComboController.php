@@ -54,6 +54,7 @@ class ComboController extends Controller
                 'string',
                 'max:255',
             ],
+            'name_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -66,6 +67,7 @@ class ComboController extends Controller
                 'nullable',
                 'string',
             ],
+            'description_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -147,8 +149,10 @@ class ComboController extends Controller
 
             $combo = Combo::create([
                 'name' => $validated['name'],
+                'name_en' => $validated['name_en'] ?? null,
                 'slug' => $validated['slug'],
                 'description' => $validated['description'] ?? null,
+                'description_en' => $validated['description_en'] ?? null,
                 'image' => $validated['image'] ?? null,
                 'price' => $validated['price'],
                 'original_price' => $validated['original_price'] ?? null,
@@ -211,6 +215,7 @@ class ComboController extends Controller
                 'string',
                 'max:255',
             ],
+            'name_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -223,6 +228,7 @@ class ComboController extends Controller
                 'nullable',
                 'string',
             ],
+            'description_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -299,8 +305,10 @@ class ComboController extends Controller
 
         $combo->update([
             'name' => $validated['name'],
+            'name_en' => $validated['name_en'] ?? null,
             'slug' => $validated['slug'],
             'description' => $validated['description'] ?? null,
+            'description_en' => $validated['description_en'] ?? null,
             'image' => $imagePath,
             'price' => $validated['price'],
             'original_price' => $validated['original_price'] ?? null,

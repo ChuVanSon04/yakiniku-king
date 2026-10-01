@@ -54,10 +54,12 @@ class KidsItemController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:kids_items,slug'],
             'type' => ['required', 'in:food,utensil,supply'],
             'food_category' => ['nullable', 'in:meat,side_dish,vegetable,soup,rice_noodles,dessert'],
             'description' => ['nullable', 'string'],
+            'description_en' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'remove_image' => ['nullable', 'boolean'],
             'price' => ['nullable', 'numeric', 'min:0'],
@@ -93,10 +95,12 @@ class KidsItemController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'name_en' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:kids_items,slug,'.$kidsItem->id],
             'type' => ['required', 'in:food,utensil,supply'],
             'food_category' => ['nullable', 'in:meat,side_dish,vegetable,soup,rice_noodles,dessert'],
             'description' => ['nullable', 'string'],
+            'description_en' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'price' => ['nullable', 'numeric', 'min:0'],
             'sort_order' => ['nullable', 'integer', 'min:0'],

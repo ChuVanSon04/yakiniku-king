@@ -25,7 +25,9 @@ class RestaurantController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
             'address' => 'required|string',
+            'address_en' => 'nullable|string|max:255',
 
             'phone' => 'nullable|string|max:30',
 
@@ -74,7 +76,9 @@ class RestaurantController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
             'address' => 'required|string',
+            'address_en' => 'nullable|string|max:255',
 
             'phone' => 'nullable|string|max:30',
 

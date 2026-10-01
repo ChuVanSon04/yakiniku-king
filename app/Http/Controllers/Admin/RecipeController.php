@@ -33,6 +33,7 @@ class RecipeController extends Controller
                 'string',
                 'max:255',
             ],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -45,11 +46,13 @@ class RecipeController extends Controller
                 'nullable',
                 'string',
             ],
+            'short_description_en' => ['nullable', 'string', 'max:255'],
 
             'content' => [
                 'nullable',
                 'string',
             ],
+            'content_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -97,12 +100,15 @@ class RecipeController extends Controller
 
         Recipe::create([
             'title' => $validated['title'],
+            'title_en' => $validated['title_en'] ?? null,
 
             'slug' => $validated['slug'],
 
             'short_description' => $validated['short_description'] ?? null,
+            'short_description_en' => $validated['short_description_en'] ?? null,
 
             'content' => $validated['content'] ?? null,
+            'content_en' => $validated['content_en'] ?? null,
 
             'image' => $imagePath,
 
@@ -137,6 +143,7 @@ class RecipeController extends Controller
                 'string',
                 'max:255',
             ],
+            'title_en' => ['nullable', 'string', 'max:255'],
 
             'slug' => [
                 'nullable',
@@ -149,11 +156,13 @@ class RecipeController extends Controller
                 'nullable',
                 'string',
             ],
+            'short_description_en' => ['nullable', 'string', 'max:255'],
 
             'content' => [
                 'nullable',
                 'string',
             ],
+            'content_en' => ['nullable', 'string'],
 
             'image' => [
                 'nullable',
@@ -208,12 +217,15 @@ class RecipeController extends Controller
 
         $recipe->update([
             'title' => $validated['title'],
+            'title_en' => $validated['title_en'] ?? null,
 
             'slug' => $validated['slug'],
 
             'short_description' => $validated['short_description'] ?? null,
+            'short_description_en' => $validated['short_description_en'] ?? null,
 
             'content' => $validated['content'] ?? null,
+            'content_en' => $validated['content_en'] ?? null,
 
             'image' => $imagePath,
 

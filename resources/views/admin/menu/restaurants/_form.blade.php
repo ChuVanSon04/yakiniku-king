@@ -10,6 +10,8 @@
     >
 </div>
 
+@include('admin.menu.partials.english-field', ['name' => 'name_en', 'label' => 'Tên nhà hàng', 'value' => $restaurant->name_en ?? '', 'margin' => '15px'])
+
 
 <div style="margin-bottom: 15px;">
     <label>Địa chỉ</label>
@@ -21,6 +23,8 @@
         required
     >{{ old('address', $restaurant->address ?? '') }}</textarea>
 </div>
+
+@include('admin.menu.partials.english-field', ['name' => 'address_en', 'label' => 'Địa chỉ', 'value' => $restaurant->address_en ?? '', 'type' => 'textarea', 'rows' => 3, 'margin' => '15px'])
 
 
 <div style="margin-bottom: 15px;">

@@ -26,6 +26,8 @@
             <input id="name" type="text" name="name" value="{{ old('name', $kidsItem->name) }}" required style="display:block; width:100%; padding:10px;">
         </div>
 
+        @include('admin.menu.partials.english-field', ['name' => 'name_en', 'label' => 'Tên', 'value' => $kidsItem->name_en ?? ''])
+
         <div style="margin-bottom:20px;">
             <label for="slug">Slug</label>
             <input id="slug" type="text" name="slug" value="{{ old('slug', $kidsItem->slug) }}" style="display:block; width:100%; padding:10px;">
@@ -54,6 +56,8 @@
             <label for="description">Mô tả</label>
             <textarea id="description" name="description" rows="5" style="display:block; width:100%; padding:10px;">{{ old('description', $kidsItem->description) }}</textarea>
         </div>
+
+        @include('admin.menu.partials.english-field', ['name' => 'description_en', 'label' => 'Mô tả', 'value' => $kidsItem->description_en ?? '', 'type' => 'textarea', 'rows' => 5])
 
         <div data-image-field style="margin-bottom:20px;">
             <label for="image">Hình ảnh</label>

@@ -210,13 +210,13 @@
             <h1>{{ $pageTitle }}</h1>
             <p class="text-muted">
                 @if (request()->routeIs('menu.promotions'))
-                    Khám phá những ưu đãi đang diễn ra tại Yakiniku King.
+                    {{ __('Khám phá những ưu đãi đang diễn ra tại Yakiniku King.') }}
                 @elseif (request()->routeIs('menu.combos'))
-                    Những lựa chọn dành cho bữa ăn cùng gia đình và các thực khách nhí.
+                    {{ __('Những lựa chọn dành cho bữa ăn cùng gia đình và các thực khách nhí.') }}
                 @elseif (request()->routeIs('menu.for-kids'))
-                    Đồ ăn, dụng cụ và đồ dùng dành riêng cho các bé.
+                    {{ __('Đồ ăn, dụng cụ và đồ dùng dành riêng cho các bé.') }}
                 @else
-                    Khám phá các món ngon tại Yakiniku King.
+                    {{ __('Khám phá các món ngon tại Yakiniku King.') }}
                 @endif
             </p>
         </div>
@@ -227,16 +227,16 @@
                     <div class="col-12 col-md-6 col-lg-4">
                         <article class="card promotion-card">
                             @if ($promotion->image)
-                                <img src="{{ asset('storage/' . $promotion->image) }}" class="promotion-image" alt="{{ $promotion->title }}" loading="lazy">
+                                <img src="{{ asset('storage/' . $promotion->image) }}" class="promotion-image" alt="{{ localized_text($promotion, 'title') }}" loading="lazy">
                             @else
-                                <div class="promotion-image promotion-image-placeholder" aria-hidden="true">Ưu đãi đặc biệt</div>
+                                <div class="promotion-image promotion-image-placeholder" aria-hidden="true">{{ __('Ưu đãi đặc biệt') }}</div>
                             @endif
 
                             <div class="card-body p-4">
-                                <h2 class="h5 card-title">{{ $promotion->title }}</h2>
-                                <p class="card-text text-muted">{{ $promotion->short_description }}</p>
+                                <h2 class="h5 card-title">{{ localized_text($promotion, 'title') }}</h2>
+                                <p class="card-text text-muted">{{ localized_text($promotion, 'short_description') }}</p>
                                 <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#promotion-detail-{{ $loop->index }}">
-                                    Xem chi tiết
+                                    {{ __('Xem chi tiết') }}
                                 </button>
                             </div>
                         </article>
@@ -246,14 +246,14 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h2 class="modal-title h5" id="promotion-detail-title-{{ $loop->index }}">{{ $promotion->title }}</h2>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                    <h2 class="modal-title h5" id="promotion-detail-title-{{ $loop->index }}">{{ localized_text($promotion, 'title') }}</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Đóng') }}"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p class="promotion-detail-copy mb-3">{{ $promotion->description ?: $promotion->short_description }}</p>
+                                    <p class="promotion-detail-copy mb-3">{{ localized_text($promotion, 'description') ?: localized_text($promotion, 'short_description') }}</p>
                                     @if ($promotion->start_date || $promotion->end_date)
                                         <p class="promotion-period mb-0">
-                                            Thời gian áp dụng:
+                                            {{ __('Thời gian áp dụng:') }}
                                             {{ $promotion->start_date?->format('d/m/Y') ?? 'N/A' }}
                                             -
                                             {{ $promotion->end_date?->format('d/m/Y') ?? 'N/A' }}
@@ -265,7 +265,7 @@
                     </div>
                 @empty
                     <div class="col-12">
-                        <p class="text-muted">Hiện chưa có chương trình khuyến mãi nào.</p>
+                        <p class="text-muted">{{ __('Hiện chưa có chương trình khuyến mãi nào.') }}</p>
                     </div>
                 @endforelse
             </div>
@@ -278,23 +278,23 @@
                         <article class="row combo-row g-4">
                             <div class="col-md-6">
                                 <div class="combo-row-copy">
-                                    <h3 class="h4">{{ $combo->name }}</h3>
-                                    @if ($combo->description)
-                                        <p class="text-muted">{{ $combo->description }}</p>
+                                    <h3 class="h4">{{ localized_text($combo, 'name') }}</h3>
+                                    @if (localized_text($combo, 'description'))
+                                        <p class="text-muted">{{ localized_text($combo, 'description') }}</p>
                                     @endif
-                                    <p class="fw-bold fs-5 mb-0">{{ number_format($combo->price, 0, ',', '.') }} đ</p>
+                                    <p class="fw-bold fs-5 mb-0">{{ localized_price($combo->price) }}</p>
                                     <button class="btn btn-outline-dark mt-3" type="button" data-bs-toggle="modal" data-bs-target="#combo-detail-{{ $combo->id }}">
-                                        Xem chi tiết
+                                        {{ __('Xem chi tiết') }}
                                     </button>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 @if ($combo->image)
                                     <div class="combo-row-image-wrap">
-                                        <img src="{{ asset('storage/' . $combo->image) }}" class="combo-row-image" alt="Combo {{ $combo->name }}" loading="lazy">
+                                        <img src="{{ asset('storage/' . $combo->image) }}" class="combo-row-image" alt="Combo {{ localized_text($combo, 'name') }}" loading="lazy">
                                     </div>
                                 @else
-                                    <div class="combo-row-image-placeholder">{{ $combo->name }}</div>
+                                    <div class="combo-row-image-placeholder">{{ localized_text($combo, 'name') }}</div>
                                 @endif
                             </div>
                         </article>
@@ -303,52 +303,52 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h2 class="modal-title h5" id="combo-detail-title-{{ $combo->id }}">{{ $combo->name }}</h2>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                        <h2 class="modal-title h5" id="combo-detail-title-{{ $combo->id }}">{{ localized_text($combo, 'name') }}</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Đóng') }}"></button>
                                     </div>
                                     <div class="modal-body">
-                                        @if ($combo->description)
-                                            <p class="text-muted">{{ $combo->description }}</p>
+                                        @if (localized_text($combo, 'description'))
+                                            <p class="text-muted">{{ localized_text($combo, 'description') }}</p>
                                         @endif
 
-                                        <h3 class="h6 mb-3">Các món trong combo</h3>
+                                        <h3 class="h6 mb-3">{{ __('Các món trong combo') }}</h3>
                                         <div class="combo-modal-items">
                                             @forelse ($combo->menuItems as $menuItem)
                                                 <article class="combo-modal-item">
                                                     <div class="combo-modal-item-copy">
                                                         @if ($menuItem->category)
-                                                            <p class="small text-muted mb-1">{{ $menuItem->category->name }}</p>
+                                                            <p class="small text-muted mb-1">{{ localized_text($menuItem->category, 'name') }}</p>
                                                         @endif
-                                                        <h4 class="h6 mb-1">{{ $menuItem->name }}</h4>
-                                                        @if ($menuItem->description)
-                                                            <p class="small text-muted mb-2">{{ $menuItem->description }}</p>
+                                                        <h4 class="h6 mb-1">{{ localized_text($menuItem, 'name') }}</h4>
+                                                        @if (localized_text($menuItem, 'description'))
+                                                            <p class="small text-muted mb-2">{{ localized_text($menuItem, 'description') }}</p>
                                                         @endif
                                                         <p class="small text-muted mb-0">
-                                                            {{ $menuItem->pivot->quantity }} phần × {{ number_format($menuItem->price, 0, ',', '.') }} đ
+                                                            {{ $menuItem->pivot->quantity }} {{ app()->getLocale() === 'en' && $menuItem->pivot->quantity !== 1 ? __('các phần') : __('phần') }} × {{ localized_price($menuItem->price) }}
                                                         </p>
                                                     </div>
                                                     <strong class="text-nowrap">
-                                                        {{ number_format($menuItem->price * $menuItem->pivot->quantity, 0, ',', '.') }} đ
+                                                        {{ localized_price($menuItem->price * $menuItem->pivot->quantity) }}
                                                     </strong>
                                                 </article>
                                             @empty
-                                                <p class="text-muted py-3 mb-0">Thông tin các món trong combo chưa được cập nhật.</p>
+                                                <p class="text-muted py-3 mb-0">{{ __('Thông tin các món trong combo chưa được cập nhật.') }}</p>
                                             @endforelse
                                         </div>
 
                                         @if ($combo->menuItems->isNotEmpty())
                                             <div class="combo-modal-summary">
                                                 <div class="combo-modal-summary-row">
-                                                    <span>Tổng giá lẻ các món</span>
-                                                    <span>{{ number_format($combo->retail_total, 0, ',', '.') }} đ</span>
+                                                    <span>{{ __('Tổng giá lẻ các món') }}</span>
+                                                    <span>{{ localized_price($combo->retail_total) }}</span>
                                                 </div>
                                                 <div class="combo-modal-summary-row border-top mt-2 pt-3">
-                                                    <strong>Giá combo</strong>
-                                                    <strong>{{ number_format($combo->price, 0, ',', '.') }} đ</strong>
+                                                    <strong>{{ __('Giá combo') }}</strong>
+                                                    <strong>{{ localized_price($combo->price) }}</strong>
                                                 </div>
                                                 @if ($combo->retail_total > $combo->price)
                                                     <p class="text-success text-end small mb-0">
-                                                        Tiết kiệm {{ number_format($combo->retail_total - $combo->price, 0, ',', '.') }} đ
+                                                        {{ __('Tiết kiệm') }} {{ localized_price($combo->retail_total - $combo->price) }}
                                                     </p>
                                                 @endif
                                             </div>
@@ -358,7 +358,7 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-muted">Hiện chưa có combo nào.</p>
+                        <p class="text-muted">{{ __('Hiện chưa có combo nào.') }}</p>
                     @endforelse
                 </section>
 
@@ -366,21 +366,21 @@
                     <div class="row align-items-center g-4">
                         <div class="col-md-5">
                             <div class="kids-menu-copy">
-                                <p class="text-uppercase fw-bold small mb-2">Dành cho thực khách nhí</p>
-                                <h2 class="h3 mb-3" id="kids-menu-title">Kids Menu</h2>
+                                <p class="text-uppercase fw-bold small mb-2">{{ __('Dành cho thực khách nhí') }}</p>
+                                <h2 class="h3 mb-3" id="kids-menu-title">{{ __('Kids Menu') }}</h2>
                                 <p class="text-muted">
-                                    Khám phá thực đơn riêng cho các bé với những lựa chọn hấp dẫn, để cả gia đình cùng tận hưởng bữa ăn tại Yakiniku King.
+                                    {{ __('Khám phá thực đơn riêng cho các bé với những lựa chọn hấp dẫn, để cả gia đình cùng tận hưởng bữa ăn tại Yakiniku King.') }}
                                 </p>
-                                <a class="btn btn-dark" href="{{ route('menu.for-kids') }}">Khám phá Kids Menu</a>
+                                <a class="btn btn-dark" href="{{ route('menu.for-kids') }}">{{ __('Khám phá Kids Menu') }}</a>
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="kids-menu-gallery">
                                 <div class="kids-menu-image-wrap">
-                                    <img src="{{ asset('yakiniku-king/for-kid.jpg') }}" class="kids-menu-image" alt="Món ăn trong Kids Menu" loading="lazy">
+                                    <img src="{{ asset('yakiniku-king/for-kid.jpg') }}" class="kids-menu-image" alt="{{ __('Món ăn trong Kids Menu') }}" loading="lazy">
                                 </div>
                                 <div class="kids-menu-image-wrap">
-                                    <img src="{{ asset('yakiniku-king/service_img_kidsmenu.jpg') }}" class="kids-menu-image" alt="Không gian phục vụ Kids Menu" loading="lazy">
+                                    <img src="{{ asset('yakiniku-king/service_img_kidsmenu.jpg') }}" class="kids-menu-image" alt="{{ __('Không gian phục vụ Kids Menu') }}" loading="lazy">
                                 </div>
                             </div>
                         </div>
@@ -390,25 +390,25 @@
         @elseif (request()->routeIs('menu.for-kids'))
             <form action="{{ route('menu.for-kids') }}" method="GET" class="row g-3 align-items-end mb-4">
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="kids-type" class="form-label">Phân loại</label>
+                    <label for="kids-type" class="form-label">{{ __('Phân loại') }}</label>
                     <select id="kids-type" name="type" class="form-select">
-                        <option value="">Tất cả</option>
+                        <option value="">{{ __('Tất cả') }}</option>
                         @foreach ($kidsItemTypeLabels as $value => $label)
                             <option value="{{ $value }}" @selected($selectedType === $value)>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="kids-food-category" class="form-label">Nhóm món ăn</label>
+                    <label for="kids-food-category" class="form-label">{{ __('Nhóm món ăn') }}</label>
                     <select id="kids-food-category" name="food_category" class="form-select">
-                        <option value="">Tất cả nhóm</option>
+                        <option value="">{{ __('Tất cả nhóm') }}</option>
                         @foreach ($foodCategoryLabels as $value => $label)
                             <option value="{{ $value }}" @selected($selectedFoodCategory === $value)>{{ $label }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <label for="kids-sort" class="form-label">Sắp xếp</label>
+                    <label for="kids-sort" class="form-label">{{ __('Sắp xếp') }}</label>
                     <select id="kids-sort" name="sort" class="form-select">
                         @foreach ($kidsItemSortLabels as $value => $label)
                             <option value="{{ $value }}" @selected($selectedSort === $value)>{{ $label }}</option>
@@ -416,9 +416,9 @@
                     </select>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-3 d-flex gap-2">
-                    <button class="btn btn-dark flex-grow-1" type="submit">Lọc</button>
+                    <button class="btn btn-dark flex-grow-1" type="submit">{{ __('Lọc') }}</button>
                     @if ($selectedType || $selectedFoodCategory || $selectedSort !== 'featured')
-                        <a class="btn btn-outline-secondary" href="{{ route('menu.for-kids') }}">Xóa</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('menu.for-kids') }}">{{ __('Xóa') }}</a>
                     @endif
                 </div>
             </form>
@@ -428,7 +428,7 @@
                     <div class="col-12 col-sm-6 col-lg-4">
                         <article class="card h-100 shadow-sm">
                             @if ($kidsItem->image)
-                                <img src="{{ asset('storage/' . $kidsItem->image) }}" class="card-img-top" alt="{{ $kidsItem->name }}" loading="lazy">
+                                <img src="{{ asset('storage/' . $kidsItem->image) }}" class="card-img-top" alt="{{ localized_text($kidsItem, 'name') }}" loading="lazy">
                             @endif
                             <div class="card-body">
                                 <p class="small text-muted mb-2">
@@ -437,19 +437,19 @@
                                         · {{ $foodCategoryLabels[$kidsItem->food_category] ?? $kidsItem->food_category }}
                                     @endif
                                 </p>
-                                <h2 class="h5 card-title">{{ $kidsItem->name }}</h2>
-                                @if ($kidsItem->description)
-                                    <p class="card-text text-muted">{{ $kidsItem->description }}</p>
+                                <h2 class="h5 card-title">{{ localized_text($kidsItem, 'name') }}</h2>
+                                @if (localized_text($kidsItem, 'description'))
+                                    <p class="card-text text-muted">{{ localized_text($kidsItem, 'description') }}</p>
                                 @endif
                                 @if ($kidsItem->price !== null)
-                                    <p class="fw-bold mb-0">{{ number_format($kidsItem->price, 0, ',', '.') }} đ</p>
+                                    <p class="fw-bold mb-0">{{ localized_price($kidsItem->price) }}</p>
                                 @endif
                             </div>
                         </article>
                     </div>
                 @empty
                     <div class="col-12">
-                        <p class="text-muted">Hiện chưa có nội dung dành cho trẻ em.</p>
+                        <p class="text-muted">{{ __('Hiện chưa có nội dung dành cho trẻ em.') }}</p>
                     </div>
                 @endforelse
             </div>
@@ -457,7 +457,7 @@
             @if (request()->routeIs('menu.index'))
                 @forelse ($menuCategories as $menuCategory)
                     <div class="menu-category-group">
-                        <h2 class="h3 mb-3">{{ $menuCategory->name }}</h2>
+                        <h2 class="h3 mb-3">{{ localized_text($menuCategory, 'name') }}</h2>
 
                         <div class="row align-items-center g-4 menu-category-layout {{ $loop->even ? 'menu-category-layout-reversed' : '' }}">
                             <div class="col-12 col-md-4 menu-category-media">
@@ -465,12 +465,12 @@
                                     <img
                                         src="{{ asset(str_starts_with($menuCategory->image, 'menu/') ? 'storage/' . $menuCategory->image : $menuCategory->image) }}"
                                         class="menu-category-image"
-                                        alt="{{ $menuCategory->name }}"
+                                        alt="{{ localized_text($menuCategory, 'name') }}"
                                         loading="lazy"
                                     >
                                 @else
                                     <div class="menu-category-image-placeholder" aria-hidden="true">
-                                        {{ $menuCategory->name }}
+                                        {{ localized_text($menuCategory, 'name') }}
                                     </div>
                                 @endif
                             </div>
@@ -484,23 +484,23 @@
                                                     <img
                                                         src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}"
                                                         class="card-img-top"
-                                                        alt="{{ $menuItem->name }}"
+                                                        alt="{{ localized_text($menuItem, 'name') }}"
                                                         loading="lazy"
                                                     >
                                                 @endif
 
                                                 <div class="card-body">
-                                                    <h3 class="h5 card-title">{{ $menuItem->name }}</h3>
-                                                    @if ($menuItem->description)
-                                                        <p class="card-text text-muted">{{ $menuItem->description }}</p>
+                                                    <h3 class="h5 card-title">{{ localized_text($menuItem, 'name') }}</h3>
+                                                    @if (localized_text($menuItem, 'description'))
+                                                        <p class="card-text text-muted">{{ localized_text($menuItem, 'description') }}</p>
                                                     @endif
-                                                    <p class="fw-bold mb-0">{{ number_format($menuItem->price, 0, ',', '.') }} đ</p>
+                                                    <p class="fw-bold mb-0">{{ localized_price($menuItem->price) }}</p>
                                                 </div>
                                             </article>
                                         </div>
                                     @empty
                                         <div class="col-12">
-                                            <p class="text-muted">Danh mục này hiện chưa có món ăn.</p>
+                                            <p class="text-muted">{{ __('Danh mục này hiện chưa có món ăn.') }}</p>
                                         </div>
                                     @endforelse
                                 </div>
@@ -508,7 +508,7 @@
                         </div>
                     </div>
                 @empty
-                    <p class="text-muted">Hiện chưa có danh mục thực đơn nào.</p>
+                    <p class="text-muted">{{ __('Hiện chưa có danh mục thực đơn nào.') }}</p>
                 @endforelse
             @else
                 <div class="row g-4">
@@ -516,15 +516,15 @@
                         <div class="col-md-6 col-lg-4">
                             <article class="card h-100 shadow-sm">
                                 @if ($menuItem->image)
-                                    <img src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}" class="card-img-top" alt="{{ $menuItem->name }}">
+                                    <img src="{{ asset(str_starts_with($menuItem->image, 'menu/') ? 'storage/' . $menuItem->image : $menuItem->image) }}" class="card-img-top" alt="{{ localized_text($menuItem, 'name') }}">
                                 @endif
 
                                 <div class="card-body">
-                                    <h2 class="h5 card-title">{{ $menuItem->name }}</h2>
-                                    @if ($menuItem->description)
-                                        <p class="card-text text-muted">{{ $menuItem->description }}</p>
+                                    <h2 class="h5 card-title">{{ localized_text($menuItem, 'name') }}</h2>
+                                    @if (localized_text($menuItem, 'description'))
+                                        <p class="card-text text-muted">{{ localized_text($menuItem, 'description') }}</p>
                                     @endif
-                                    <p class="fw-bold mb-0">{{ number_format($menuItem->price, 0, ',', '.') }} đ</p>
+                                    <p class="fw-bold mb-0">{{ localized_price($menuItem->price) }}</p>
                                 </div>
                             </article>
                         </div>
@@ -533,18 +533,18 @@
                             <div class="col-md-6 col-lg-4">
                                 <article class="card h-100 shadow-sm">
                                     @if ($combo->image)
-                                        <img src="{{ asset('storage/' . $combo->image) }}" class="card-img-top" alt="{{ $combo->name }}">
+                                        <img src="{{ asset('storage/' . $combo->image) }}" class="card-img-top" alt="{{ localized_text($combo, 'name') }}">
                                     @endif
                                     <div class="card-body">
-                                        <h2 class="h5 card-title">{{ $combo->name }}</h2>
-                                        <p class="card-text text-muted">{{ $combo->description }}</p>
-                                        <p class="fw-bold mb-0">{{ number_format($combo->price, 0, ',', '.') }} đ</p>
+                                        <h2 class="h5 card-title">{{ localized_text($combo, 'name') }}</h2>
+                                        <p class="card-text text-muted">{{ localized_text($combo, 'description') }}</p>
+                                        <p class="fw-bold mb-0">{{ localized_price($combo->price) }}</p>
                                     </div>
                                 </article>
                             </div>
                         @empty
                             <div class="col-12">
-                                <p class="text-muted">Hiện chưa có dữ liệu cho mục này.</p>
+                                <p class="text-muted">{{ __('Hiện chưa có dữ liệu cho mục này.') }}</p>
                             </div>
                         @endforelse
                     @endforelse

@@ -10,6 +10,8 @@
     >
 </div>
 
+@include('admin.menu.partials.english-field', ['name' => 'title_en', 'label' => 'Tiêu đề', 'value' => $tip->title_en ?? ''])
+
 <div style="margin-bottom:15px;">
     <label>Slug</label>
     <br>
@@ -22,6 +24,8 @@
     >
 </div>
 
+@include('admin.menu.partials.english-field', ['name' => 'short_description_en', 'label' => 'Mô tả ngắn', 'value' => $tip->short_description_en ?? '', 'type' => 'textarea', 'rows' => 4])
+
 <div style="margin-bottom:15px;">
     <label>Mô tả ngắn</label>
     <br>
@@ -33,6 +37,8 @@
     <br>
     <textarea name="content" rows="15" style="width:100%; padding:10px;">{{ old('content', $tip->content ?? '') }}</textarea>
 </div>
+
+@include('admin.menu.partials.english-field', ['name' => 'content_en', 'label' => 'Nội dung bí kíp', 'value' => $tip->content_en ?? '', 'type' => 'textarea', 'rows' => 15])
 
 <div data-image-field style="margin-bottom:15px;">
     <label>Hình ảnh</label>

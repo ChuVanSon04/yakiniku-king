@@ -27,14 +27,14 @@ class BookingController extends Controller
         $restaurants = Restaurant::query()
             ->where('status', true)
             ->orderBy('name')
-            ->get(['id', 'name']);
+            ->get(['id', 'name', 'name_en']);
 
         $mustTryMenuItems = MenuItem::query()
             ->where('status', true)
             ->where('is_must_try', true)
             ->orderBy('sort_order')
             ->orderBy('name')
-            ->get(['id', 'name', 'description', 'image', 'price']);
+            ->get(['id', 'name', 'name_en', 'description', 'description_en', 'image', 'price']);
 
         $booking = Booking::query()
             ->with('restaurant')
@@ -80,13 +80,13 @@ class BookingController extends Controller
 
         if ($partySize <= $maximumFloorCapacity && $tableCodes === []) {
             return back()
-                ->withErrors(['table_codes' => 'Vui lòng chọn bàn phù hợp với số lượng người.'])
+                ->withErrors(['table_codes' => __('Vui lòng chọn bàn phù hợp với số lượng người.')])
                 ->withInput();
         }
 
         if ($tableCodes !== [] && $tableCapacity < $partySize) {
             return back()
-                ->withErrors(['table_codes' => 'Tổng sức chứa bàn đã chọn chưa đủ số lượng người.'])
+                ->withErrors(['table_codes' => __('Tổng sức chứa bàn đã chọn chưa đủ số lượng người.')])
                 ->withInput();
         }
 
@@ -96,11 +96,19 @@ class BookingController extends Controller
             ->where('is_must_try', true)
             ->orderBy('sort_order')
             ->orderBy('name')
-            ->get(['id', 'name'])
-            ->map(fn (MenuItem $menuItem): array => [
-                'id' => $menuItem->id,
-                'name' => $menuItem->name,
-            ])
+            ->get(['id', 'name', 'name_en'])
+            ->map(function (MenuItem $menuItem): array {
+                $preOrderItem = [
+                    'id' => $menuItem->id,
+                    'name' => $menuItem->name,
+                ];
+
+                if (filled($menuItem->name_en)) {
+                    $preOrderItem['name_en'] = $menuItem->name_en;
+                }
+
+                return $preOrderItem;
+            })
             ->all();
 
         unset($validated['pre_order_items'], $validated['table_codes']);

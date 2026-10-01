@@ -37,7 +37,7 @@ class MenuController extends Controller
 
     public function index(?MenuCategory $category = null): View
     {
-        return $this->menuView('Our Menu', $category, function ($query) use ($category) {
+        return $this->menuView(__('Thực đơn'), $category, function ($query) use ($category) {
             $query->when($category, function ($query) use ($category) {
                 $query->where('category_id', $category->id);
             });
@@ -46,7 +46,7 @@ class MenuController extends Controller
 
     public function mustTry(): View
     {
-        return $this->menuView('Must Try', null, function ($query) {
+        return $this->menuView(__('Món nên thử'), null, function ($query) {
             $query->where('is_must_try', true);
         });
     }
@@ -86,15 +86,18 @@ class MenuController extends Controller
         };
 
         $kidsItems = $kidsItemsQuery->get();
+        $kidsItemTypeLabels = array_map(fn (string $label): string => __($label), self::KIDS_ITEM_TYPE_LABELS);
+        $foodCategoryLabels = array_map(fn (string $label): string => __($label), self::FOOD_CATEGORY_LABELS);
+        $kidsItemSortLabels = array_map(fn (string $label): string => __($label), self::KIDS_ITEM_SORT_LABELS);
 
         return view('fontend.menu.index', [
-            'pageTitle' => 'For Kids',
+            'pageTitle' => __('Dành cho trẻ em'),
             'menuCategories' => $this->activeCategories(),
             'menuItems' => collect(),
             'kidsItems' => $kidsItems,
-            'kidsItemTypeLabels' => self::KIDS_ITEM_TYPE_LABELS,
-            'foodCategoryLabels' => self::FOOD_CATEGORY_LABELS,
-            'kidsItemSortLabels' => self::KIDS_ITEM_SORT_LABELS,
+            'kidsItemTypeLabels' => $kidsItemTypeLabels,
+            'foodCategoryLabels' => $foodCategoryLabels,
+            'kidsItemSortLabels' => $kidsItemSortLabels,
             'selectedType' => $selectedType,
             'selectedFoodCategory' => $selectedFoodCategory,
             'selectedSort' => $selectedSort,
@@ -125,7 +128,7 @@ class MenuController extends Controller
         });
 
         return view('fontend.menu.index', [
-            'pageTitle' => 'Combo',
+            'pageTitle' => __('Combo'),
             'menuCategories' => $this->activeCategories(),
             'menuItems' => collect(),
             'combos' => $combos,
@@ -136,7 +139,7 @@ class MenuController extends Controller
     public function promotions(): View
     {
         return view('fontend.menu.index', [
-            'pageTitle' => 'Khuyến Mãi',
+            'pageTitle' => __('Khuyến mãi'),
             'menuCategories' => $this->activeCategories(),
             'menuItems' => collect(),
             'combos' => collect(),

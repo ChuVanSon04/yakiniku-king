@@ -8,9 +8,12 @@ class Promotion extends Model
 {
     protected $fillable = [
         'title',
+        'title_en',
         'slug',
         'short_description',
+        'short_description_en',
         'description',
+        'description_en',
         'image',
         'start_date',
         'end_date',

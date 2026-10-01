@@ -25,6 +25,8 @@
             <input id="name" type="text" name="name" value="{{ old('name') }}" required style="display:block; width:100%; padding:10px;">
         </div>
 
+        @include('admin.menu.partials.english-field', ['name' => 'name_en', 'label' => 'Tên', 'value' => old('name_en', '')])
+
         <div style="margin-bottom:20px;">
             <label for="slug">Slug</label>
             <input id="slug" type="text" name="slug" value="{{ old('slug') }}" placeholder="Để trống để tự tạo" style="display:block; width:100%; padding:10px;">
@@ -53,6 +55,8 @@
             <label for="description">Mô tả</label>
             <textarea id="description" name="description" rows="5" style="display:block; width:100%; padding:10px;">{{ old('description') }}</textarea>
         </div>
+
+        @include('admin.menu.partials.english-field', ['name' => 'description_en', 'label' => 'Mô tả', 'value' => old('description_en', ''), 'type' => 'textarea', 'rows' => 5])
 
         <div style="margin-bottom:20px;">
             <label for="image">Hình ảnh</label>

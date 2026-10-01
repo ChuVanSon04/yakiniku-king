@@ -16,6 +16,13 @@
 
 </div>
 
+@include('admin.menu.partials.english-field', [
+    'name' => 'name_en',
+    'label' => 'Tên Combo',
+    'value' => $combo->name_en ?? '',
+    'margin' => '20px',
+])
+
 
 <div style="margin-bottom:20px;">
 
@@ -50,6 +57,15 @@
     >{{ old('description', $combo->description ?? '') }}</textarea>
 
 </div>
+
+@include('admin.menu.partials.english-field', [
+    'name' => 'description_en',
+    'label' => 'Mô tả',
+    'value' => $combo->description_en ?? '',
+    'type' => 'textarea',
+    'rows' => 5,
+    'margin' => '20px',
+])
 
 
 <div data-image-field style="margin-bottom:20px;">
