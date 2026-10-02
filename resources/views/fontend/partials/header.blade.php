@@ -55,13 +55,6 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="{{ route('menu.promotions') }}">
-                            {{ __('Ưu đãi') }}
-                        </a>
-                    </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                            href="#"
