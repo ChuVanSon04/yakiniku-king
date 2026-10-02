@@ -354,15 +354,20 @@
             <div class="row align-items-center g-4">
                 <div class="col-lg-7">
                     <span class="page-hero-badge">
-                        @if (request()->routeIs('menu.index'))
+                        @if (request()->routeIs(''))
+                            {{ __('Yakiniku King') }}
                             {{ __('Thực đơn') }}
-                        @elseif (request()->routeIs('menu.must-try'))
+                        @elseif (request()->routeIs(''))
+                            {{ __('Yakiniku King') }}
                             {{ __('Must Try') }}
-                        @elseif (request()->routeIs('menu.combos'))
+                        @elseif (request()->routeIs(''))
+                            {{ __('Yakiniku King') }}
                             {{ __('Combo') }}
-                        @elseif (request()->routeIs('menu.for-kids'))
+                        @elseif (request()->routeIs(''))
+                            {{ __('Yakiniku King') }}
                             {{ __('Kids Menu') }}
-                        @elseif (request()->routeIs('menu.promotions'))
+                        @elseif (request()->routeIs(''))
+                            {{ __('Yakiniku King') }}
                             {{ __('Ưu đãi') }}
                         @else
                             {{ __('Yakiniku King') }}
